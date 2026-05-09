@@ -117,6 +117,35 @@ function init() {
             link.classList.add('active');
         };
     });
+
+    // Mobile Nav listeners
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(link => {
+        link.onclick = (e) => {
+            e.preventDefault();
+            const view = link.getAttribute('data-view');
+            if (view) {
+                switchView(view);
+                mobileNavLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Update sidebar active state to match
+                navLinks.forEach(l => {
+                    const isLibrary = l.innerText.toLowerCase().includes('library');
+                    if ((view === 'library' && isLibrary) || (view === 'home' && !isLibrary)) {
+                        l.classList.add('active');
+                    } else {
+                        l.classList.remove('active');
+                    }
+                });
+            }
+        };
+    });
+
+    document.getElementById('mobile-login').onclick = (e) => {
+        e.preventDefault();
+        openModal(false);
+    };
     
     queueToggle.onclick = () => {
         const isQueue = views.queue.style.display === 'flex' || views.queue.style.display === 'block';
