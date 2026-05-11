@@ -168,3 +168,5 @@ app.post('/api/profile/upload-avatar', authenticateToken, upload.single('avatar'
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+module.exports = app;
