@@ -20,13 +20,13 @@
             color: white;
             font-family: 'Inter', sans-serif;
             margin: 0;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
         .profile-container {
             display: grid;
             grid-template-columns: 280px 1fr;
-            min-height: 100vh;
+            height: 100vh;
         }
 
         /* Sidebar Styles */
@@ -356,49 +356,51 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const userKey = 'spotify_full_profile';
             const authKey = 'spotify_user';
+            const tokenKey = 'spotify_token';
+            const API_URL = 'http://localhost:3000';
             
-            // Initial Data
-            let profileData = JSON.parse(localStorage.getItem(userKey)) || {
-                fullname: "User Name",
-                username: "username_01",
-                age: "24",
-                dob: "2000-01-01",
-                gender: "Male",
-                email: "user@example.com",
-                phone: "+1 000 000 000",
-                address: "Your Street Address",
-                country: "Earth",
-                bio: "Tell us about yourself...",
-                photo: ""
-            };
+            let profileData = {};
+            const token = localStorage.getItem(tokenKey);
 
-            // Sync with existing login data if any
-            const authUser = JSON.parse(localStorage.getItem(authKey));
-            if (authUser && !localStorage.getItem(userKey)) {
-                profileData.fullname = authUser.name || profileData.fullname;
-                profileData.email = authUser.email || profileData.email;
-                profileData.photo = authUser.photo || "";
+            if (!token) {
+                alert("Please log in first.");
+                window.location.href = 'index.html';
+                return;
             }
 
             const fields = ['fullname', 'username', 'age', 'dob', 'gender', 'email', 'phone', 'address', 'country', 'bio'];
 
-            function updateUI() {
-                fields.forEach(f => {
-                    const viewEl = document.getElementById(`val-${f}`);
-                    if (viewEl) viewEl.innerText = profileData[f];
-                });
-                document.getElementById('display-fullname').innerText = profileData.fullname;
-                const avatar = document.getElementById('display-avatar');
-                if (profileData.photo) {
-                    avatar.src = profileData.photo;
-                } else {
-                    avatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.fullname)}&background=1DB954&color=fff&size=256`;
+            async function fetchProfile() {
+                try {
+                    const response = await fetch(`${API_URL}/api/profile`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    if (!response.ok) throw new Error("Failed to load profile");
+                    profileData = await response.json();
+                    updateUI();
+                } catch (error) {
+                    console.error(error);
+                    alert("Session expired. Please log in again.");
+                    window.location.href = 'index.html';
                 }
             }
 
-            updateUI();
+            function updateUI() {
+                fields.forEach(f => {
+                    const viewEl = document.getElementById(`val-${f}`);
+                    if (viewEl) viewEl.innerText = profileData[f] || 'Not Specified';
+                });
+                document.getElementById('display-fullname').innerText = profileData.fullname || 'User Name';
+                const avatar = document.getElementById('display-avatar');
+                if (profileData.photo_url) {
+                    avatar.src = profileData.photo_url.startsWith('http') ? profileData.photo_url : `${API_URL}${profileData.photo_url}`;
+                } else {
+                    avatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.fullname || 'User')}&background=1DB954&color=fff&size=256`;
+                }
+            }
+
+            fetchProfile();
 
             // Edit Mode Logic
             const editBtn = document.getElementById('edit-profile-btn');
@@ -414,31 +416,47 @@
                 editInputs.forEach(el => {
                     el.style.display = 'block';
                     const fieldId = el.id.replace('input-', '');
-                    el.value = profileData[fieldId];
+                    el.value = profileData[fieldId] || '';
                 });
             };
 
-            saveBtn.onclick = () => {
-                editBtn.style.display = 'block';
-                saveBtn.style.display = 'none';
-                
+            saveBtn.onclick = async () => {
+                const updatedData = { ...profileData };
                 editInputs.forEach(el => {
                     const fieldId = el.id.replace('input-', '');
-                    profileData[fieldId] = el.value;
-                    el.style.display = 'none';
+                    updatedData[fieldId] = el.value;
                 });
 
-                localStorage.setItem(userKey, JSON.stringify(profileData));
-                
-                // Sync back to auth key for header sync
-                if (authUser) {
-                    authUser.name = profileData.fullname;
-                    authUser.photo = profileData.photo;
-                    localStorage.setItem(authKey, JSON.stringify(authUser));
-                }
+                try {
+                    const response = await fetch(`${API_URL}/api/profile`, {
+                        method: 'PUT',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(updatedData)
+                    });
 
-                viewModes.forEach(el => el.style.display = 'block');
-                updateUI();
+                    if (!response.ok) throw new Error("Failed to save profile");
+                    
+                    profileData = updatedData;
+                    
+                    // Sync back to auth key for header sync on index.html
+                    const authUser = JSON.parse(localStorage.getItem(authKey));
+                    if (authUser) {
+                        authUser.name = profileData.fullname;
+                        localStorage.setItem(authKey, JSON.stringify(authUser));
+                    }
+
+                    editBtn.style.display = 'block';
+                    saveBtn.style.display = 'none';
+                    viewModes.forEach(el => el.style.display = 'block');
+                    editInputs.forEach(el => el.style.display = 'none');
+                    updateUI();
+                    alert("Profile updated successfully!");
+                } catch (error) {
+                    alert(error.message);
+                }
             };
 
             // Avatar Upload
@@ -446,16 +464,35 @@
             const changeBtn = document.getElementById('change-photo-btn');
 
             changeBtn.onclick = () => avatarInput.click();
-            avatarInput.onchange = (e) => {
+            avatarInput.onchange = async (e) => {
                 const file = e.target.files[0];
                 if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        profileData.photo = event.target.result;
-                        localStorage.setItem(userKey, JSON.stringify(profileData));
+                    const formData = new FormData();
+                    formData.append('avatar', file);
+
+                    try {
+                        const response = await fetch(`${API_URL}/api/profile/upload-avatar`, {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${token}` },
+                            body: formData
+                        });
+
+                        if (!response.ok) throw new Error("Upload failed");
+
+                        const { photoUrl } = await response.json();
+                        profileData.photo_url = photoUrl;
+                        
+                        // Sync with auth key
+                        const authUser = JSON.parse(localStorage.getItem(authKey));
+                        if (authUser) {
+                            authUser.photo = photoUrl;
+                            localStorage.setItem(authKey, JSON.stringify(authUser));
+                        }
+                        
                         updateUI();
-                    };
-                    reader.readAsDataURL(file);
+                    } catch (error) {
+                        alert(error.message);
+                    }
                 }
             };
         });

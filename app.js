@@ -165,6 +165,8 @@ const userDisplayName = document.getElementById('user-display-name');
 const userAvatar = document.getElementById('user-avatar');
 const logoutBtn = document.getElementById('logout-btn');
 
+const API_URL = 'http://localhost:3000'; // Change this if deployed
+
 // Advanced Controls
 const shuffleBtn = document.getElementById('shuffle');
 const repeatBtn = document.getElementById('repeat');
@@ -233,9 +235,8 @@ function init() {
 }
 
 function renderSongs(songsToRender, container = trendingGrid, isSkeleton = false) {
-    container.innerHTML = '';
-    
     if (isSkeleton) {
+        const fragment = document.createDocumentFragment();
         for (let i = 0; i < 4; i++) {
             const card = document.createElement('div');
             card.className = 'song-card skeleton-card';
@@ -244,11 +245,14 @@ function renderSongs(songsToRender, container = trendingGrid, isSkeleton = false
                 <div class="skeleton skeleton-text"></div>
                 <div class="skeleton skeleton-text-short"></div>
             `;
-            container.appendChild(card);
+            fragment.appendChild(card);
         }
+        container.innerHTML = '';
+        container.appendChild(fragment);
         return;
     }
 
+    const fragment = document.createDocumentFragment();
     songsToRender.forEach((song) => {
         const originalIndex = songs.findIndex(s => s.id === song.id);
         const card = document.createElement('div');
@@ -256,7 +260,7 @@ function renderSongs(songsToRender, container = trendingGrid, isSkeleton = false
         card.className = `song-card ${originalIndex === currentSongIndex && isPlaying ? 'active' : ''}`;
         card.style.animationDelay = `${Math.random() * 0.3}s`;
         card.innerHTML = `
-            <img src="${song.cover}" alt="${song.title}">
+            <img src="${song.cover}" alt="${song.title}" loading="lazy" decoding="async">
             <h3>${song.title}</h3>
             <p>${song.artist}</p>
             <div class="play-hover">
@@ -265,8 +269,11 @@ function renderSongs(songsToRender, container = trendingGrid, isSkeleton = false
         `;
         
         card.onclick = () => selectSong(originalIndex);
-        container.appendChild(card);
+        fragment.appendChild(card);
     });
+    
+    container.innerHTML = '';
+    container.appendChild(fragment);
 }
 
 function loadSong(song, shouldPlay = true) {
@@ -602,6 +609,7 @@ function setLoggedOutUI() {
     if (authButtons) authButtons.style.display = 'flex';
     if (userProfile) userProfile.style.display = 'none';
     localStorage.removeItem('spotify_user');
+    localStorage.removeItem('spotify_token');
 }
 
 function openModal(signup = false) {
@@ -684,35 +692,56 @@ window.onclick = (e) => {
     }
 };
 
-authForm.onsubmit = (e) => {
+authForm.onsubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Simulate API call
     btnText.style.display = 'none';
     btnLoader.style.display = 'block';
     loginSubmit.disabled = true;
 
-    setTimeout(() => {
-        const userName = authEmail.value.split('@')[0];
-        const userData = {
-            name: userName,
-            email: authEmail.value,
-            isLoggedIn: true
-        };
-        
-        localStorage.setItem('spotify_user', JSON.stringify(userData));
-        setLoggedInUI(userName);
-        
-        // Reset state
+    const endpoint = isSignUpMode ? '/api/auth/signup' : '/api/auth/login';
+    const payload = {
+        email: authEmail.value,
+        password: authPassword.value,
+        name: authEmail.value.split('@')[0]
+    };
+
+    try {
+        const response = await fetch(`${API_URL}${endpoint}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Authentication failed');
+        }
+
+        if (isSignUpMode) {
+            // After signup, automatically login or just tell them to login
+            alert("Account created successfully! Please log in.");
+            isSignUpMode = false;
+            updateModalUI();
+        } else {
+            // Login success
+            localStorage.setItem('spotify_token', data.token);
+            localStorage.setItem('spotify_user', JSON.stringify({
+                ...data.user,
+                isLoggedIn: true
+            }));
+            setLoggedInUI(data.user.name);
+            closeLogin.click();
+        }
+    } catch (error) {
+        alert(error.message);
+    } finally {
         btnText.style.display = 'block';
         btnLoader.style.display = 'none';
         loginSubmit.disabled = false;
-        closeLogin.click();
-        
-        // Success animation or message
-        console.log(isSignUpMode ? "Signed up successfully!" : "Logged in successfully!");
-    }, 1500);
+    }
 };
 
 logoutBtn && (logoutBtn.onclick = (e) => {
@@ -729,12 +758,8 @@ function switchView(viewName) {
     if (views[viewName]) views[viewName].style.display = 'block';
     
     if (viewName === 'home') {
-        renderSongs([], trendingGrid, true);
-        renderSongs([], recommendedGrid, true);
-        setTimeout(() => {
-            renderSongs(songs.slice(0, 5), trendingGrid);
-            renderSongs(songs.slice(5), recommendedGrid);
-        }, 500);
+        renderSongs(songs.slice(0, 5), trendingGrid);
+        renderSongs(songs.slice(5), recommendedGrid);
     } else if (viewName === 'library') {
         renderLibrary();
     } else if (viewName === 'queue') {
