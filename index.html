@@ -26,45 +26,35 @@
                 <a href="#"><i class="fas fa-plus-square"></i> Create Playlist</a>
                 <a href="#"><i class="fas fa-heart"></i> Liked Songs</a>
             </div>
-            <div class="playlist-list">
-                <a href="#">Deep Focus</a>
-                <a href="#">Instrumental Study</a>
-                <a href="#">Chill Vibes</a>
-                <a href="#">Rock Classics</a>
-            </div>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
-            <header class="main-header">
-                <div class="search-container">
+            <div class="top-bar">
+                <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Search for songs, artists, or albums">
+                    <input type="text" id="search-input" placeholder="What do you want to listen to?">
                 </div>
-                <div class="header-right">
-                    <div id="connection-status" class="status-indicator online">
-                        <i class="fas fa-circle"></i> <span>Online</span>
-                    </div>
+                <div class="top-bar-right">
                     <div class="auth-buttons">
                         <button class="signup-btn">Sign up</button>
                         <button class="login-btn">Log in</button>
                     </div>
-                    <div class="user-profile" style="display: none;">
-                        <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User">
-                        <span>Premium User</span>
+                    <div class="user-profile" id="user-profile" style="display: none;">
+                        <div class="profile-icon-container" id="profile-click-zone">
+                            <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" id="user-avatar">
+                        </div>
+                        <div class="user-dropdown-menu">
+                            <a href="profile.html" class="dropdown-item" id="go-to-profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                            <hr class="dropdown-divider">
+                            <a href="#" id="logout-btn" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                        </div>
                     </div>
                 </div>
-            </header>
+            </div>
 
             <div id="home-view">
-                <section class="content-section" id="offline-section" style="display: none;">
-                    <div class="section-header">
-                        <h2>Offline Songs</h2>
-                        <a href="#" class="see-all">See all</a>
-                    </div>
-                    <div class="song-grid" id="offline-grid"></div>
-                </section>
-
                 <section class="content-section">
                     <div class="section-header">
                         <h2>Trending Songs</h2>
@@ -107,6 +97,7 @@
                     </div>
                 </section>
             </div>
+
         </main>
 
         <!-- Player Bar -->
@@ -167,25 +158,64 @@
     <div class="modal-overlay" id="login-modal">
         <div class="modal-content">
             <i class="fas fa-times close-modal" id="close-login"></i>
-            <h2 id="modal-title">Log in to Spotify</h2>
-            
-            <button class="google-btn">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
-                Continue with Google
-            </button>
-            
-            <div class="divider">
-                <span>or</span>
+            <div class="modal-header">
+                <i class="fab fa-spotify modal-logo"></i>
+                <h2 id="modal-title">Log in to Spotify</h2>
             </div>
+            
+            <form id="auth-form">
+                <div class="input-group">
+                    <label for="auth-email">Email or username</label>
+                    <input type="text" id="auth-email" placeholder="Email or username" required>
+                    <span class="error-msg" id="email-error"></span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="auth-password">Password</label>
+                    <input type="password" id="auth-password" placeholder="Password" required>
+                    <span class="error-msg" id="password-error"></span>
+                </div>
 
-            <input type="text" placeholder="Email or username">
-            <input type="password" placeholder="Password">
-            <button class="submit-btn" id="login-submit">Log In</button>
-            <p style="margin-top: 20px; color: var(--text-grey); font-size: 12px;">Forgot your password?</p>
-            <hr style="margin: 20px 0; border-color: #282828;">
-            <p style="color: var(--text-grey); font-size: 14px;" id="toggle-auth-text">Don't have an account? <span style="color: white; cursor: pointer; text-decoration: underline;" id="toggle-auth">Sign up</span></p>
+                <div class="auth-options">
+                    <div class="remember-me" id="remember-container">
+                        <input type="checkbox" id="remember-check">
+                        <label for="remember-check">Remember me</label>
+                    </div>
+                    <div class="terms-container" id="terms-container" style="display: none;">
+                        <input type="checkbox" id="terms-check">
+                        <label for="terms-check">I agree to the Terms & Conditions</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="login-submit">
+                    <span class="btn-text">Log In</span>
+                    <div class="btn-loader" style="display: none;"><i class="fas fa-spinner fa-spin"></i></div>
+                </button>
+            </form>
+
+            <p class="forgot-pass" id="forgot-password">Forgot your password?</p>
+            <hr class="modal-hr">
+            <p class="toggle-auth-wrapper" id="toggle-auth-text">
+                Don't have an account? <span id="toggle-auth">Sign up</span>
+            </p>
         </div>
     </div>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-link active" data-view="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="mobile-nav-link" data-view="home">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </a>
+        <a href="#" class="mobile-nav-link" data-view="library">
+            <i class="fas fa-book"></i>
+            <span>Library</span>
+        </a>
+    </nav>
 
     <script src="app.js"></script>
 </body>

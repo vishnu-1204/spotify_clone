@@ -1,38 +1,108 @@
 const songs = [
     {
         id: 1,
-        title: "Karuppa Kooda Va",
-        artist: "MassTamilan",
-        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317837/Karuppa-Kooda-Va-MassTamilan.dev_biagew.mp3",
-        cover: "assets/cover1.png"
+        title: "Singari",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778491328/Singari_oacgtu.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778493194/singari_z8iyj9.jpg"
     },
     {
         id: 2,
-        title: "Verappa",
-        artist: "MassTamilan",
-        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317834/Verappa-MassTamilan.dev_m59tph.mp3",
-        cover: "assets/cover2.png"
+        title: "Thean Kudika",
+        artist: "Teejay",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778491326/Thean_Kudika_jaolwq.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492933/thean_kudika_vqpvw2.jpg"
     },
     {
         id: 3,
-        title: "Raavana Mavandaa",
-        artist: "MassTamilan",
-        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317832/Raavana-Mavandaa-MassTamilan.dev_bn4zpg.mp3",
-        cover: "assets/cover3.png"
+        title: "Poraney Poraney",
+        artist: "Ghibran",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778491308/Poraney-Poraney_kcvfii.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492929/poranaey_poranaey_qm4ejq.jpg"
     },
     {
         id: 4,
-        title: "Pavazha Malli Unplugged",
-        artist: "MassTamilan",
-        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317829/Pavazha_Malli_Unplugged_vij0l0.mp3",
-        cover: "assets/cover4.png"
+        title: "Nallaru Po",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778491231/Nallaru_Po_ozdecu.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492923/nallaru_po_lhvvgp.jpg"
     },
     {
         id: 5,
+        title: "Mannipaaya",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778491226/Mannipaaya_tcqxdj.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492935/vtv_dvcusx.avif"
+    },
+    {
+        id: 6,
+        title: "Orasaadha Usurathan",
+        artist: "Vivek-Mervin",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778491224/Orasaadha-Usurathan-MassTamilan.com_banpui.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492924/orasadha_svu0oe.jpg"
+    },
+    {
+        id: 7,
+        title: "Make Way For The King",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778491217/Make-Way-For-The-King-Sai-Abhyankkar-NaaSongs_uqsbvo.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492922/make_way_for_king_cmdipr.jpg"
+    },
+    {
+        id: 8,
+        title: "Aaya Sher",
+        artist: "Aniruth Ravichandar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778491187/Aaya_Sher_htrhia.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492923/ayya_sher_swyhbw.jpg"
+    },
+    {
+        id: 9,
+        title: "Aaoromale",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778491186/Aaoromale_axoaty.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492935/vtv_dvcusx.avif"
+    },
+    {
+        id: 10,
+        title: "Hosanna",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778491651/Hosanna_urkrmy.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492935/vtv_dvcusx.avif"
+    },
+    {
+        id: 11,
+        title: "Karuppa Kooda Va",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317837/Karuppa-Kooda-Va-MassTamilan.dev_biagew.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778493092/karrupu_kooda_va_pq84if.jpg"
+    },
+    {
+        id: 12,
+        title: "Verappa",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317834/Verappa-MassTamilan.dev_m59tph.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492934/verrappa_tnsnqq.jpg"
+    },
+    {
+        id: 13,
+        title: "Raavana Mavandaa",
+        artist: "Aniruth Ravichandar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317832/Raavana-Mavandaa-MassTamilan.dev_bn4zpg.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492930/ravana_mavanda_s1vkbr.jpg"
+    },
+    {
+        id: 14,
+        title: "Pavazha Malli Unplugged",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317829/Pavazha_Malli_Unplugged_vij0l0.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492926/pavazha_malli_unplugged_kvl0ty.jpg"
+    },
+    {
+        id: 15,
         title: "Pavazha Malli",
-        artist: "MassTamilan",
+        artist: "Sai Abhyankkar",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317829/Pavazha_Malli_wjhur6.mp3",
-        cover: "assets/cover5.png"
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492927/pavazha_malli_x8nej4.jpg"
     }
 ];
 
@@ -43,9 +113,7 @@ let isShuffle = localStorage.getItem('isShuffle') === 'true';
 let repeatMode = localStorage.getItem('repeatMode') || 'none'; // none, one, all
 let likedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
 let recentlyPlayed = JSON.parse(localStorage.getItem('recentlyPlayed')) || [];
-let playlists = JSON.parse(localStorage.getItem('playlists')) || ["Deep Focus", "Instrumental Study", "Chill Vibes"];
-let isOnline = navigator.onLine;
-let offlineSongs = [];
+let playlists = JSON.parse(localStorage.getItem('playlists')) || ["Rock Classics"];
 const audio = new Audio();
 audio.volume = localStorage.getItem('volume') ? parseFloat(localStorage.getItem('volume')) : 0.8;
 
@@ -64,9 +132,7 @@ const playerTitle = document.getElementById('player-title');
 const playerArtist = document.getElementById('player-artist');
 const trendingGrid = document.getElementById('trending-grid');
 const recommendedGrid = document.getElementById('recommended-grid');
-const offlineGrid = document.getElementById('offline-grid');
-const offlineSection = document.getElementById('offline-section');
-const statusIndicator = document.getElementById('connection-status');
+const likedGrid = document.getElementById('liked-grid');
 const loginBtn = document.querySelector('.login-btn');
 const navLinks = document.querySelectorAll('.nav-links a');
 const views = {
@@ -76,7 +142,6 @@ const views = {
 };
 const queueToggle = document.getElementById('queue-toggle');
 const queueList = document.getElementById('queue-list');
-const likedGrid = document.getElementById('liked-grid');
 const playlistsGrid = document.getElementById('playlists-grid');
 const signupBtnHeader = document.querySelector('.signup-btn');
 const loginModal = document.getElementById('login-modal');
@@ -87,7 +152,18 @@ const userProfile = document.querySelector('.user-profile');
 const modalTitle = document.getElementById('modal-title');
 const toggleAuth = document.getElementById('toggle-auth');
 const toggleAuthText = document.getElementById('toggle-auth-text');
-const googleBtn = document.querySelector('.google-btn');
+const authForm = document.getElementById('auth-form');
+const authEmail = document.getElementById('auth-email');
+const authPassword = document.getElementById('auth-password');
+const emailError = document.getElementById('email-error');
+const passwordError = document.getElementById('password-error');
+const rememberContainer = document.getElementById('remember-container');
+const termsContainer = document.getElementById('terms-container');
+const btnText = document.querySelector('.btn-text');
+const btnLoader = document.querySelector('.btn-loader');
+const userDisplayName = document.getElementById('user-display-name');
+const userAvatar = document.getElementById('user-avatar');
+const logoutBtn = document.getElementById('logout-btn');
 
 // Advanced Controls
 const shuffleBtn = document.getElementById('shuffle');
@@ -96,16 +172,14 @@ const heartBtn = document.querySelector('.current-song i');
 
 // Initialize
 function init() {
-    initDB().then(() => {
-        loadOfflineSongs();
-    });
+    checkAuthState();
     switchView('home');
     renderPlaylists();
     loadSong(songs[currentSongIndex], false);
     updateSliderBackground(volumeBar, audio.volume * 100);
     volumeBar.value = audio.volume * 100;
     updateControlUI();
-    updateConnectionUI();
+    updateModalUI();
     
     // Nav listeners
     navLinks.forEach(link => {
@@ -129,6 +203,11 @@ function init() {
                 mobileNavLinks.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
                 
+                // Focus search if Search is clicked
+                if (link.innerText.toLowerCase().includes('search')) {
+                    searchInput.focus();
+                }
+
                 // Update sidebar active state to match
                 navLinks.forEach(l => {
                     const isLibrary = l.innerText.toLowerCase().includes('library');
@@ -173,27 +252,17 @@ function renderSongs(songsToRender, container = trendingGrid, isSkeleton = false
     songsToRender.forEach((song) => {
         const originalIndex = songs.findIndex(s => s.id === song.id);
         const card = document.createElement('div');
-        const isDownloaded = offlineSongs.some(s => s.id === song.id);
         
-        card.className = `song-card ${originalIndex === currentSongIndex ? 'active' : ''}`;
+        card.className = `song-card ${originalIndex === currentSongIndex && isPlaying ? 'active' : ''}`;
         card.style.animationDelay = `${Math.random() * 0.3}s`;
         card.innerHTML = `
             <img src="${song.cover}" alt="${song.title}">
             <h3>${song.title}</h3>
             <p>${song.artist}</p>
-            <div class="download-btn ${isDownloaded ? 'downloaded' : ''}" title="Download for offline">
-                <i class="fas ${isDownloaded ? 'fa-check-circle' : 'fa-arrow-alt-circle-down'}"></i>
-            </div>
             <div class="play-hover">
                 <i class="fas ${originalIndex === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}"></i>
             </div>
         `;
-        
-        const dlBtn = card.querySelector('.download-btn');
-        dlBtn.onclick = (e) => {
-            e.stopPropagation();
-            if (!isDownloaded) downloadSong(song, dlBtn);
-        };
         
         card.onclick = () => selectSong(originalIndex);
         container.appendChild(card);
@@ -201,17 +270,17 @@ function renderSongs(songsToRender, container = trendingGrid, isSkeleton = false
 }
 
 function loadSong(song, shouldPlay = true) {
+    const currentSongInfo = document.querySelector('.current-song');
+    if (currentSongInfo) {
+        currentSongInfo.style.opacity = '1';
+        currentSongInfo.style.visibility = 'visible';
+    }
+    
     playerTitle.innerText = song.title;
     playerArtist.innerText = song.artist;
-    playerImg.src = song.cover;
+    if (playerImg) playerImg.src = song.cover;
     
-    // Check if we have an offline version
-    const offlineSong = offlineSongs.find(s => s.id === song.id);
-    if (!isOnline && offlineSong) {
-        audio.src = URL.createObjectURL(offlineSong.blob);
-    } else {
-        audio.src = song.url;
-    }
+    audio.src = song.url;
     
     localStorage.setItem('lastSongIndex', currentSongIndex);
     updateHeartIcon();
@@ -219,7 +288,7 @@ function loadSong(song, shouldPlay = true) {
 
     // Update active state in grid
     document.querySelectorAll('.song-card').forEach((card, idx) => {
-        card.classList.toggle('active', idx === currentSongIndex);
+        card.classList.toggle('active', idx === currentSongIndex && isPlaying);
         const icon = card.querySelector('.play-hover i');
         if (icon) {
             icon.className = `fas ${idx === currentSongIndex && isPlaying ? 'fa-pause' : 'fa-play'}`;
@@ -237,7 +306,7 @@ function selectSong(index) {
     } else {
         currentSongIndex = index;
         isPlaying = true;
-        loadSong(songs[currentSongIndex]);
+        loadSong(songs[currentSongIndex], true);
         audio.play();
         updatePlayPauseIcon();
     }
@@ -247,17 +316,35 @@ function togglePlay() {
     if (isPlaying) {
         audio.pause();
         isPlaying = false;
+        document.querySelectorAll('.song-card').forEach(card => card.classList.remove('active'));
     } else {
         audio.play();
         isPlaying = true;
+        document.querySelectorAll('.song-card').forEach((card, idx) => {
+            if (idx === currentSongIndex) card.classList.add('active');
+        });
     }
     updatePlayPauseIcon();
-    renderSongs(getFilteredSongs()); // Update icons in cards
+    
+    // Update icons in cards without re-rendering everything
+    document.querySelectorAll('.song-card').forEach((card, idx) => {
+        const icon = card.querySelector('.play-hover i');
+        if (icon) {
+            const originalIndex = songs.findIndex(s => s.title === card.querySelector('h3').innerText);
+            if (originalIndex === currentSongIndex) {
+                card.classList.toggle('active', isPlaying);
+                icon.className = `fas ${isPlaying ? 'fa-pause' : 'fa-play'}`;
+            } else {
+                card.classList.remove('active');
+                icon.className = 'fas fa-play';
+            }
+        }
+    });
 }
 
 function updatePlayPauseIcon() {
     playPauseBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
-    playerTitle.style.color = isPlaying ? 'var(--spotify-green)' : 'var(--text-white)';
+    playerTitle.style.color = isPlaying ? 'var(--accent-purple)' : 'var(--text-white)';
 }
 
 function nextSong() {
@@ -305,16 +392,16 @@ function updateProgress() {
 }
 
 function updateControlUI() {
-    shuffleBtn.style.color = isShuffle ? 'var(--spotify-green)' : 'var(--text-grey)';
+    shuffleBtn.style.color = isShuffle ? 'var(--accent-purple)' : 'var(--text-grey)';
     
     if (repeatMode === 'none') {
         repeatBtn.style.color = 'var(--text-grey)';
         repeatBtn.innerHTML = '<i class="fas fa-redo"></i>';
     } else if (repeatMode === 'all') {
-        repeatBtn.style.color = 'var(--spotify-green)';
+        repeatBtn.style.color = 'var(--accent-purple)';
         repeatBtn.innerHTML = '<i class="fas fa-redo"></i>';
     } else if (repeatMode === 'one') {
-        repeatBtn.style.color = 'var(--spotify-green)';
+        repeatBtn.style.color = 'var(--accent-purple)';
         repeatBtn.innerHTML = '<i class="fas fa-redo-alt"></i><span style="font-size: 8px; position: absolute; margin-top: 8px;">1</span>';
     }
 }
@@ -350,7 +437,7 @@ function updateHeartIcon() {
     const songId = songs[currentSongIndex].id;
     if (likedSongs.includes(songId)) {
         heartBtn.className = 'fas fa-heart';
-        heartBtn.style.color = 'var(--spotify-green)';
+        heartBtn.style.color = 'var(--accent-purple)';
     } else {
         heartBtn.className = 'far fa-heart';
         heartBtn.style.color = 'var(--text-grey)';
@@ -384,84 +471,6 @@ function createPlaylist() {
     }
 }
 
-// IndexedDB Helper
-let db;
-function initDB() {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open("SpotifyOffline", 1);
-        request.onupgradeneeded = (e) => {
-            const db = e.target.result;
-            db.createObjectStore("songs", { keyPath: "id" });
-        };
-        request.onsuccess = (e) => {
-            db = e.target.result;
-            resolve();
-        };
-        request.onerror = (e) => reject(e);
-    });
-}
-
-async function downloadSong(song, btn) {
-    if (!isOnline) {
-        alert("Must be online to download songs.");
-        return;
-    }
-    
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-    
-    try {
-        const response = await fetch(song.url);
-        const blob = await response.blob();
-        
-        const tx = db.transaction("songs", "readwrite");
-        const store = tx.objectStore("songs");
-        await store.put({ ...song, blob });
-        
-        btn.innerHTML = '<i class="fas fa-check-circle"></i>';
-        btn.classList.add('downloaded');
-        loadOfflineSongs();
-    } catch (err) {
-        console.error("Download failed", err);
-        btn.innerHTML = '<i class="fas fa-arrow-alt-circle-down"></i>';
-    }
-}
-
-function loadOfflineSongs() {
-    const tx = db.transaction("songs", "readonly");
-    const store = tx.objectStore("songs");
-    const request = store.getAll();
-    request.onsuccess = () => {
-        offlineSongs = request.result;
-        if (offlineSongs.length > 0) {
-            offlineSection.style.display = 'block';
-            renderSongs(offlineSongs, offlineGrid);
-        } else {
-            offlineSection.style.display = 'none';
-        }
-    };
-}
-
-function updateConnectionUI() {
-    isOnline = navigator.onLine;
-    statusIndicator.className = `status-indicator ${isOnline ? 'online' : 'offline'}`;
-    statusIndicator.querySelector('span').innerText = isOnline ? 'Online' : 'Offline';
-    
-    if (!isOnline) {
-        // Switch current song to offline if available
-        const currentSong = songs[currentSongIndex];
-        const offline = offlineSongs.find(s => s.id === currentSong.id);
-        if (offline && audio.src.startsWith('http')) {
-            const currentTime = audio.currentTime;
-            audio.src = URL.createObjectURL(offline.blob);
-            audio.currentTime = currentTime;
-            if (isPlaying) audio.play();
-        }
-    }
-}
-
-window.addEventListener('online', updateConnectionUI);
-window.addEventListener('offline', updateConnectionUI);
-
 function setProgress(e) {
     const width = this.clientWidth;
     const clickX = e.offsetX;
@@ -470,7 +479,7 @@ function setProgress(e) {
 }
 
 function updateSliderBackground(slider, value) {
-    slider.style.background = `linear-gradient(to right, var(--spotify-green) ${value}%, #4d4d4d ${value}%)`;
+    slider.style.background = `linear-gradient(to right, var(--accent-purple) ${value}%, #4d4d4d ${value}%)`;
 }
 
 function formatTime(seconds) {
@@ -524,8 +533,25 @@ volumeBar.oninput = () => {
 
 searchInput.oninput = () => {
     const filtered = getFilteredSongs();
-    renderSongs(filtered.slice(0, 3), trendingGrid);
-    renderSongs(filtered.slice(3), recommendedGrid);
+    const isSearching = searchInput.value.trim() !== '';
+    
+    // Toggle headers based on search state
+    document.querySelectorAll('.content-section .section-header').forEach(header => {
+        header.style.display = isSearching ? 'none' : 'flex';
+    });
+
+    if (filtered.length === 0 && isSearching) {
+        trendingGrid.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search-minus"></i>
+                <p>No results found for "${searchInput.value}"</p>
+                <span>Please check your spelling or try another search term.</span>
+            </div>`;
+        recommendedGrid.innerHTML = '';
+    } else {
+        renderSongs(filtered.slice(0, 5), trendingGrid);
+        renderSongs(filtered.slice(5), recommendedGrid);
+    }
 };
 
 shuffleBtn.onclick = toggleShuffle;
@@ -550,33 +576,98 @@ window.onkeydown = (e) => {
     }
 };
 
-// Auth Logic
+// Auth Logic Enhanced
 let isSignUpMode = false;
+
+function checkAuthState() {
+    const user = JSON.parse(localStorage.getItem('spotify_user'));
+    if (user && user.isLoggedIn) {
+        setLoggedInUI(user.name);
+    } else {
+        setLoggedOutUI();
+    }
+}
+
+function setLoggedInUI(name) {
+    const user = JSON.parse(localStorage.getItem('spotify_user'));
+    authButtons.style.display = 'none';
+    userProfile.style.display = 'flex';
+    userProfile.title = name || 'Premium User';
+    if (userAvatar) {
+        userAvatar.src = user?.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=random&color=fff`;
+    }
+}
+
+function setLoggedOutUI() {
+    if (authButtons) authButtons.style.display = 'flex';
+    if (userProfile) userProfile.style.display = 'none';
+    localStorage.removeItem('spotify_user');
+}
 
 function openModal(signup = false) {
     isSignUpMode = signup;
+    clearErrors();
     updateModalUI();
     loginModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent scroll
+}
+
+function clearErrors() {
+    emailError.style.display = 'none';
+    passwordError.style.display = 'none';
+    authEmail.style.borderColor = '#727272';
+    authPassword.style.borderColor = '#727272';
 }
 
 function updateModalUI() {
     if (isSignUpMode) {
         modalTitle.innerText = 'Sign up to start listening';
-        loginSubmit.innerText = 'Sign Up';
-        googleBtn.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo"> Sign up with Google';
-        toggleAuthText.innerHTML = 'Already have an account? <span style="color: white; cursor: pointer; text-decoration: underline;" id="toggle-auth">Log in</span>';
+        btnText.innerText = 'Sign Up';
+        rememberContainer.style.display = 'none';
+        termsContainer.style.display = 'flex';
+        toggleAuthText.innerHTML = 'Already have an account? <span id="toggle-auth">Log in</span>';
     } else {
         modalTitle.innerText = 'Log in to Spotify';
-        loginSubmit.innerText = 'Log In';
-        googleBtn.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo"> Continue with Google';
-        toggleAuthText.innerHTML = 'Don\'t have an account? <span style="color: white; cursor: pointer; text-decoration: underline;" id="toggle-auth">Sign up</span>';
+        btnText.innerText = 'Log In';
+        rememberContainer.style.display = 'flex';
+        termsContainer.style.display = 'none';
+        toggleAuthText.innerHTML = 'Don\'t have an account? <span id="toggle-auth">Sign up</span>';
     }
     
-    // Re-attach toggle listener since we're replacing innerHTML
+    // Re-attach toggle listener
     document.getElementById('toggle-auth').onclick = () => {
         isSignUpMode = !isSignUpMode;
+        clearErrors();
         updateModalUI();
     };
+}
+
+function validateForm() {
+    let isValid = true;
+    clearErrors();
+
+    if (!authEmail.value || !authEmail.value.includes('@')) {
+        showError(authEmail, emailError, 'Please enter a valid email address.');
+        isValid = false;
+    }
+
+    if (!authPassword.value || authPassword.value.length < 6) {
+        showError(authPassword, passwordError, 'Password must be at least 6 characters.');
+        isValid = false;
+    }
+
+    if (isSignUpMode && !document.getElementById('terms-check').checked) {
+        alert("Please agree to the Terms & Conditions.");
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function showError(input, errorEl, message) {
+    input.style.borderColor = '#f15e6c';
+    errorEl.innerText = message;
+    errorEl.style.display = 'block';
 }
 
 loginBtn.onclick = () => openModal(false);
@@ -584,24 +675,51 @@ signupBtnHeader.onclick = () => openModal(true);
 
 closeLogin.onclick = () => {
     loginModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 };
 
 window.onclick = (e) => {
     if (e.target === loginModal) {
-        loginModal.style.display = 'none';
+        closeLogin.click();
     }
 };
 
-loginSubmit.onclick = () => {
-    loginModal.style.display = 'none';
-    authButtons.style.display = 'none';
-    userProfile.style.display = 'flex';
+authForm.onsubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    // Simulate API call
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'block';
+    loginSubmit.disabled = true;
+
+    setTimeout(() => {
+        const userName = authEmail.value.split('@')[0];
+        const userData = {
+            name: userName,
+            email: authEmail.value,
+            isLoggedIn: true
+        };
+        
+        localStorage.setItem('spotify_user', JSON.stringify(userData));
+        setLoggedInUI(userName);
+        
+        // Reset state
+        btnText.style.display = 'block';
+        btnLoader.style.display = 'none';
+        loginSubmit.disabled = false;
+        closeLogin.click();
+        
+        // Success animation or message
+        console.log(isSignUpMode ? "Signed up successfully!" : "Logged in successfully!");
+    }, 1500);
 };
 
-googleBtn.onclick = () => {
-    alert("Google integration would go here!");
-    loginSubmit.click(); // Dummy login
-};
+logoutBtn && (logoutBtn.onclick = (e) => {
+    e.preventDefault();
+    setLoggedOutUI();
+    location.reload(); 
+});
 
 function switchView(viewName) {
     Object.keys(views).forEach(key => {
@@ -614,9 +732,8 @@ function switchView(viewName) {
         renderSongs([], trendingGrid, true);
         renderSongs([], recommendedGrid, true);
         setTimeout(() => {
-            renderSongs(songs.slice(0, 3), trendingGrid);
-            renderSongs(songs.slice(3), recommendedGrid);
-            loadOfflineSongs();
+            renderSongs(songs.slice(0, 5), trendingGrid);
+            renderSongs(songs.slice(5), recommendedGrid);
         }, 500);
     } else if (viewName === 'library') {
         renderLibrary();
@@ -667,6 +784,38 @@ function renderQueue() {
 
 // Start the app
 init();
+
+// Profile Navigation Helper
+const profileClickZone = document.getElementById('profile-click-zone');
+if (profileClickZone) {
+    profileClickZone.onclick = () => window.location.href = 'profile.html';
+}
+
+// Photo Upload Logic
+const changePhotoBtn = document.getElementById('change-photo-btn');
+const avatarInput = document.getElementById('avatar-input');
+
+if (changePhotoBtn && avatarInput) {
+    changePhotoBtn.onclick = () => avatarInput.click();
+    
+    avatarInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64Image = event.target.result;
+                const user = JSON.parse(localStorage.getItem('spotify_user'));
+                if (user) {
+                    user.photo = base64Image;
+                    localStorage.setItem('spotify_user', JSON.stringify(user));
+                    // Update UI immediately
+                    setLoggedInUI(user.name);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+}
 
 const createPlaylistBtn = document.querySelector('.sidebar-section a');
 if (createPlaylistBtn) {
