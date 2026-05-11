@@ -4,9 +4,7 @@ const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,21 +18,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname))); // Serve frontend files from root
 
-// Multer setup for image uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const dir = './uploads';
-        if (!fs.existsSync(dir)) fs.mkdirSync(dir);
-        cb(null, dir);
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
-const upload = multer({ storage });
 
 // Authentication Middleware
 const authenticateToken = (req, res, next) => {
@@ -147,23 +131,6 @@ app.put('/api/profile', authenticateToken, async (req, res) => {
     }
 });
 
-app.post('/api/profile/upload-avatar', authenticateToken, upload.single('avatar'), async (req, res) => {
-    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-    
-    const photoUrl = `/uploads/${req.file.filename}`;
-    try {
-        const { error } = await supabase
-            .from('users')
-            .update({ photo_url: photoUrl })
-            .eq('id', req.user.id);
-
-        if (error) throw error;
-        res.json({ photoUrl });
-    } catch (error) {
-        console.error('Avatar upload error:', error);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

@@ -822,32 +822,6 @@ if (profileClickZone) {
     profileClickZone.onclick = () => window.location.href = 'profile.html';
 }
 
-// Photo Upload Logic
-const changePhotoBtn = document.getElementById('change-photo-btn');
-const avatarInput = document.getElementById('avatar-input');
-
-if (changePhotoBtn && avatarInput) {
-    changePhotoBtn.onclick = () => avatarInput.click();
-    
-    avatarInput.onchange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const base64Image = event.target.result;
-                const user = JSON.parse(localStorage.getItem('spotify_user'));
-                if (user) {
-                    user.photo = base64Image;
-                    localStorage.setItem('spotify_user', JSON.stringify(user));
-                    // Update UI immediately
-                    setLoggedInUI(user.name);
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-}
-
 const createPlaylistBtn = document.querySelector('.sidebar-section a');
 if (createPlaylistBtn) {
     createPlaylistBtn.onclick = (e) => {

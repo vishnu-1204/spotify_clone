@@ -286,11 +286,6 @@
             <div class="profile-hero">
                 <div class="avatar-wrapper">
                     <img id="display-avatar" src="https://ui-avatars.com/api/?name=User&background=1DB954&color=fff&size=256" alt="Profile">
-                    <div class="avatar-overlay" id="change-photo-btn">
-                        <i class="fas fa-camera"></i>
-                        <span>Change Photo</span>
-                    </div>
-                    <input type="file" id="avatar-input" accept="image/*" style="display: none;">
                 </div>
                 <div class="hero-info">
                     <p>Profile</p>
@@ -459,42 +454,6 @@
                 }
             };
 
-            // Avatar Upload
-            const avatarInput = document.getElementById('avatar-input');
-            const changeBtn = document.getElementById('change-photo-btn');
-
-            changeBtn.onclick = () => avatarInput.click();
-            avatarInput.onchange = async (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const formData = new FormData();
-                    formData.append('avatar', file);
-
-                    try {
-                        const response = await fetch(`${API_URL}/api/profile/upload-avatar`, {
-                            method: 'POST',
-                            headers: { 'Authorization': `Bearer ${token}` },
-                            body: formData
-                        });
-
-                        if (!response.ok) throw new Error("Upload failed");
-
-                        const { photoUrl } = await response.json();
-                        profileData.photo_url = photoUrl;
-                        
-                        // Sync with auth key
-                        const authUser = JSON.parse(localStorage.getItem(authKey));
-                        if (authUser) {
-                            authUser.photo = photoUrl;
-                            localStorage.setItem(authKey, JSON.stringify(authUser));
-                        }
-                        
-                        updateUI();
-                    } catch (error) {
-                        alert(error.message);
-                    }
-                }
-            };
         });
     </script>
 </body>
