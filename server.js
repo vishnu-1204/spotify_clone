@@ -1,7 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const sqlite3 = require('sqlite3');
-const { open } = require('sqlite');
+const { createClient } = require('@supabase/supabase-js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
@@ -10,7 +10,14 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = 'spotify_clone_secret_key_123'; // In production, use env variable
+const JWT_SECRET = process.env.SUPABASE_JWT_SECRET || process.env.JWT_SECRET || 'spotify_clone_secret_key_123';
+
+// Supabase Initialization
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
+console.log('Supabase URL:', supabaseUrl ? supabaseUrl.substring(0, 10) + '...' : 'MISSING');
+console.log('Supabase Key Type:', process.env.SUPABASE_SERVICE_ROLE_KEY ? 'SERVICE_ROLE' : 'ANON');
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Middleware
 app.use(cors());
@@ -31,34 +38,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Database initialization
-let db;
-(async () => {
-    db = await open({
-        filename: './database.sqlite',
-        driver: sqlite3.Database
-    });
-
-    await db.exec(`
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT UNIQUE,
-            password TEXT,
-            fullname TEXT,
-            username TEXT,
-            age TEXT,
-            dob TEXT,
-            gender TEXT,
-            phone TEXT,
-            address TEXT,
-            country TEXT,
-            bio TEXT,
-            photo_url TEXT
-        )
-    `);
-    console.log('Database initialized');
-})();
-
 // Authentication Middleware
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
@@ -76,27 +55,45 @@ const authenticateToken = (req, res, next) => {
 // --- AUTH ROUTES ---
 
 app.post('/api/auth/signup', async (req, res) => {
+    console.log('Signup route called with:', req.body.email);
     const { email, password, name } = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const result = await db.run(
-            'INSERT INTO users (email, password, fullname) VALUES (?, ?, ?)',
-            [email, hashedPassword, name]
-        );
-        res.status(201).json({ message: 'User created successfully', userId: result.lastID });
-    } catch (error) {
-        if (error.message.includes('UNIQUE constraint failed')) {
-            return res.status(400).json({ error: 'Email already exists' });
+        
+        const { data, error } = await supabase
+            .from('users')
+            .insert([{ email, password: hashedPassword, fullname: name }])
+            .select();
+
+        if (error) {
+            console.error('Supabase signup error:', error);
+            if (error.code === '23505') {
+                return res.status(400).json({ error: 'Email already exists' });
+            }
+            return res.status(500).json({ error: 'Supabase error', detail: error.message });
         }
-        res.status(500).json({ error: 'Server error' });
+
+        if (!data || data.length === 0) {
+            return res.status(201).json({ message: 'User created successfully (but could not retrieve ID - check RLS)' });
+        }
+
+        res.status(201).json({ message: 'User created successfully', userId: data[0].id });
+    } catch (error) {
+        console.error('Signup error detail:', error);
+        res.status(500).json({ error: 'Server error', detail: error.message || error });
     }
 });
 
 app.post('/api/auth/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await db.get('SELECT * FROM users WHERE email = ?', [email]);
-        if (!user) return res.status(400).json({ error: 'User not found' });
+        const { data: user, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', email)
+            .single();
+
+        if (error || !user) return res.status(400).json({ error: 'User not found' });
 
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) return res.status(400).json({ error: 'Invalid password' });
@@ -112,6 +109,7 @@ app.post('/api/auth/login', async (req, res) => {
             } 
         });
     } catch (error) {
+        console.error('Login error:', error);
         res.status(500).json({ error: 'Server error' });
     }
 });
@@ -120,25 +118,33 @@ app.post('/api/auth/login', async (req, res) => {
 
 app.get('/api/profile', authenticateToken, async (req, res) => {
     try {
-        const user = await db.get('SELECT id, email, fullname, username, age, dob, gender, phone, address, country, bio, photo_url FROM users WHERE id = ?', [req.user.id]);
+        const { data: user, error } = await supabase
+            .from('users')
+            .select('id, email, fullname, username, age, dob, gender, phone, address, country, bio, photo_url')
+            .eq('id', req.user.id)
+            .single();
+
+        if (error || !user) return res.status(404).json({ error: 'User not found' });
         res.json(user);
     } catch (error) {
+        console.error('Profile fetch error:', error);
         res.status(500).json({ error: 'Server error' });
     }
 });
 
 app.put('/api/profile', authenticateToken, async (req, res) => {
-    const { fullname, username, age, dob, gender, phone, address, country, bio } = req.body;
+    const updateData = req.body;
     try {
-        await db.run(
-            `UPDATE users SET 
-                fullname = ?, username = ?, age = ?, dob = ?, 
-                gender = ?, phone = ?, address = ?, country = ?, bio = ? 
-             WHERE id = ?`,
-            [fullname, username, age, dob, gender, phone, address, country, bio, req.user.id]
-        );
-        res.json({ message: 'Profile updated successfully' });
+        const { data, error } = await supabase
+            .from('users')
+            .update(updateData)
+            .eq('id', req.user.id)
+            .select();
+
+        if (error) throw error;
+        res.json({ message: 'Profile updated successfully', user: data[0] });
     } catch (error) {
+        console.error('Profile update error:', error);
         res.status(500).json({ error: 'Server error' });
     }
 });
@@ -148,9 +154,15 @@ app.post('/api/profile/upload-avatar', authenticateToken, upload.single('avatar'
     
     const photoUrl = `/uploads/${req.file.filename}`;
     try {
-        await db.run('UPDATE users SET photo_url = ? WHERE id = ?', [photoUrl, req.user.id]);
+        const { error } = await supabase
+            .from('users')
+            .update({ photo_url: photoUrl })
+            .eq('id', req.user.id);
+
+        if (error) throw error;
         res.json({ photoUrl });
     } catch (error) {
+        console.error('Avatar upload error:', error);
         res.status(500).json({ error: 'Server error' });
     }
 });
