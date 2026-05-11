@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile - Spotify</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --spotify-green: #1DB954;
+            --spotify-green-hover: #1ed760;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: #000;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            border-right: 1px solid #282828;
+        }
+
+        .sidebar-logo {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .nav-item {
+            color: #b3b3b3;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: color 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: white;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: linear-gradient(180deg, #1e1e1e 0%, #121212 100%);
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .profile-hero {
+            display: flex;
+            align-items: flex-end;
+            gap: 32px;
+            margin-bottom: 48px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .avatar-wrapper:hover .avatar-overlay {
+            opacity: 1;
+        }
+
+        .hero-info p {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .hero-info h1 {
+            font-size: 72px;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -2px;
+        }
+
+        /* Profile Details Grid */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .info-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            border-radius: 12px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .info-card h3 {
+            color: var(--spotify-green);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .info-card p, .info-card span {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .bio-card {
+            grid-column: 1 / -1;
+        }
+
+        /* Editing Mode */
+        .edit-controls {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-spotify {
+            background-color: var(--spotify-green);
+            color: black;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 500px;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-spotify:hover {
+            transform: scale(1.04);
+            background-color: var(--spotify-green-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #b3b3b3;
+            color: white;
+            padding: 12px 28px;
+            margin-right: 12px;
+        }
+
+        .edit-input {
+            width: 100%;
+            background: #333;
+            border: 1px solid #444;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .edit-input:focus {
+            border-color: var(--spotify-green);
+            outline: none;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .hero-info h1 {
+                font-size: 40px;
+            }
+            .profile-hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/profile-03YogvhK.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/style-BO0gZMJa.js">
+  <link rel="stylesheet" crossorigin href="/assets/style-DcRDZxU2.css">
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-logo">
+                <i class="fab fa-spotify" style="color: #1DB954;"></i>
+                <span>Spotify</span>
+            </a>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
+                <a href="#" class="nav-item"><i class="fas fa-search"></i> Search</a>
+                <a href="#" class="nav-item"><i class="fas fa-book"></i> Your Library</a>
+                <a href="#" class="nav-item"><i class="fas fa-plus-square"></i> Create Playlist</a>
+                <a href="#" class="nav-item"><i class="fas fa-heart"></i> Liked Songs</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="edit-controls">
+                <button id="edit-profile-btn" class="btn-spotify">Edit Profile</button>
+                <button id="save-profile-btn" class="btn-spotify" style="display: none;">Save Changes</button>
+            </div>
+
+            <div class="profile-hero">
+                <div class="avatar-wrapper">
+                    <img id="display-avatar" src="https://ui-avatars.com/api/?name=User&background=1DB954&color=fff&size=256" alt="Profile">
+                </div>
+                <div class="hero-info">
+                    <p>Profile</p>
+                    <h1 id="display-fullname">User Name</h1>
+                </div>
+            </div>
+
+            <div class="details-grid" id="info-grid">
+                <!-- Data Cards -->
+                <div class="info-card">
+                    <h3>Full Name</h3>
+                    <span class="view-mode" id="val-fullname">John Doe</span>
+                    <input type="text" class="edit-input" id="input-fullname">
+                </div>
+                <div class="info-card">
+                    <h3>Username</h3>
+                    <span class="view-mode" id="val-username">johndoe123</span>
+                    <input type="text" class="edit-input" id="input-username">
+                </div>
+                <div class="info-card">
+                    <h3>Age</h3>
+                    <span class="view-mode" id="val-age">25</span>
+                    <input type="number" class="edit-input" id="input-age">
+                </div>
+                <div class="info-card">
+                    <h3>Date of Birth</h3>
+                    <span class="view-mode" id="val-dob">1999-01-01</span>
+                    <input type="date" class="edit-input" id="input-dob">
+                </div>
+                <div class="info-card">
+                    <h3>Gender</h3>
+                    <span class="view-mode" id="val-gender">Not Specified</span>
+                    <input type="text" class="edit-input" id="input-gender">
+                </div>
+                <div class="info-card">
+                    <h3>Email Address</h3>
+                    <span class="view-mode" id="val-email">john@example.com</span>
+                    <input type="email" class="edit-input" id="input-email">
+                </div>
+                <div class="info-card">
+                    <h3>Phone Number</h3>
+                    <span class="view-mode" id="val-phone">+1 234 567 890</span>
+                    <input type="tel" class="edit-input" id="input-phone">
+                </div>
+                <div class="info-card">
+                    <h3>Country</h3>
+                    <span class="view-mode" id="val-country">United States</span>
+                    <input type="text" class="edit-input" id="input-country">
+                </div>
+                <div class="info-card bio-card">
+                    <h3>Address</h3>
+                    <span class="view-mode" id="val-address">123 Music Lane, Audio City</span>
+                    <input type="text" class="edit-input" id="input-address">
+                </div>
+                <div class="info-card bio-card">
+                    <h3>Bio</h3>
+                    <p class="view-mode" id="val-bio">Music lover and coffee enthusiast. Living life one beat at a time.</p>
+                    <textarea class="edit-input" id="input-bio" rows="3" style="width: 100%; border-radius: 8px;"></textarea>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

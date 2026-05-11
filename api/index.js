@@ -132,8 +132,11 @@ app.put('/api/profile', authenticateToken, async (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+// Only listen if not on Vercel (Vercel handles the listener)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+    });
+}
 
 module.exports = app;

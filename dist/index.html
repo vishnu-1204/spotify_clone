@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone - Premium Music Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/main-B5KuVZ9O.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/style-BO0gZMJa.js">
+  <link rel="stylesheet" crossorigin href="/assets/style-DcRDZxU2.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fab fa-spotify"></i>
+                <span>Spotify</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-search"></i> Search</a>
+                <a href="#"><i class="fas fa-book"></i> Your Library</a>
+            </nav>
+            <div class="sidebar-section">
+                <p class="section-title">Playlists</p>
+                <a href="#"><i class="fas fa-plus-square"></i> Create Playlist</a>
+                <a href="#"><i class="fas fa-heart"></i> Liked Songs</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="What do you want to listen to?">
+                </div>
+                <div class="top-bar-right">
+                    <div class="auth-buttons">
+                        <button class="signup-btn">Sign up</button>
+                        <button class="login-btn">Log in</button>
+                    </div>
+                    <div class="user-profile" id="user-profile" style="display: none;">
+                        <div class="profile-icon-container" id="profile-click-zone">
+                            <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" id="user-avatar">
+                        </div>
+                        <div class="user-dropdown-menu">
+                            <a href="profile.html" class="dropdown-item" id="go-to-profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                            <hr class="dropdown-divider">
+                            <a href="#" id="logout-btn" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="home-view">
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Trending Songs</h2>
+                        <a href="#" class="see-all">See all</a>
+                    </div>
+                    <div class="song-grid" id="trending-grid"></div>
+                </section>
+
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Recommended for you</h2>
+                        <a href="#" class="see-all">See all</a>
+                    </div>
+                    <div class="song-grid" id="recommended-grid"></div>
+                </section>
+            </div>
+
+            <div id="library-view" style="display: none;">
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Liked Songs</h2>
+                    </div>
+                    <div class="song-grid" id="liked-grid"></div>
+                </section>
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Your Playlists</h2>
+                    </div>
+                    <div class="song-grid" id="playlists-grid"></div>
+                </section>
+            </div>
+
+            <div id="queue-view" style="display: none;">
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Next Up</h2>
+                    </div>
+                    <div class="queue-list" id="queue-list">
+                        <!-- Queue items will be injected here -->
+                    </div>
+                </section>
+            </div>
+
+        </main>
+
+        <!-- Player Bar -->
+        <footer class="player-bar">
+            <div class="current-song">
+                <img src="/assets/cover1-VC3_d4ji.png" alt="Current Song" id="player-img" loading="lazy" decoding="async">
+                <div class="song-info">
+                    <p id="player-title">Select a song</p>
+                    <p id="player-artist">Unknown Artist</p>
+                </div>
+                <i class="far fa-heart"></i>
+            </div>
+
+            <div class="player-controls">
+                <div class="control-buttons">
+                    <button id="shuffle"><i class="fas fa-random"></i></button>
+                    <button id="prev"><i class="fas fa-step-backward"></i></button>
+                    <button id="play-pause" class="play-btn"><i class="fas fa-play"></i></button>
+                    <button id="next"><i class="fas fa-step-forward"></i></button>
+                    <button id="repeat"><i class="fas fa-redo"></i></button>
+                </div>
+                <div class="progress-container">
+                    <span id="current-time">0:00</span>
+                    <input type="range" id="progress-bar" value="0" min="0" max="100">
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+
+            <div class="volume-controls">
+                <button id="queue-toggle" title="Queue"><i class="fas fa-list"></i></button>
+                <i class="fas fa-volume-up"></i>
+                <input type="range" id="volume-bar" value="80" min="0" max="100">
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Mobile Navigation Bar -->
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-link active" data-view="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="mobile-nav-link" data-view="home">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </a>
+        <a href="#" class="mobile-nav-link" data-view="library">
+            <i class="fas fa-book"></i>
+            <span>Your Library</span>
+        </a>
+        <a href="#" class="mobile-nav-link" id="mobile-login">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Sign In Modal -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" id="close-login"></i>
+            <div class="modal-header">
+                <i class="fab fa-spotify modal-logo"></i>
+                <h2 id="modal-title">Log in to Spotify</h2>
+            </div>
+            
+            <form id="auth-form">
+                <div class="input-group">
+                    <label for="auth-email">Email or username</label>
+                    <input type="text" id="auth-email" placeholder="Email or username" required>
+                    <span class="error-msg" id="email-error"></span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="auth-password">Password</label>
+                    <input type="password" id="auth-password" placeholder="Password" required>
+                    <span class="error-msg" id="password-error"></span>
+                </div>
+
+                <div class="auth-options">
+                    <div class="remember-me" id="remember-container">
+                        <input type="checkbox" id="remember-check">
+                        <label for="remember-check">Remember me</label>
+                    </div>
+                    <div class="terms-container" id="terms-container" style="display: none;">
+                        <input type="checkbox" id="terms-check">
+                        <label for="terms-check">I agree to the Terms & Conditions</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="login-submit">
+                    <span class="btn-text">Log In</span>
+                    <div class="btn-loader" style="display: none;"><i class="fas fa-spinner fa-spin"></i></div>
+                </button>
+            </form>
+
+            <p class="forgot-pass" id="forgot-password">Forgot your password?</p>
+            <hr class="modal-hr">
+            <p class="toggle-auth-wrapper" id="toggle-auth-text">
+                Don't have an account? <span id="toggle-auth">Sign up</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-link active" data-view="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="mobile-nav-link" data-view="home">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </a>
+        <a href="#" class="mobile-nav-link" data-view="library">
+            <i class="fas fa-book"></i>
+            <span>Library</span>
+        </a>
+    </nav>
+
+</body>
+</html>
