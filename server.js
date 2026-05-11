@@ -15,8 +15,6 @@ const JWT_SECRET = process.env.SUPABASE_JWT_SECRET || process.env.JWT_SECRET || 
 // Supabase Initialization
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
-console.log('Supabase URL:', supabaseUrl ? supabaseUrl.substring(0, 10) + '...' : 'MISSING');
-console.log('Supabase Key Type:', process.env.SUPABASE_SERVICE_ROLE_KEY ? 'SERVICE_ROLE' : 'ANON');
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Middleware
