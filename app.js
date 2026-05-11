@@ -1,3 +1,9 @@
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 const songs = [
     {
         id: 1,
@@ -165,7 +171,7 @@ const userDisplayName = document.getElementById('user-display-name');
 const userAvatar = document.getElementById('user-avatar');
 const logoutBtn = document.getElementById('logout-btn');
 
-const API_URL = 'http://localhost:3000'; // Change this if deployed
+const API_URL = ''; // Proxy handled by Vite
 
 // Advanced Controls
 const shuffleBtn = document.getElementById('shuffle');
