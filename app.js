@@ -741,11 +741,12 @@ authForm.onsubmit = async (e) => {
             body: JSON.stringify(payload)
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            throw new Error(data.error || 'Authentication failed');
+            const errorText = await response.text();
+            throw new Error(errorText || `Server returned ${response.status}`);
         }
+
+        const data = await response.json();
 
         if (isSignUpMode) {
             // After signup, automatically login or just tell them to login

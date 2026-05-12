@@ -176,4 +176,11 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
+// Global Error Handler for JSON responses
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Internal Server Error', details: err.message });
+});
+
+// --- EXPORT FOR VERCEL ---
 module.exports = app;
