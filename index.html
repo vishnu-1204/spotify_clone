@@ -24,8 +24,9 @@
             </nav>
             <div class="sidebar-section">
                 <p class="section-title">Playlists</p>
-                <a href="#"><i class="fas fa-plus-square"></i> Create Playlist</a>
+                <a href="#" id="create-playlist-btn"><i class="fas fa-plus-square"></i> Create Playlist</a>
                 <a href="#"><i class="fas fa-heart"></i> Liked Songs</a>
+                <div class="playlist-list"></div>
             </div>
         </aside>
 
@@ -146,6 +147,51 @@
                 </section>
             </div>
 
+            <div id="playlist-detail-view" style="display: none;">
+                <div class="playlist-detail-header">
+                    <div class="playlist-cover-large">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="playlist-info-large">
+                        <span class="playlist-type-label">Playlist</span>
+                        <h1 id="detail-playlist-title">Playlist Name</h1>
+                        <p id="detail-playlist-count">0 songs</p>
+                    </div>
+                </div>
+                <div class="playlist-action-bar">
+                    <button class="play-btn-large" id="play-playlist-btn"><i class="fas fa-play"></i></button>
+                    <div class="playlist-options" style="display:flex; gap:16px; align-items:center; color: var(--text-grey); font-size: 24px; cursor: pointer;">
+                        <i class="fas fa-edit playlist-option-btn" id="rename-playlist-btn" title="Rename Playlist" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-grey)'"></i>
+                        <i class="fas fa-trash playlist-option-btn" id="delete-playlist-btn" title="Delete Playlist" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-grey)'"></i>
+                    </div>
+                </div>
+                <div class="playlist-table-container">
+                    <div class="playlist-table-header">
+                        <div class="col-index">#</div>
+                        <div class="col-title">Title</div>
+                        <div class="col-album">Artist</div>
+                        <div class="col-duration"><i class="far fa-clock"></i></div>
+                    </div>
+                    <div class="playlist-tracks" id="playlist-tracks-container">
+                        <!-- Tracks injected here -->
+                    </div>
+                </div>
+
+                <div class="playlist-add-section">
+                    <div class="playlist-add-header">
+                        <h3>Let's find something for your playlist</h3>
+                    </div>
+                    <div class="playlist-search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="playlist-inline-search" placeholder="Search for songs or artists" autocomplete="off">
+                        <i class="fas fa-times" id="clear-inline-search" style="display: none; cursor: pointer;"></i>
+                    </div>
+                    <div class="playlist-add-results" id="playlist-add-results">
+                        <!-- Search results for adding songs will appear here -->
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <!-- Player Bar -->
@@ -249,7 +295,57 @@
         </div>
     </div>
 
+    <!-- Create Playlist Modal -->
+    <div class="modal-overlay" id="create-playlist-modal" style="display: none;">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" id="close-playlist-modal"></i>
+            <div class="modal-header">
+                <i class="fas fa-music modal-logo"></i>
+                <h2>Create Playlist</h2>
+            </div>
+            
+            <form id="create-playlist-form">
+                <div class="input-group">
+                    <label for="playlist-name">Name</label>
+                    <input type="text" id="playlist-name" placeholder="My Awesome Playlist" required autocomplete="off">
+                </div>
 
+                <button type="submit" class="submit-btn" id="playlist-submit">
+                    <span class="btn-text">Create</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Song Context Menu -->
+    <div id="song-context-menu" class="context-menu" style="display: none;">
+        <div class="context-menu-item has-submenu">
+            <span>Add to Playlist</span>
+            <i class="fas fa-caret-right"></i>
+            <div class="submenu" id="context-playlists-submenu">
+                <!-- User playlists injected here -->
+            </div>
+        </div>
+        <div class="context-menu-item" id="context-like-btn">
+            <span>Save to your Liked Songs</span>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <a href="#" class="mobile-nav-item active" id="mobile-nav-home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="mobile-nav-item" id="mobile-nav-search">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </a>
+        <a href="#" class="mobile-nav-item" id="mobile-nav-library">
+            <i class="fas fa-list"></i>
+            <span>Library</span>
+        </a>
+    </nav>
 
     <script type="module" src="/app.js"></script>
 </body>

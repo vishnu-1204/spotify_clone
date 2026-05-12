@@ -351,36 +351,36 @@
     </div>
 
     <script type="module">
-        document.addEventListener('DOMContentLoaded', () => {
-            const authKey = 'spotify_user';
-            const tokenKey = 'spotify_token';
-            const API_URL = '';
-            
-            let profileData = {};
-            const token = localStorage.getItem(tokenKey);
+        document.addEventListener('DOMContentLoaded', async () => {
+            let supabase = null;
+            try {
+                const configResponse = await fetch('/api/config');
+                const config = await configResponse.json();
+                if (config.supabaseUrl && config.supabaseKey) {
+                    supabase = window.supabase.createClient(config.supabaseUrl, config.supabaseKey);
+                }
+            } catch (e) {
+                console.warn('Could not fetch Supabase config:', e);
+            }
 
-            if (!token) {
+            if (!supabase) {
+                alert("Supabase is not configured.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
                 alert("Please log in first.");
                 window.location.href = 'index.html';
                 return;
             }
 
-            const fields = ['fullname', 'username', 'age', 'dob', 'gender', 'email', 'phone', 'address', 'country', 'bio'];
+            const user = session.user;
+            let profileData = user.user_metadata || {};
+            profileData.email = user.email; // Core email
 
-            async function fetchProfile() {
-                try {
-                    const response = await fetch(`${API_URL}/api/profile`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    if (!response.ok) throw new Error("Failed to load profile");
-                    profileData = await response.json();
-                    updateUI();
-                } catch (error) {
-                    console.error(error);
-                    alert("Session expired. Please log in again.");
-                    window.location.href = 'index.html';
-                }
-            }
+            const fields = ['fullname', 'username', 'age', 'dob', 'gender', 'email', 'phone', 'address', 'country', 'bio'];
 
             function getAvatarColor(name) {
                 const colors = ['#1DB954', '#5e72e4', '#2dce89', '#11cdef', '#fb6340', '#f5365c', '#8965e0', '#f15e6c'];
@@ -397,15 +397,16 @@
                     const viewEl = document.getElementById(`val-${f}`);
                     if (viewEl) viewEl.innerText = profileData[f] || 'Not Specified';
                 });
-                document.getElementById('display-fullname').innerText = profileData.fullname || 'User Name';
+                const displayName = profileData.fullname || profileData.name || user.email.split('@')[0];
+                document.getElementById('display-fullname').innerText = displayName;
                 const avatarLetter = document.getElementById('display-avatar-letter');
                 if (avatarLetter) {
-                    avatarLetter.innerText = (profileData.fullname || 'U').charAt(0).toUpperCase();
-                    avatarLetter.style.backgroundColor = getAvatarColor(profileData.fullname);
+                    avatarLetter.innerText = displayName.charAt(0).toUpperCase();
+                    avatarLetter.style.backgroundColor = getAvatarColor(displayName);
                 }
             }
 
-            fetchProfile();
+            updateUI();
 
             // Edit Mode Logic
             const editBtn = document.getElementById('edit-profile-btn');
@@ -422,36 +423,27 @@
                     el.style.display = 'block';
                     const fieldId = el.id.replace('input-', '');
                     el.value = profileData[fieldId] || '';
+                    if (fieldId === 'email') el.disabled = true; // Cannot edit email this way easily
                 });
             };
 
             saveBtn.onclick = async () => {
-                const updatedData = { ...profileData };
+                const updatedData = {};
                 editInputs.forEach(el => {
                     const fieldId = el.id.replace('input-', '');
-                    updatedData[fieldId] = el.value;
+                    if (fieldId !== 'email') {
+                        updatedData[fieldId] = el.value;
+                    }
                 });
 
                 try {
-                    const response = await fetch(`${API_URL}/api/profile`, {
-                        method: 'PUT',
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify(updatedData)
+                    const { data, error } = await supabase.auth.updateUser({
+                        data: updatedData
                     });
 
-                    if (!response.ok) throw new Error("Failed to save profile");
+                    if (error) throw error;
                     
-                    profileData = updatedData;
-                    
-                    // Sync back to auth key for header sync on index.html
-                    const authUser = JSON.parse(localStorage.getItem(authKey));
-                    if (authUser) {
-                        authUser.name = profileData.fullname;
-                        localStorage.setItem(authKey, JSON.stringify(authUser));
-                    }
+                    profileData = { ...profileData, ...updatedData };
 
                     editBtn.style.display = 'block';
                     saveBtn.style.display = 'none';
@@ -463,7 +455,6 @@
                     alert(error.message);
                 }
             };
-
         });
     </script>
 </body>
