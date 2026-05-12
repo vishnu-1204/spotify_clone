@@ -106,6 +106,188 @@ const songs = [
         artist: "Sai Abhyankkar",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/q_auto/f_auto/v1778317829/Pavazha_Malli_wjhur6.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492927/pavazha_malli_x8nej4.jpg"
+    },
+    {
+        id: 16,
+        title: "Kadhal Aasai",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574212/Kadhal-Aasai_c0ea72.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575685/anjaaan_ma4g3t.jpg"
+    },
+    {
+        id: 17,
+        title: "Vechukkava Remix",
+        artist: "Various Artists",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574210/Vechukkava_Remix_jm8lmw.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575703/vechikkava_qq1q8o.jpg"
+    },
+    {
+        id: 18,
+        title: "Vizhi Veekura",
+        artist: "Various Artists",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574210/Vizhi_Veekura_q74hit.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575706/vizhi_veekra_nrdaey.jpg"
+    },
+    {
+        id: 19,
+        title: "Tamilselvi",
+        artist: "D. Imman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574206/Tamilselvi_unayqn.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575700/remo_hhapeb.jpg"
+    },
+    {
+        id: 20,
+        title: "Oru Kan Jaadai",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574197/Oru-Kan-Jaadai_frjceg.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575685/anjaaan_ma4g3t.jpg"
+    },
+    {
+        id: 21,
+        title: "Para Para",
+        artist: "G.V. Prakash Kumar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574196/Para-Para_cw1njy.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575698/para_para_ycgy06.jpg"
+    },
+    {
+        id: 22,
+        title: "Sirikkadhey",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574195/Sirikkadhey_gv9kbm.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575700/remo_hhapeb.jpg"
+    },
+    {
+        id: 23,
+        title: "So Baby",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574195/So-Baby-MassTamilan.fm_t3arni.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575702/so_baby_z0lrtu.jpg"
+    },
+    {
+        id: 24,
+        title: "Mei Nigara",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574191/Mei-Nigara_rvs8by.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575685/24_movie_lajq0z.jpg"
+    },
+    {
+        id: 25,
+        title: "Naan Un",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574186/Naan-Un_vwykai.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575685/24_movie_lajq0z.jpg"
+    },
+    {
+        id: 26,
+        title: "Naan Pizhai",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574184/Naan-Pizhai-MassTamilan.so_cnrc0p.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778577299/naan_pizhai_mihfrm.jpg"
+    },
+    {
+        id: 27,
+        title: "Kannae Kanmaniye",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574181/Kannae_Kanmaniye_b6nl4n.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575690/kanna_kanmaniyae_dqhww6.jpg"
+    },
+    {
+        id: 28,
+        title: "Meesa Beauty",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574176/Meesa-Beauty_e5ld9y.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575700/remo_hhapeb.jpg"
+    },
+    {
+        id: 29,
+        title: "Kutti Story",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574172/Kutti-Story-MassTamilan.io_qxsdqd.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575694/kutty_story_xb4kjw.jpg"
+    },
+    {
+        id: 30,
+        title: "Maari's Aanandhi",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574171/Maari_s-Aanandhi-MassTamilan.org_laxi5x.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575697/maari_anandhi_jnujb0.jpg"
+    },
+    {
+        id: 31,
+        title: "Kuruvi Theme Music",
+        artist: "Vidyasagar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574167/Kuruvi---Theme-Music-MassTamilan.fm_nt7gxo.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575693/kuruvi_tkpxds.jpg"
+    },
+    {
+        id: 32,
+        title: "En Moochum Venam",
+        artist: "Dharani Dharan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574147/En-Moochum-Venam_lb06fe.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575689/en_moochum_venna_ymm0xc.jpg"
+    },
+    {
+        id: 33,
+        title: "Jolly O Gymkhana",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574147/Jolly-O-Gymkhana-MassTamilan.so_h3qorx.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575687/beast_oknbxc.jpg"
+    },
+    {
+        id: 34,
+        title: "Aadungada Yennai Suththi",
+        artist: "Mani Sharma",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574145/Aadungada-Yennai-Suththi_xbl6b9.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575685/adunga_da_enna_suthi_gezdpw.jpg"
+    },
+    {
+        id: 35,
+        title: "En Jeevan",
+        artist: "G.V. Prakash Kumar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574142/En-Jeevan_js4i3l.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575688/en_jeevan_l5ur14.jpg"
+    },
+    {
+        id: 36,
+        title: "Annul Maelae",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574138/Annul-Maelae-MassTamilan.com_rla7zi.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575686/annul_malae_xxdqrr.jpg"
+    },
+    {
+        id: 37,
+        title: "Chella Magale",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574128/Chella-Magale-MassTamilan.dev_oocosb.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778577314/chella_magalae_ikovr7.jpg"
+    },
+    {
+        id: 38,
+        title: "Dheema",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574127/Dheema_k7ducf.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575695/Love_insurance_company_baivy0.jpg"
+    },
+    {
+        id: 39,
+        title: "Arabic Kuthu",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574125/Arabic-Kuthu---Halamithi-Habibo-MassTamilan.so_s26him.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575687/beast_oknbxc.jpg"
+    },
+    {
+        id: 40,
+        title: "Enakenna Yaarum Illaye",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574100/Enakenna_Yaarum_Illaye_fowjen.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575695/Love_insurance_company_baivy0.jpg"
+    },
+    {
+        id: 41,
+        title: "Adaavadi",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574099/Adaavadi_mtadlz.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575695/Love_insurance_company_baivy0.jpg"
     }
 ];
 
