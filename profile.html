@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --spotify-green: #1DB954;
@@ -285,7 +286,7 @@
 
             <div class="profile-hero">
                 <div class="avatar-wrapper">
-                    <img id="display-avatar" src="https://ui-avatars.com/api/?name=User&background=1DB954&color=fff&size=256" alt="Profile">
+                    <div id="display-avatar-letter" class="profile-letter-icon" style="width: 100%; height: 100%; font-size: 80px;">U</div>
                 </div>
                 <div class="hero-info">
                     <p>Profile</p>
@@ -381,17 +382,26 @@
                 }
             }
 
+            function getAvatarColor(name) {
+                const colors = ['#1DB954', '#5e72e4', '#2dce89', '#11cdef', '#fb6340', '#f5365c', '#8965e0', '#f15e6c'];
+                let hash = 0;
+                for (let i = 0; i < (name || '').length; i++) {
+                    hash = (name || '').charCodeAt(i) + ((hash << 5) - hash);
+                }
+                const index = Math.abs(hash) % colors.length;
+                return colors[index];
+            }
+
             function updateUI() {
                 fields.forEach(f => {
                     const viewEl = document.getElementById(`val-${f}`);
                     if (viewEl) viewEl.innerText = profileData[f] || 'Not Specified';
                 });
                 document.getElementById('display-fullname').innerText = profileData.fullname || 'User Name';
-                const avatar = document.getElementById('display-avatar');
-                if (profileData.photo_url) {
-                    avatar.src = profileData.photo_url.startsWith('http') ? profileData.photo_url : `${API_URL}${profileData.photo_url}`;
-                } else {
-                    avatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.fullname || 'User')}&background=1DB954&color=fff&size=256`;
+                const avatarLetter = document.getElementById('display-avatar-letter');
+                if (avatarLetter) {
+                    avatarLetter.innerText = (profileData.fullname || 'U').charAt(0).toUpperCase();
+                    avatarLetter.style.backgroundColor = getAvatarColor(profileData.fullname);
                 }
             }
 

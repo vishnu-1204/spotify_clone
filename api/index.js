@@ -11,13 +11,38 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.SUPABASE_JWT_SECRET || process.env.JWT_SECRET || 'spotify_clone_secret_key_123';
 
 // Supabase Initialization
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+    console.error('BACKEND ERROR: Supabase environment variables are missing!');
+}
+
+const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+ 
+app.use((req, res, next) => {
+    console.log(`[DEBUG] ${req.method} ${req.url}`);
+    next();
+});
+ 
+// Serve static files from the root directory
+const staticPath = path.join(__dirname, '..');
+console.log('Serving static files from:', staticPath);
+app.use(express.static(staticPath));
+
+// Explicit route for the homepage
+app.get('/', (req, res) => {
+    res.sendFile(path.join(staticPath, 'index.html'));
+});
+ 
+// Basic root route for the API function
+app.get('/api', (req, res) => {
+    res.json({ message: 'Spotify Clone API is active' });
+});
 
 
 // Authentication Middleware
@@ -33,6 +58,18 @@ const authenticateToken = (req, res, next) => {
         next();
     });
 };
+
+// --- CONFIG ROUTE ---
+app.get('/api/config', (req, res) => {
+    res.json({
+        supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL,
+        supabaseKey: process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || process.env.VITE_SUPABASE_ANON_KEY
+    });
+});
+
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', time: new Date().toISOString() });
+});
 
 // --- AUTH ROUTES ---
 
@@ -135,7 +172,7 @@ app.put('/api/profile', authenticateToken, async (req, res) => {
 // Only listen if not on Vercel (Vercel handles the listener)
 if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => {
-        console.log(`Server running on http://localhost:${PORT}`);
+        console.log(`SPOTIFY CLONE SERVER: http://localhost:${PORT}`);
     });
 }
 

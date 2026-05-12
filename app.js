@@ -1,8 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+let supabase;
+const API_URL = ''; 
 
 const songs = [
     {
@@ -168,10 +165,8 @@ const termsContainer = document.getElementById('terms-container');
 const btnText = document.querySelector('.btn-text');
 const btnLoader = document.querySelector('.btn-loader');
 const userDisplayName = document.getElementById('user-display-name');
-const userAvatar = document.getElementById('user-avatar');
+const userAvatarLetter = document.getElementById('user-avatar-letter');
 const logoutBtn = document.getElementById('logout-btn');
-
-const API_URL = ''; // Proxy handled by Vite
 
 // Advanced Controls
 const shuffleBtn = document.getElementById('shuffle');
@@ -179,7 +174,21 @@ const repeatBtn = document.getElementById('repeat');
 const heartBtn = document.querySelector('.current-song i');
 
 // Initialize
-function init() {
+async function init() {
+    try {
+        const configResponse = await fetch(`${API_URL}/api/config`);
+        const config = await configResponse.json();
+        
+        if (config.supabaseUrl && config.supabaseKey) {
+            // supabase is globally declared let at top
+            supabase = window.supabase.createClient(config.supabaseUrl, config.supabaseKey);
+        } else {
+            console.error('Supabase config missing from API');
+        }
+    } catch (err) {
+        console.error('Failed to load config:', err);
+    }
+
     checkAuthState();
     switchView('home');
     renderPlaylists();
@@ -601,13 +610,25 @@ function checkAuthState() {
     }
 }
 
+function getAvatarColor(name) {
+    const colors = ['#1DB954', '#5e72e4', '#2dce89', '#11cdef', '#fb6340', '#f5365c', '#8965e0', '#f15e6c'];
+    let hash = 0;
+    for (let i = 0; i < (name || '').length; i++) {
+        hash = (name || '').charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % colors.length;
+    return colors[index];
+}
+
 function setLoggedInUI(name) {
     const user = JSON.parse(localStorage.getItem('spotify_user'));
     authButtons.style.display = 'none';
     userProfile.style.display = 'flex';
     userProfile.title = name || 'Premium User';
-    if (userAvatar) {
-        userAvatar.src = user?.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=random&color=fff`;
+    if (userAvatarLetter) {
+        const initial = (name || 'U').charAt(0).toUpperCase();
+        userAvatarLetter.innerText = initial;
+        userAvatarLetter.style.backgroundColor = getAvatarColor(name);
     }
 }
 
