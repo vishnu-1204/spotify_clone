@@ -1128,20 +1128,40 @@ function switchView(viewName) {
 
 function renderLibrary() {
     const liked = songs.filter(s => likedSongs.includes(s.id));
-    renderSongs(liked, likedGrid);
+    if (liked.length === 0) {
+        likedGrid.innerHTML = `
+            <div class="empty-state">
+                <i class="far fa-heart"></i>
+                <p>Songs you like will appear here</p>
+                <button class="btn btn-white" onclick="switchView('home')">Find songs</button>
+            </div>
+        `;
+    } else {
+        renderSongs(liked, likedGrid);
+    }
     
     playlistsGrid.innerHTML = '';
-    playlists.forEach(playlist => {
-        const card = document.createElement('div');
-        card.className = 'song-card playlist-card';
-        card.onclick = () => renderPlaylistDetail(playlist.id);
-        card.innerHTML = `
-            <div class="playlist-icon"><i class="fas fa-music"></i></div>
-            <h3>${playlist.name}</h3>
-            <p>Playlist • ${playlist.songs ? playlist.songs.length : 0} songs</p>
+    if (playlists.length === 0) {
+        playlistsGrid.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-music"></i>
+                <p>Create your first playlist</p>
+                <button class="btn btn-white" onclick="openCreatePlaylistModal()">Create playlist</button>
+            </div>
         `;
-        playlistsGrid.appendChild(card);
-    });
+    } else {
+        playlists.forEach(playlist => {
+            const card = document.createElement('div');
+            card.className = 'song-card playlist-card';
+            card.onclick = () => renderPlaylistDetail(playlist.id);
+            card.innerHTML = `
+                <div class="playlist-icon"><i class="fas fa-music"></i></div>
+                <h3>${playlist.name}</h3>
+                <p>Playlist • ${playlist.songs ? playlist.songs.length : 0} songs</p>
+            `;
+            playlistsGrid.appendChild(card);
+        });
+    }
 }
 
 function renderQueue() {
@@ -1179,6 +1199,14 @@ if (profileClickZone) {
 const createPlaylistBtn = document.getElementById('create-playlist-btn');
 if (createPlaylistBtn) {
     createPlaylistBtn.onclick = (e) => {
+        e.preventDefault();
+        openCreatePlaylistModal();
+    };
+}
+
+const createPlaylistMobileBtn = document.getElementById('create-playlist-mobile-btn');
+if (createPlaylistMobileBtn) {
+    createPlaylistMobileBtn.onclick = (e) => {
         e.preventDefault();
         openCreatePlaylistModal();
     };
