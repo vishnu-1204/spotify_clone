@@ -137,10 +137,10 @@ const trendingGrid = document.getElementById('trending-grid');
 const recommendedGrid = document.getElementById('recommended-grid');
 const likedGrid = document.getElementById('liked-grid');
 const loginBtn = document.querySelector('.login-btn');
-const navLinks = document.querySelectorAll('.nav-links a');
 const views = {
     home: document.getElementById('home-view'),
     library: document.getElementById('library-view'),
+    search: document.getElementById('search-view'),
     queue: document.getElementById('queue-view')
 };
 const queueToggle = document.getElementById('queue-toggle');
@@ -168,6 +168,20 @@ const userDisplayName = document.getElementById('user-display-name');
 const userAvatarLetter = document.getElementById('user-avatar-letter');
 const logoutBtn = document.getElementById('logout-btn');
 
+// Search Elements
+let searchViewInput, clearSearch, searchDefaultContent, searchResultsContent, topResultContainer, songsResultsContainer, artistsResultsGrid, browseGrid;
+
+function initSearchElements() {
+    searchViewInput = document.getElementById('search-view-input');
+    clearSearch = document.getElementById('clear-search');
+    searchDefaultContent = document.getElementById('search-default-content');
+    searchResultsContent = document.getElementById('search-results-content');
+    topResultContainer = document.getElementById('top-result-container');
+    songsResultsContainer = document.getElementById('songs-results-container');
+    artistsResultsGrid = document.getElementById('artists-results-grid');
+    browseGrid = document.getElementById('browse-grid');
+}
+
 // Advanced Controls
 const shuffleBtn = document.getElementById('shuffle');
 const repeatBtn = document.getElementById('repeat');
@@ -175,6 +189,40 @@ const heartBtn = document.querySelector('.current-song i');
 
 // Initialize
 async function init() {
+    initSearchElements();
+    setupSearchListeners();
+
+    // Sidebar Nav listeners
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const view = link.getAttribute('data-view');
+            if (view) {
+                switchView(view);
+                updateNavActiveStates(view);
+            }
+        });
+    });
+
+    // Mobile Nav listeners
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const view = link.getAttribute('data-view');
+            if (view) {
+                switchView(view);
+                updateNavActiveStates(view);
+                
+                // Focus search if Search is clicked
+                if (view === 'search' && searchViewInput) {
+                    setTimeout(() => searchViewInput.focus(), 100);
+                }
+            } else if (link.id === 'mobile-login') {
+                openModal(false);
+            }
+        });
+    });
+
     try {
         const configResponse = await fetch(`${API_URL}/api/config`);
         const config = await configResponse.json();
@@ -198,55 +246,77 @@ async function init() {
     updateControlUI();
     updateModalUI();
     
-    // Nav listeners
-    navLinks.forEach(link => {
-        link.onclick = (e) => {
-            e.preventDefault();
-            const view = link.innerText.toLowerCase().includes('library') ? 'library' : 'home';
-            switchView(view);
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-        };
-    });
 
-    // Mobile Nav listeners
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-    mobileNavLinks.forEach(link => {
-        link.onclick = (e) => {
-            e.preventDefault();
-            const view = link.getAttribute('data-view');
-            if (view) {
-                switchView(view);
-                mobileNavLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-                
-                // Focus search if Search is clicked
-                if (link.innerText.toLowerCase().includes('search')) {
-                    searchInput.focus();
-                }
 
-                // Update sidebar active state to match
-                navLinks.forEach(l => {
-                    const isLibrary = l.innerText.toLowerCase().includes('library');
-                    if ((view === 'library' && isLibrary) || (view === 'home' && !isLibrary)) {
-                        l.classList.add('active');
-                    } else {
-                        l.classList.remove('active');
-                    }
-                });
-            }
-        };
-    });
-
-    document.getElementById('mobile-login').onclick = (e) => {
-        e.preventDefault();
-        openModal(false);
-    };
-    
     queueToggle.onclick = () => {
         const isQueue = views.queue.style.display === 'flex' || views.queue.style.display === 'block';
         switchView(isQueue ? 'home' : 'queue');
     };
+}
+
+// Global Search Logic
+function handleSearchInput(e) {
+    const query = e.target.value.trim();
+    
+    // Sync both inputs
+    if (e.target === searchInput) {
+        if (searchViewInput) searchViewInput.value = query;
+    } else {
+        if (searchInput) searchInput.value = query;
+    }
+
+    // Toggle view if not already on search
+    if (query && views.search && views.search.style.display !== 'block') {
+        switchView('search');
+        updateNavActiveStates('search');
+    }
+
+    if (clearSearch) clearSearch.style.display = query ? 'block' : 'none';
+    
+    if (query) {
+        if (searchDefaultContent) searchDefaultContent.style.display = 'none';
+        if (searchResultsContent) {
+            searchResultsContent.style.display = 'block';
+            performSearch(query);
+        }
+    } else {
+        if (searchDefaultContent) searchDefaultContent.style.display = 'block';
+        if (searchResultsContent) searchResultsContent.style.display = 'none';
+    }
+}
+
+function updateNavActiveStates(viewName) {
+    document.querySelectorAll('.nav-links a').forEach(l => {
+        l.classList.toggle('active', l.getAttribute('data-view') === viewName);
+    });
+    document.querySelectorAll('.mobile-nav-link').forEach(ml => {
+        ml.classList.toggle('active', ml.getAttribute('data-view') === viewName);
+    });
+}
+
+function setupSearchListeners() {
+    if (searchInput) {
+        searchInput.addEventListener('input', handleSearchInput);
+        searchInput.addEventListener('focus', () => {
+            if (views.search.style.display !== 'block') {
+                switchView('search');
+                updateNavActiveStates('search');
+            }
+        });
+    }
+
+    if (searchViewInput) {
+        searchViewInput.addEventListener('input', handleSearchInput);
+    }
+
+    if (clearSearch) {
+        clearSearch.onclick = () => {
+            if (searchViewInput) searchViewInput.value = '';
+            if (searchInput) searchInput.value = '';
+            handleSearchInput({ target: searchViewInput });
+            searchViewInput.focus();
+        };
+    }
 }
 
 function renderSongs(songsToRender, container = trendingGrid, isSkeleton = false) {
@@ -322,7 +392,17 @@ function loadSong(song, shouldPlay = true) {
     }
 }
 
+function isUserLoggedIn() {
+    const user = JSON.parse(localStorage.getItem('spotify_user'));
+    return !!(user && user.isLoggedIn);
+}
+
 function selectSong(index) {
+    if (!isUserLoggedIn()) {
+        openModal(false);
+        return;
+    }
+    
     if (currentSongIndex === index) {
         togglePlay();
     } else {
@@ -335,6 +415,11 @@ function selectSong(index) {
 }
 
 function togglePlay() {
+    if (!isUserLoggedIn()) {
+        openModal(false);
+        return;
+    }
+
     if (isPlaying) {
         audio.pause();
         isPlaying = false;
@@ -370,6 +455,11 @@ function updatePlayPauseIcon() {
 }
 
 function nextSong() {
+    if (!isUserLoggedIn()) {
+        openModal(false);
+        return;
+    }
+
     if (repeatMode === 'one') {
         audio.currentTime = 0;
         audio.play();
@@ -389,6 +479,11 @@ function nextSong() {
 }
 
 function prevSong() {
+    if (!isUserLoggedIn()) {
+        openModal(false);
+        return;
+    }
+
     if (isShuffle) {
         currentSongIndex = Math.floor(Math.random() * songs.length);
     } else {
@@ -553,28 +648,126 @@ volumeBar.oninput = () => {
     updateSliderBackground(volumeBar, volumeBar.value);
 };
 
-searchInput.oninput = () => {
-    const filtered = getFilteredSongs();
-    const isSearching = searchInput.value.trim() !== '';
-    
-    // Toggle headers based on search state
-    document.querySelectorAll('.content-section .section-header').forEach(header => {
-        header.style.display = isSearching ? 'none' : 'flex';
+
+
+function performSearch(query) {
+    const searchTerm = query.toLowerCase();
+    const filtered = songs.filter(song => 
+        song.title.toLowerCase().includes(searchTerm) || 
+        song.artist.toLowerCase().includes(searchTerm)
+    );
+
+    if (filtered.length === 0) {
+        searchResultsContent.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h2>No results found for "${query}"</h2>
+                <p>Please check your spelling or try another search term.</p>
+            </div>`;
+        return;
+    }
+
+    // Restore structure if it was overwritten by no-results
+    if (!document.getElementById('top-result-container')) {
+        searchResultsContent.innerHTML = `
+            <div class="search-results-layout">
+                <div class="top-result-section">
+                    <h3>Top result</h3>
+                    <div id="top-result-container"></div>
+                </div>
+                <div class="songs-result-section">
+                    <div class="section-header">
+                        <h3>Songs</h3>
+                    </div>
+                    <div id="songs-results-container"></div>
+                </div>
+            </div>
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Artists</h2>
+                </div>
+                <div class="song-grid" id="artists-results-grid"></div>
+            </section>`;
+    }
+
+    renderSearchUI(filtered);
+}
+
+function renderSearchUI(results) {
+    const topResultCont = document.getElementById('top-result-container');
+    const songsCont = document.getElementById('songs-results-container');
+    const artistsCont = document.getElementById('artists-results-grid');
+
+    if (!topResultCont || !songsCont || !artistsCont) return;
+
+    // 1. Top Result
+    const topResult = results[0];
+    topResultCont.innerHTML = `
+        <div class="top-result-card" onclick="selectSong(${songs.indexOf(topResult)})">
+            <img src="${topResult.cover}" alt="${topResult.title}">
+            <h2>${topResult.title}</h2>
+            <div class="result-type">Song • ${topResult.artist}</div>
+            <div class="play-btn-large">
+                <i class="fas fa-play"></i>
+            </div>
+        </div>
+    `;
+
+    // 2. Songs
+    songsCont.innerHTML = '';
+    results.slice(0, 4).forEach(song => {
+        const item = document.createElement('div');
+        item.className = 'song-result-item';
+        item.onclick = () => selectSong(songs.indexOf(song));
+        item.innerHTML = `
+            <img src="${song.cover}" alt="${song.title}">
+            <div class="song-result-info">
+                <h4>${song.title}</h4>
+                <p>${song.artist}</p>
+            </div>
+            <span class="song-result-duration">3:45</span>
+        `;
+        songsCont.appendChild(item);
     });
 
-    if (filtered.length === 0 && isSearching) {
-        trendingGrid.innerHTML = `
-            <div class="no-results">
-                <i class="fas fa-search-minus"></i>
-                <p>No results found for "${searchInput.value}"</p>
-                <span>Please check your spelling or try another search term.</span>
-            </div>`;
-        recommendedGrid.innerHTML = '';
-    } else {
-        renderSongs(filtered.slice(0, 5), trendingGrid);
-        renderSongs(filtered.slice(5), recommendedGrid);
-    }
-};
+    // 3. Artists
+    const uniqueArtists = [...new Set(results.map(s => s.artist))];
+    artistsCont.innerHTML = '';
+    uniqueArtists.slice(0, 5).forEach(artistName => {
+        const artistSongs = songs.filter(s => s.artist === artistName);
+        const card = document.createElement('div');
+        card.className = 'song-card artist-card';
+        card.innerHTML = `
+            <img src="${artistSongs[0].cover}" alt="${artistName}" style="border-radius: 50%;">
+            <h3>${artistName}</h3>
+            <p>Artist</p>
+        `;
+        artistsCont.appendChild(card);
+    });
+}
+
+function renderBrowseGrid() {
+    const categories = [
+        { name: 'Podcasts', color: '#27856a', img: 'https://t.scdn.co/images/7262179da46543358f756041e8d9fd77.png' },
+        { name: 'Made For You', color: '#1e3264', img: 'https://t.scdn.co/images/ea016fe182974c05879796790b9687e3.png' },
+        { name: 'New Releases', color: '#e8115b', img: 'https://i.scdn.co/image/ab67706f000000027ea4d505212b8de1f72c5112' },
+        { name: 'Tamil', color: '#af2896', img: 'https://i.scdn.co/image/ab67fb8200005caf2964529f79e8557d1904a0cb' },
+        { name: 'Pop', color: '#148a08', img: 'https://i.scdn.co/image/ab67fb8200005caff22d3f7457715746b40e7914' },
+        { name: 'Hip-Hop', color: '#bc5900', img: 'https://i.scdn.co/image/ab67fb8200005caf37042f497f1f4562c15383f9' }
+    ];
+
+    browseGrid.innerHTML = '';
+    categories.forEach(cat => {
+        const card = document.createElement('div');
+        card.className = 'category-card';
+        card.style.backgroundColor = cat.color;
+        card.innerHTML = `
+            <h3>${cat.name}</h3>
+            <img src="${cat.img}" alt="${cat.name}">
+        `;
+        browseGrid.appendChild(card);
+    });
+}
 
 shuffleBtn.onclick = toggleShuffle;
 repeatBtn.onclick = toggleRepeat;
@@ -792,6 +985,8 @@ function switchView(viewName) {
         renderLibrary();
     } else if (viewName === 'queue') {
         renderQueue();
+    } else if (viewName === 'search') {
+        renderBrowseGrid();
     }
 }
 

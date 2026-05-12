@@ -18,9 +18,9 @@
                 <span>Spotify</span>
             </div>
             <nav class="nav-links">
-                <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
-                <a href="#"><i class="fas fa-search"></i> Search</a>
-                <a href="#"><i class="fas fa-book"></i> Your Library</a>
+                <a href="#" class="active" data-view="home"><i class="fas fa-home"></i> Home</a>
+                <a href="#" data-view="search"><i class="fas fa-search"></i> Search</a>
+                <a href="#" data-view="library"><i class="fas fa-book"></i> Your Library</a>
             </nav>
             <div class="sidebar-section">
                 <p class="section-title">Playlists</p>
@@ -32,7 +32,11 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="top-bar">
-                <div class="search-box">
+                <div class="top-bar-logo">
+                    <i class="fab fa-spotify"></i>
+                    <span>Spotify</span>
+                </div>
+                <div class="search-box" style="display: none;">
                     <i class="fas fa-search"></i>
                     <input type="text" id="search-input" placeholder="What do you want to listen to?">
                 </div>
@@ -88,6 +92,49 @@
                 </section>
             </div>
 
+            <div id="search-view" style="display: none;">
+                <div class="search-header">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-view-input" placeholder="What do you want to listen to?" autocomplete="off">
+                        <i class="fas fa-times" id="clear-search" style="display: none;"></i>
+                    </div>
+                </div>
+                
+                <div id="search-default-content">
+                    <section class="content-section">
+                        <div class="section-header">
+                            <h2>Browse all</h2>
+                        </div>
+                        <div class="browse-grid" id="browse-grid">
+                            <!-- Categories will be injected here -->
+                        </div>
+                    </section>
+                </div>
+
+                <div id="search-results-content" style="display: none;">
+                    <div class="search-results-layout">
+                        <div class="top-result-section">
+                            <h3>Top result</h3>
+                            <div id="top-result-container"></div>
+                        </div>
+                        <div class="songs-result-section">
+                            <div class="section-header">
+                                <h3>Songs</h3>
+                            </div>
+                            <div id="songs-results-container"></div>
+                        </div>
+                    </div>
+                    
+                    <section class="content-section">
+                        <div class="section-header">
+                            <h2>Artists</h2>
+                        </div>
+                        <div class="song-grid" id="artists-results-grid"></div>
+                    </section>
+                </div>
+            </div>
+
             <div id="queue-view" style="display: none;">
                 <section class="content-section">
                     <div class="section-header">
@@ -141,7 +188,7 @@
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        <a href="#" class="mobile-nav-link" data-view="home">
+        <a href="#" class="mobile-nav-link" data-view="search">
             <i class="fas fa-search"></i>
             <span>Search</span>
         </a>
@@ -202,21 +249,7 @@
         </div>
     </div>
 
-    <!-- Mobile Nav -->
-    <nav class="mobile-nav">
-        <a href="#" class="mobile-nav-link active" data-view="home">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
-        <a href="#" class="mobile-nav-link" data-view="home">
-            <i class="fas fa-search"></i>
-            <span>Search</span>
-        </a>
-        <a href="#" class="mobile-nav-link" data-view="library">
-            <i class="fas fa-book"></i>
-            <span>Library</span>
-        </a>
-    </nav>
+
 
     <script type="module" src="/app.js"></script>
 </body>
