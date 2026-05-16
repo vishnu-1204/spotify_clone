@@ -1,3 +1,4 @@
+console.log('APP.JS LOADED');
 let supabase = null;
 
 let currentUser = null;
@@ -117,14 +118,14 @@ const songs = [
     {
         id: 17,
         title: "Vechukkava Remix",
-        artist: "Various Artists",
+        artist: "Yuvan Shankar Raja",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574210/Vechukkava_Remix_jm8lmw.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575703/vechikkava_qq1q8o.jpg"
     },
     {
         id: 18,
         title: "Vizhi Veekura",
-        artist: "Various Artists",
+        artist: "Sai Abhyankkar",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574210/Vizhi_Veekura_q74hit.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575706/vizhi_veekra_nrdaey.jpg"
     },
@@ -222,7 +223,7 @@ const songs = [
     {
         id: 32,
         title: "En Moochum Venam",
-        artist: "Dharani Dharan",
+        artist: "Sudharshan M. Kumar",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574147/En-Moochum-Venam_lb06fe.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575689/en_moochum_venna_ymm0xc.jpg"
     },
@@ -288,8 +289,76 @@ const songs = [
         artist: "Anirudh Ravichander",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574099/Adaavadi_mtadlz.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575695/Love_insurance_company_baivy0.jpg"
+    },
+    {
+        id: 42,
+        title: "Vasantha Kaalangal",
+        artist: "Govind Vasantha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778923582/Vasantha_Kaalangal-MassTamilan.com_jrcsmd.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
+    },
+    {
+        id: 43,
+        title: "Kaathalae Kaathalae",
+        artist: "Govind Vasantha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778923580/Kaathalae_Kaathalae-MassTamilan.com_aw9fyt.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
+    },
+    {
+        id: 44,
+        title: "Thaabangale",
+        artist: "Govind Vasantha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778923578/Thaabangale-MassTamilan.com_niwrux.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
+    },
+    {
+        id: 45,
+        title: "The Life Of Ram",
+        artist: "Govind Vasantha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778923578/The_Life_Of_Ram-MassTamilan.com_froo2t.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
+    },
+    {
+        id: 46,
+        title: "Kaathalae Kaathalae (Duet)",
+        artist: "Govind Vasantha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778923569/Kaathalae_Kaathalae__Duet_-MassTamilan.com_phvu8u.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
+    },
+    {
+        id: 47,
+        title: "Iravingu Theevai",
+        artist: "Govind Vasantha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778923563/Iravingu_Theevai-MassTamilan.com_co9801.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
+    },
+    {
+        id: 48,
+        title: "Anthaathi",
+        artist: "Govind Vasantha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778923557/Anthaathi-MassTamilan.com_mral1g.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
     }
 ];
+window.songs = songs;
+
+const artistImages = {
+    "Vidyasagar": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922883/Vidyasagar_b7aewn.jpg",
+    "Teejay": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922883/Teejay_brgo91.jpg",
+    "Sudharshan M. Kumar": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922883/Sudharshan_M._Kumar_negc5k.jpg",
+    "Mani Sharma": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922883/Mani_Sharma_rr5c84.jpg",
+    "Sai Abhyankkar": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922883/Sai_Abhyankkar_trqoh0.jpg",
+    "G.V. Prakash Kumar": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/G.V.Prakash_Kumar_tx107w.jpg",
+    "G.V.Prakash Kumar": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/G.V.Prakash_Kumar_tx107w.jpg",
+    "Ghibran": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/Ghibran_jefucc.jpg",
+    "Harris Jayaraj": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/Harris_Jayaraj_i89u0u.jpg",
+    "A.R. Rahman": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/A.R.Rahman_x5trh2.jpg",
+    "A.R.Rahman": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/A.R.Rahman_x5trh2.jpg",
+    "Aniruth Ravichandar": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/Aniruth_Ravichander_vbtf0v.jpg",
+    "Anirudh Ravichander": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/Aniruth_Ravichander_vbtf0v.jpg",
+    "Yuvan Shankar Raja": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/Yuvan_Shankar_Raja_esvlor.jpg",
+    "Govind Vasantha": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923753/Govind_vasantha_dmo6zz.jpg"
+};
 
 let currentSongIndex = localStorage.getItem('lastSongIndex') ? parseInt(localStorage.getItem('lastSongIndex')) : 0;
 let isPlaying = false;
@@ -313,6 +382,26 @@ const searchInput = document.getElementById('search-input');
 const playPauseBtn = document.getElementById('play-pause');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
+const shuffleBtn = document.getElementById('shuffle');
+const repeatBtn = document.getElementById('repeat');
+const heartBtn = document.getElementById('heart-icon');
+
+// Expanded Player Elements
+const expandedPlayer = document.getElementById('mobile-expanded-player');
+const closeExpandedBtn = document.getElementById('close-expanded-player');
+const expandedImg = document.getElementById('expanded-player-img');
+const expandedTitle = document.getElementById('expanded-player-title');
+const expandedArtist = document.getElementById('expanded-player-artist');
+const expandedProgressBar = document.getElementById('expanded-progress-bar');
+const expandedCurrentTime = document.getElementById('expanded-current-time');
+const expandedDuration = document.getElementById('expanded-duration');
+const expandedPlayPauseBtn = document.getElementById('expanded-play-pause');
+const expandedNextBtn = document.getElementById('expanded-next');
+const expandedPrevBtn = document.getElementById('expanded-prev');
+const expandedShuffleBtn = document.getElementById('expanded-shuffle');
+const expandedRepeatBtn = document.getElementById('expanded-repeat');
+const expandedHeartBtn = document.getElementById('expanded-heart-icon');
+const expandedVolumeBar = document.getElementById('expanded-volume-bar');
 const progressBar = document.getElementById('progress-bar');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
@@ -379,13 +468,11 @@ function initSearchElements() {
     browseGrid = document.getElementById('browse-grid');
 }
 
-// Advanced Controls
-const shuffleBtn = document.getElementById('shuffle');
-const repeatBtn = document.getElementById('repeat');
-const heartBtn = document.querySelector('.current-song i');
+
 
 // Initialize
 async function init() {
+    console.log('INIT CALLED');
     initSearchElements();
     setupSearchListeners();
 
@@ -420,6 +507,21 @@ async function init() {
         });
     });
 
+    // Profile Dropdown Toggle
+    const profileClickZone = document.getElementById('profile-click-zone');
+    const userDropdownMenu = document.querySelector('.user-dropdown-menu');
+    if (profileClickZone && userDropdownMenu) {
+        profileClickZone.onclick = (e) => {
+            e.stopPropagation();
+            const isVisible = userDropdownMenu.style.display === 'block';
+            userDropdownMenu.style.display = isVisible ? 'none' : 'block';
+        };
+        
+        document.addEventListener('click', () => {
+            userDropdownMenu.style.display = 'none';
+        });
+    }
+
     // Initial render
     renderSongs(songs.slice(0, 5), trendingGrid, true);
     renderSongs(songs.slice(5), recommendedGrid, true);
@@ -442,13 +544,58 @@ async function init() {
     volumeBar.value = audio.volume * 100;
     updateControlUI();
     updateModalUI();
-    
-
+    initMobilePlayer();
 
     queueToggle.onclick = () => {
         const isQueue = views.queue.style.display === 'flex' || views.queue.style.display === 'block';
         switchView(isQueue ? 'home' : 'queue');
     };
+
+    // Restore main player bindings
+    if (playPauseBtn) playPauseBtn.onclick = togglePlay;
+    if (nextBtn) nextBtn.onclick = nextSong;
+    if (prevBtn) prevBtn.onclick = prevSong;
+
+    if (volumeBar) {
+        volumeBar.oninput = () => {
+            audio.volume = volumeBar.value / 100;
+            localStorage.setItem('volume', audio.volume);
+            updateSliderBackground(volumeBar, volumeBar.value);
+            if (expandedVolumeBar) {
+                expandedVolumeBar.value = volumeBar.value;
+                updateSliderBackground(expandedVolumeBar, volumeBar.value);
+            }
+        };
+    }
+
+    const addPlaylistMiniBtn = document.getElementById('add-to-playlist-mini');
+    if (addPlaylistMiniBtn) {
+        addPlaylistMiniBtn.onclick = () => {
+            const currentSong = currentQueue[currentSongIndex];
+            if (currentSong) {
+                openCreatePlaylistModal(currentSong.id);
+            }
+        };
+    }
+
+    if (progressBar) {
+        progressBar.addEventListener('input', () => {
+            isDragging = true;
+            updateSliderBackground(progressBar, progressBar.value);
+            if (audio.duration) {
+                currentTimeEl.innerText = formatTime((progressBar.value / 100) * audio.duration);
+            }
+        });
+        progressBar.addEventListener('change', () => {
+            isDragging = false;
+            if (audio.duration) {
+                audio.currentTime = (progressBar.value / 100) * audio.duration;
+            }
+        });
+    }
+
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', nextSong);
 }
 
 // Global Search Logic
@@ -572,6 +719,11 @@ function loadSong(song, shouldPlay = true) {
     playerArtist.innerText = song.artist;
     if (playerImg) playerImg.src = song.cover;
     
+    // Sync Mobile Expanded Player
+    if (expandedImg) expandedImg.src = song.cover;
+    if (expandedTitle) expandedTitle.innerText = song.title;
+    if (expandedArtist) expandedArtist.innerText = song.artist;
+
     audio.src = song.url;
     
     localStorage.setItem('lastSongIndex', currentSongIndex);
@@ -674,8 +826,12 @@ function updateActiveRowStates() {
     });
 }
 
+
+
 function updatePlayPauseIcon() {
-    playPauseBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+    const icon = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+    playPauseBtn.innerHTML = icon;
+    if (expandedPlayPauseBtn) expandedPlayPauseBtn.innerHTML = icon;
     playerTitle.style.color = isPlaying ? 'var(--accent-purple)' : 'var(--text-white)';
 }
 
@@ -728,23 +884,41 @@ function updateProgress() {
         progressBar.value = progressPercent;
         updateSliderBackground(progressBar, progressPercent);
         
+        if (expandedProgressBar) {
+            expandedProgressBar.value = progressPercent;
+            updateSliderBackground(expandedProgressBar, progressPercent);
+        }
+        
         currentTimeEl.innerText = formatTime(currentTime);
         durationEl.innerText = formatTime(duration);
+        
+        if (expandedCurrentTime) expandedCurrentTime.innerText = formatTime(currentTime);
+        if (expandedDuration) expandedDuration.innerText = formatTime(duration);
     }
 }
 
 function updateControlUI() {
-    shuffleBtn.style.color = isShuffle ? 'var(--accent-purple)' : 'var(--text-grey)';
+    const shuffleColor = isShuffle ? 'var(--accent-purple)' : 'var(--text-grey)';
+    shuffleBtn.style.color = shuffleColor;
+    if (expandedShuffleBtn) expandedShuffleBtn.style.color = shuffleColor;
     
-    if (repeatMode === 'none') {
-        repeatBtn.style.color = 'var(--text-grey)';
-        repeatBtn.innerHTML = '<i class="fas fa-redo"></i>';
-    } else if (repeatMode === 'all') {
-        repeatBtn.style.color = 'var(--accent-purple)';
-        repeatBtn.innerHTML = '<i class="fas fa-redo"></i>';
+    let repeatColor = 'var(--text-grey)';
+    let repeatIcon = '<i class="fas fa-redo"></i>';
+    let repeatIndicator = '';
+
+    if (repeatMode === 'all') {
+        repeatColor = 'var(--accent-purple)';
     } else if (repeatMode === 'one') {
-        repeatBtn.style.color = 'var(--accent-purple)';
-        repeatBtn.innerHTML = '<i class="fas fa-redo-alt"></i><span style="font-size: 8px; position: absolute; margin-top: 8px;">1</span>';
+        repeatColor = 'var(--accent-purple)';
+        repeatIcon = '<i class="fas fa-redo-alt"></i>';
+        repeatIndicator = '<span style="font-size: 8px; position: absolute; margin-top: 8px;">1</span>';
+    }
+    
+    repeatBtn.style.color = repeatColor;
+    repeatBtn.innerHTML = repeatIcon + repeatIndicator;
+    if (expandedRepeatBtn) {
+        expandedRepeatBtn.style.color = repeatColor;
+        expandedRepeatBtn.innerHTML = repeatIcon + repeatIndicator;
     }
 }
 
@@ -777,12 +951,15 @@ function toggleLike() {
 
 function updateHeartIcon() {
     const songId = currentQueue[currentSongIndex].id;
-    if (likedSongs.includes(songId)) {
-        heartBtn.className = 'fas fa-heart';
-        heartBtn.style.color = 'var(--accent-purple)';
-    } else {
-        heartBtn.className = 'far fa-heart';
-        heartBtn.style.color = 'var(--text-grey)';
+    const isLiked = likedSongs.includes(songId);
+    const color = isLiked ? 'var(--accent-purple)' : 'var(--text-grey)';
+    const className = isLiked ? 'fas fa-heart' : 'far fa-heart';
+    
+    heartBtn.className = className;
+    heartBtn.style.color = color;
+    if (expandedHeartBtn) {
+        expandedHeartBtn.className = className;
+        expandedHeartBtn.style.color = color;
     }
 }
 
@@ -829,12 +1006,13 @@ function renderPlaylists() {
     });
 }
 
-function openCreatePlaylistModal() {
+function openCreatePlaylistModal(songId = null) {
     if (!isUserLoggedIn()) {
         openModal(false);
         return;
     }
     playlistNameInput.value = '';
+    createPlaylistModal.dataset.songId = songId || '';
     createPlaylistModal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
     playlistNameInput.focus();
@@ -853,11 +1031,13 @@ if (createPlaylistForm) {
     createPlaylistForm.onsubmit = async (e) => {
         e.preventDefault();
         const name = playlistNameInput.value.trim();
+        const songIdToAutoAdd = createPlaylistModal.dataset.songId;
+
         if (name && currentUser) {
             const newPlaylist = {
                 user_id: currentUser.id,
                 name: name,
-                songs: []
+                songs: songIdToAutoAdd ? [parseInt(songIdToAutoAdd)] : []
             };
             
             const { data, error } = await supabase
@@ -875,6 +1055,11 @@ if (createPlaylistForm) {
                 renderPlaylists();
                 if (views.library && views.library.style.display === 'block') {
                     renderLibrary();
+                }
+                
+                if (songIdToAutoAdd) {
+                    const song = songs.find(s => s.id === parseInt(songIdToAutoAdd));
+                    if (song) alert(`Playlist created and "${song.title}" added!`);
                 }
             }
             closeCreatePlaylistModal();
@@ -1019,8 +1204,21 @@ function renderSearchUI(results) {
                 <h4>${song.title}</h4>
                 <p>${song.artist}</p>
             </div>
-            <span class="song-result-duration">3:45</span>
+            <span class="song-result-duration">--:--</span>
         `;
+        
+        const durationSpan = item.querySelector('.song-result-duration');
+        if (song.duration) {
+            durationSpan.innerText = song.duration;
+        } else {
+            const tempAudio = new Audio(song.url);
+            tempAudio.addEventListener('loadedmetadata', () => {
+                const formatted = formatTime(tempAudio.duration);
+                song.duration = formatted;
+                if (durationSpan) durationSpan.innerText = formatted;
+            });
+        }
+        
         songsCont.appendChild(item);
     });
 
@@ -1031,8 +1229,9 @@ function renderSearchUI(results) {
         const artistSongs = songs.filter(s => s.artist === artistName);
         const card = document.createElement('div');
         card.className = 'song-card artist-card';
+        const artistImg = artistImages[artistName] || artistSongs[0].cover;
         card.innerHTML = `
-            <img src="${artistSongs[0].cover}" alt="${artistName}" style="border-radius: 50%;">
+            <img src="${artistImg}" alt="${artistName}" style="border-radius: 50%; aspect-ratio: 1; object-fit: cover;">
             <h3>${artistName}</h3>
             <p>Artist</p>
         `;
@@ -1057,15 +1256,14 @@ function renderBrowseGrid() {
         card.style.backgroundColor = cat.color;
         card.innerHTML = `
             <h3>${cat.name}</h3>
-            <img src="${cat.img}" alt="${cat.name}">
         `;
         browseGrid.appendChild(card);
     });
 }
 
-shuffleBtn.onclick = toggleShuffle;
-repeatBtn.onclick = toggleRepeat;
-heartBtn.onclick = toggleLike;
+if (shuffleBtn) shuffleBtn.onclick = toggleShuffle;
+if (repeatBtn) repeatBtn.onclick = toggleRepeat;
+if (heartBtn) heartBtn.onclick = toggleLike;
 
 // Keyboard Shortcuts
 window.onkeydown = (e) => {
@@ -1222,8 +1420,8 @@ function showError(input, errorEl, message) {
     errorEl.style.display = 'block';
 }
 
-loginBtn.onclick = () => openModal(false);
-signupBtnHeader.onclick = () => openModal(true);
+if (loginBtn) loginBtn.onclick = () => openModal(false);
+if (signupBtnHeader) signupBtnHeader.onclick = () => openModal(true);
 
 closeLogin.onclick = () => {
     loginModal.style.display = 'none';
@@ -1336,8 +1534,17 @@ function renderLibrary() {
             const card = document.createElement('div');
             card.className = 'song-card playlist-card';
             card.onclick = () => renderPlaylistDetail(playlist.id);
+            
+            let playlistCover = '<div class="playlist-icon"><i class="fas fa-music"></i></div>';
+            if (playlist.songs && playlist.songs.length > 0) {
+                const firstSong = songs.find(s => s.id === playlist.songs[0]);
+                if (firstSong) {
+                    playlistCover = `<img src="${firstSong.cover}" alt="${playlist.name}" class="playlist-card-img" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:6px; margin-bottom:16px; box-shadow:0 8px 24px rgba(0,0,0,0.5);">`;
+                }
+            }
+            
             card.innerHTML = `
-                <div class="playlist-icon"><i class="fas fa-music"></i></div>
+                ${playlistCover}
                 <h3>${playlist.name}</h3>
                 <p>Playlist • ${playlist.songs ? playlist.songs.length : 0} songs</p>
             `;
@@ -1415,8 +1622,30 @@ window.openContextMenu = function(e, songId) {
     
     // Populate submenu
     contextPlaylistsSubmenu.innerHTML = '';
+    
+    // 1. Create New Playlist Option
+    const createItem = document.createElement('div');
+    createItem.className = 'context-menu-item create-new-option';
+    createItem.innerHTML = '<i class="fas fa-plus"></i> Create New Playlist';
+    createItem.onclick = (event) => {
+        event.stopPropagation();
+        openCreatePlaylistModal(contextSongId);
+        closeContextMenu();
+    };
+    contextPlaylistsSubmenu.appendChild(createItem);
+    
+    const divider = document.createElement('hr');
+    divider.className = 'context-divider';
+    contextPlaylistsSubmenu.appendChild(divider);
+
+    // 2. Existing Playlists
     if (playlists.length === 0) {
-        contextPlaylistsSubmenu.innerHTML = '<div class="context-menu-item" style="color:#757575;cursor:default;">No playlists</div>';
+        const noItem = document.createElement('div');
+        noItem.className = 'context-menu-item';
+        noItem.style.color = '#757575';
+        noItem.style.cursor = 'default';
+        noItem.innerText = 'No existing playlists';
+        contextPlaylistsSubmenu.appendChild(noItem);
     } else {
         playlists.forEach(p => {
             const item = document.createElement('div');
@@ -1465,6 +1694,19 @@ window.renderPlaylistDetail = function(playlistId) {
     
     switchView('playlistDetail');
     currentViewingPlaylistId = playlistId;
+
+    // Update Playlist Cover Image
+    const coverContainer = document.querySelector('.playlist-cover-large');
+    if (playlist.songs && playlist.songs.length > 0) {
+        const firstSong = songs.find(s => s.id === playlist.songs[0]);
+        if (firstSong) {
+            coverContainer.innerHTML = `<img src="${firstSong.cover}" alt="${playlist.name}" style="width:100%; height:100%; object-fit:cover; box-shadow: 0 4px 60px rgba(0,0,0,0.5);">`;
+        } else {
+            coverContainer.innerHTML = '<i class="fas fa-music"></i>';
+        }
+    } else {
+        coverContainer.innerHTML = '<i class="fas fa-music"></i>';
+    }
     
     // Reset inline search
     const inlineSearch = document.getElementById('playlist-inline-search');
@@ -1703,56 +1945,135 @@ mobileNavItems.forEach(item => {
 const renameBtn = document.getElementById('rename-playlist-btn');
 const deleteBtn = document.getElementById('delete-playlist-btn');
 
-if (renameBtn) {
-    renameBtn.onclick = async () => {
-        if (!currentViewingPlaylistId) return;
-        const playlist = playlists.find(p => p.id === currentViewingPlaylistId);
-        if (!playlist) return;
-        
-        const newName = prompt("Enter new name for playlist:", playlist.name);
-        if (newName && newName.trim() !== "" && newName !== playlist.name) {
-            const { error } = await supabase
-                .from('playlists')
-                .update({ name: newName.trim() })
-                .eq('id', playlist.id);
-                
-            if (!error) {
-                playlist.name = newName.trim();
-                document.getElementById('detail-playlist-title').innerText = playlist.name;
-                renderPlaylists();
-                if (views.library && views.library.style.display === 'block') {
-                    renderLibrary();
-                }
-            } else {
-                alert("Error renaming playlist: " + error.message);
+async function renameCurrentPlaylist() {
+    if (!currentViewingPlaylistId) return;
+    const playlist = playlists.find(p => p.id === currentViewingPlaylistId);
+    if (!playlist) return;
+    
+    const newName = prompt("Enter new name for playlist:", playlist.name);
+    if (newName && newName.trim() !== "" && newName !== playlist.name) {
+        const { error } = await supabase
+            .from('playlists')
+            .update({ name: newName.trim() })
+            .eq('id', playlist.id);
+            
+        if (!error) {
+            playlist.name = newName.trim();
+            document.getElementById('detail-playlist-title').innerText = playlist.name;
+            renderPlaylists();
+            if (views.library && views.library.style.display === 'block') {
+                renderLibrary();
             }
+        } else {
+            alert("Error renaming playlist: " + error.message);
         }
-    };
+    }
 }
 
-if (deleteBtn) {
-    deleteBtn.onclick = async () => {
-        if (!currentViewingPlaylistId) return;
-        const playlist = playlists.find(p => p.id === currentViewingPlaylistId);
-        if (!playlist) return;
-        
-        const confirmDelete = confirm(`Are you sure you want to delete "${playlist.name}"?`);
-        if (confirmDelete) {
-            const { error } = await supabase
-                .from('playlists')
-                .delete()
-                .eq('id', playlist.id);
-                
-            if (!error) {
-                playlists = playlists.filter(p => p.id !== playlist.id);
-                renderPlaylists();
-                if (views.library && views.library.style.display === 'block') {
-                    renderLibrary();
-                }
-                switchView('home'); // Redirect to home after delete
-            } else {
-                alert("Error deleting playlist: " + error.message);
-            }
-        }
-    };
+if (renameBtn) {
+    renameBtn.onclick = renameCurrentPlaylist;
 }
+
+const playlistTitle = document.getElementById('detail-playlist-title');
+if (playlistTitle) {
+    playlistTitle.style.cursor = 'pointer';
+    playlistTitle.title = 'Click to rename';
+    playlistTitle.onclick = renameCurrentPlaylist;
+    
+    playlistTitle.onmouseover = () => playlistTitle.style.color = 'var(--accent-purple)';
+    playlistTitle.onmouseout = () => playlistTitle.style.color = 'white';
+}
+
+
+// Initial load
+init();
+
+function initMobilePlayer() {
+    const miniPlayerInfo = document.querySelector('.current-song');
+    if (miniPlayerInfo) {
+        miniPlayerInfo.onclick = () => {
+            if (window.innerWidth <= 768) {
+                expandedPlayer.classList.add('active');
+                updateExpandedPlayerInfo();
+            }
+        };
+    }
+
+    if (closeExpandedBtn) {
+        closeExpandedBtn.onclick = (e) => {
+            e.stopPropagation();
+            expandedPlayer.classList.remove('active');
+        };
+    }
+
+    // Expanded Controls Binding
+    if (expandedPlayPauseBtn) expandedPlayPauseBtn.onclick = togglePlay;
+    if (expandedNextBtn) expandedNextBtn.onclick = nextSong;
+    if (expandedPrevBtn) expandedPrevBtn.onclick = prevSong;
+    if (expandedShuffleBtn) expandedShuffleBtn.onclick = toggleShuffle;
+    if (expandedRepeatBtn) expandedRepeatBtn.onclick = toggleRepeat;
+    if (expandedHeartBtn) expandedHeartBtn.onclick = toggleLike;
+
+    if (expandedProgressBar) {
+        expandedProgressBar.addEventListener('input', () => {
+            isDragging = true;
+            updateSliderBackground(expandedProgressBar, expandedProgressBar.value);
+            if (audio.duration) {
+                const seekTime = (expandedProgressBar.value / 100) * audio.duration;
+                if (expandedCurrentTime) expandedCurrentTime.innerText = formatTime(seekTime);
+            }
+        });
+        expandedProgressBar.addEventListener('change', () => {
+            isDragging = false;
+            if (audio.duration) {
+                audio.currentTime = (expandedProgressBar.value / 100) * audio.duration;
+            }
+        });
+    }
+
+    if (expandedVolumeBar) {
+        expandedVolumeBar.oninput = () => {
+            const val = expandedVolumeBar.value;
+            audio.volume = val / 100;
+            localStorage.setItem('volume', audio.volume);
+            updateSliderBackground(expandedVolumeBar, val);
+            // Sync with regular volume bar
+            if (volumeBar) {
+                volumeBar.value = val;
+                updateSliderBackground(volumeBar, val);
+            }
+        };
+    }
+}
+
+function updateExpandedPlayerInfo() {
+    const song = currentQueue[currentSongIndex];
+    if (!song) return;
+    if (expandedImg) expandedImg.src = song.cover;
+    if (expandedTitle) expandedTitle.innerText = song.title;
+    if (expandedArtist) expandedArtist.innerText = song.artist;
+    if (expandedDuration) expandedDuration.innerText = formatTime(audio.duration || 0);
+    updateHeartIcon();
+}
+
+// Initialize mobile player
+initMobilePlayer();
+
+// Initial load
+init();
+
+// Make functions global for onclick handlers in template strings
+window.selectSong = selectSong;
+window.openContextMenu = openContextMenu;
+window.renderPlaylistDetail = renderPlaylistDetail;
+window.openCreatePlaylistModal = openCreatePlaylistModal;
+window.switchView = switchView;
+window.renameCurrentPlaylist = renameCurrentPlaylist;
+window.togglePlay = togglePlay;
+window.nextSong = nextSong;
+window.prevSong = prevSong;
+window.toggleShuffle = toggleShuffle;
+window.toggleRepeat = toggleRepeat;
+window.toggleLike = toggleLike;
+window.openModal = openModal;
+window.addSongToPlaylist = addSongToPlaylist;

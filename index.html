@@ -88,7 +88,7 @@
                 <section class="content-section">
                     <div class="section-header">
                         <h2>Your Playlists</h2>
-                        <button class="create-playlist-mobile-btn" id="create-playlist-mobile-btn">
+                        <button class="create-playlist-mobile-btn" id="create-playlist-mobile-btn" title="Create Playlist">
                             <i class="fas fa-plus"></i>
                         </button>
                     </div>
@@ -157,16 +157,15 @@
                     </div>
                     <div class="playlist-info-large">
                         <span class="playlist-type-label">Playlist</span>
-                        <h1 id="detail-playlist-title">Playlist Name</h1>
+                        <div class="playlist-title-container" style="display: flex; align-items: center; gap: 16px;">
+                            <h1 id="detail-playlist-title" style="margin: 0;">Playlist Name</h1>
+                            <i class="fas fa-edit playlist-option-btn" id="rename-playlist-btn" title="Rename Playlist" style="font-size: 24px; cursor: pointer; color: var(--text-grey); transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-grey)'"></i>
+                        </div>
                         <p id="detail-playlist-count">0 songs</p>
                     </div>
                 </div>
                 <div class="playlist-action-bar">
                     <button class="play-btn-large" id="play-playlist-btn"><i class="fas fa-play"></i></button>
-                    <div class="playlist-options" style="display:flex; gap:16px; align-items:center; color: var(--text-grey); font-size: 24px; cursor: pointer;">
-                        <i class="fas fa-edit playlist-option-btn" id="rename-playlist-btn" title="Rename Playlist" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-grey)'"></i>
-                        <i class="fas fa-trash playlist-option-btn" id="delete-playlist-btn" title="Delete Playlist" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-grey)'"></i>
-                    </div>
                 </div>
                 <div class="playlist-table-container">
                     <div class="playlist-table-header">
@@ -205,7 +204,6 @@
                     <p id="player-title">Select a song</p>
                     <p id="player-artist">Unknown Artist</p>
                 </div>
-                <i class="far fa-heart"></i>
             </div>
 
             <div class="player-controls">
@@ -214,6 +212,8 @@
                     <button id="prev"><i class="fas fa-step-backward"></i></button>
                     <button id="play-pause" class="play-btn"><i class="fas fa-play"></i></button>
                     <button id="next"><i class="fas fa-step-forward"></i></button>
+                    <i class="far fa-heart" id="heart-icon"></i>
+                    <button id="add-to-playlist-mini" title="Add to Playlist"><i class="fas fa-plus-circle"></i></button>
                     <button id="repeat"><i class="fas fa-redo"></i></button>
                 </div>
                 <div class="progress-container">
@@ -350,6 +350,53 @@
         </a>
     </nav>
 
-    <script type="module" src="/app.js"></script>
+    <script type="module" src="/app.js?v=1.0.1"></script>
+    <!-- Mobile Expanded Player -->
+    <div class="mobile-expanded-player" id="mobile-expanded-player">
+        <div class="expanded-header">
+            <i class="fas fa-chevron-down" id="close-expanded-player"></i>
+            <span class="expanded-header-title">PLAYING FROM PLAYLIST</span>
+            <i class="fas fa-ellipsis-h"></i>
+        </div>
+        
+        <div class="expanded-content">
+            <div class="expanded-art">
+                <img id="expanded-player-img" src="" alt="Album Art">
+            </div>
+            
+            <div class="expanded-info">
+                <div class="expanded-text">
+                    <h2 id="expanded-player-title" class="marquee">Song Title</h2>
+                    <p id="expanded-player-artist">Artist Name</p>
+                </div>
+                <i class="far fa-heart expanded-heart" id="expanded-heart-icon"></i>
+            </div>
+            
+            <div class="expanded-progress">
+                <input type="range" id="expanded-progress-bar" class="progress-bar" value="0" min="0" max="100">
+                <div class="expanded-times">
+                    <span id="expanded-current-time">0:00</span>
+                    <span id="expanded-duration">0:00</span>
+                </div>
+            </div>
+            
+            <div class="expanded-controls">
+                <button id="expanded-shuffle" class="control-sub"><i class="fas fa-random"></i></button>
+                <button id="expanded-prev" class="control-main"><i class="fas fa-step-backward"></i></button>
+                <button id="expanded-play-pause" class="expanded-play-btn"><i class="fas fa-play"></i></button>
+                <button id="expanded-next" class="control-main"><i class="fas fa-step-forward"></i></button>
+                <button id="expanded-repeat" class="control-sub"><i class="fas fa-redo"></i></button>
+            </div>
+            
+            <div class="expanded-footer">
+                <i class="fas fa-desktop footer-icon"></i>
+                <div class="expanded-volume-container">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" id="expanded-volume-bar" class="volume-bar" value="100" min="0" max="100">
+                </div>
+                <i class="fas fa-share-alt footer-icon"></i>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
