@@ -76,6 +76,15 @@
                     </div>
                     <div class="song-grid" id="recommended-grid"></div>
                 </section>
+
+                <section class="content-section">
+                    <div class="section-header">
+                        <h2>Artists</h2>
+                    </div>
+                    <div class="artist-grid" id="artist-grid">
+                        <!-- Artists will be injected here -->
+                    </div>
+                </section>
             </div>
 
             <div id="library-view" style="display: none;">
@@ -119,12 +128,11 @@
                 <div id="search-results-content" style="display: none;">
                     <div class="search-results-layout">
                         <div class="top-result-section">
-                            <h3>Top result</h3>
                             <div id="top-result-container"></div>
                         </div>
                         <div class="songs-result-section">
                             <div class="section-header">
-                                <h3>Songs</h3>
+                                <h3>Top songs</h3>
                             </div>
                             <div id="songs-results-container"></div>
                         </div>
@@ -142,10 +150,23 @@
             <div id="queue-view" style="display: none;">
                 <section class="content-section">
                     <div class="section-header">
-                        <h2>Next Up</h2>
+                        <h2>Queue</h2>
                     </div>
-                    <div class="queue-list" id="queue-list">
-                        <!-- Queue items will be injected here -->
+                    
+                    <div class="queue-container">
+                        <div class="queue-section">
+                            <h3 class="queue-section-title">Now Playing</h3>
+                            <div id="now-playing-queue">
+                                <!-- Currently playing song will be injected here -->
+                            </div>
+                        </div>
+
+                        <div class="queue-section">
+                            <h3 class="queue-section-title">Next Up</h3>
+                            <div class="queue-list" id="queue-list">
+                                <!-- Queue items will be injected here -->
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -322,6 +343,10 @@
 
     <!-- Song Context Menu -->
     <div id="song-context-menu" class="context-menu" style="display: none;">
+        <div class="context-menu-item" id="context-add-to-queue">
+            <i class="fas fa-list-ul"></i>
+            <span>Add to Queue</span>
+        </div>
         <div class="context-menu-item has-submenu">
             <span>Add to Playlist</span>
             <i class="fas fa-caret-right"></i>
@@ -354,47 +379,59 @@
     <!-- Mobile Expanded Player -->
     <div class="mobile-expanded-player" id="mobile-expanded-player">
         <div class="expanded-header">
-            <i class="fas fa-chevron-down" id="close-expanded-player"></i>
-            <span class="expanded-header-title">PLAYING FROM PLAYLIST</span>
+            <i class="fas fa-arrow-left" id="close-expanded-player"></i>
+            <span class="expanded-header-title"></span>
             <i class="fas fa-ellipsis-h"></i>
         </div>
         
         <div class="expanded-content">
-            <div class="expanded-art">
-                <img id="expanded-player-img" src="" alt="Album Art">
-            </div>
-            
-            <div class="expanded-info">
-                <div class="expanded-text">
-                    <h2 id="expanded-player-title" class="marquee">Song Title</h2>
-                    <p id="expanded-player-artist">Artist Name</p>
+            <div class="expanded-player-main">
+                <div class="expanded-art">
+                    <img id="expanded-player-img" src="" alt="Album Art">
                 </div>
-                <i class="far fa-heart expanded-heart" id="expanded-heart-icon"></i>
-            </div>
-            
-            <div class="expanded-progress">
-                <input type="range" id="expanded-progress-bar" class="progress-bar" value="0" min="0" max="100">
-                <div class="expanded-times">
-                    <span id="expanded-current-time">0:00</span>
-                    <span id="expanded-duration">0:00</span>
+                
+                <div class="expanded-info">
+                    <div class="expanded-text">
+                        <h2 id="expanded-player-title" class="marquee">Song Title</h2>
+                        <p id="expanded-player-artist">Artist Name</p>
+                    </div>
+                    <i class="far fa-heart expanded-heart" id="expanded-heart-icon"></i>
+                </div>
+                
+                <div class="expanded-progress">
+                    <input type="range" id="expanded-progress-bar" class="progress-bar" value="0" min="0" max="100">
+                    <div class="expanded-times">
+                        <span id="expanded-current-time">0:00</span>
+                        <span id="expanded-duration">0:00</span>
+                    </div>
+                </div>
+                
+                <div class="expanded-controls">
+                    <button id="expanded-shuffle" class="control-sub"><i class="fas fa-random"></i></button>
+                    <button id="expanded-prev" class="control-main"><i class="fas fa-step-backward"></i></button>
+                    <button id="expanded-play-pause" class="expanded-play-btn"><i class="fas fa-play"></i></button>
+                    <button id="expanded-next" class="control-main"><i class="fas fa-step-forward"></i></button>
+                    <button id="expanded-repeat" class="control-sub"><i class="fas fa-redo"></i></button>
+                </div>
+                
+                <div class="expanded-footer">
+                    <div class="expanded-volume-container">
+                        <i class="fas fa-volume-down footer-icon"></i>
+                        <input type="range" id="expanded-volume-bar" class="volume-bar" value="100" min="0" max="100">
+                    </div>
+                    <i class="fas fa-list-ul footer-icon" id="expanded-queue-btn" title="Queue"></i>
                 </div>
             </div>
-            
-            <div class="expanded-controls">
-                <button id="expanded-shuffle" class="control-sub"><i class="fas fa-random"></i></button>
-                <button id="expanded-prev" class="control-main"><i class="fas fa-step-backward"></i></button>
-                <button id="expanded-play-pause" class="expanded-play-btn"><i class="fas fa-play"></i></button>
-                <button id="expanded-next" class="control-main"><i class="fas fa-step-forward"></i></button>
-                <button id="expanded-repeat" class="control-sub"><i class="fas fa-redo"></i></button>
-            </div>
-            
-            <div class="expanded-footer">
-                <i class="fas fa-desktop footer-icon"></i>
-                <div class="expanded-volume-container">
-                    <i class="fas fa-volume-up"></i>
-                    <input type="range" id="expanded-volume-bar" class="volume-bar" value="100" min="0" max="100">
+
+            <div class="artist-info-section">
+                <div class="artist-card-mobile">
+                    <img id="expanded-artist-img" src="" alt="Artist">
+                    <div class="artist-card-content">
+                        <h3>About the artist</h3>
+                        <p id="expanded-artist-name-large">Artist Name</p>
+                        <p class="artist-bio-preview">Verified Artist</p>
+                    </div>
                 </div>
-                <i class="fas fa-share-alt footer-icon"></i>
             </div>
         </div>
     </div>

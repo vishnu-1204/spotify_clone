@@ -132,7 +132,7 @@ const songs = [
     {
         id: 19,
         title: "Tamilselvi",
-        artist: "D. Imman",
+        artist: "Aniruth Ravichandar",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778574206/Tamilselvi_unayqn.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575700/remo_hhapeb.jpg"
     },
@@ -338,6 +338,27 @@ const songs = [
         artist: "Govind Vasantha",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778923557/Anthaathi-MassTamilan.com_mral1g.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
+    },
+    {
+        id: 49,
+        title: "God Mode",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778946944/God-Mode-MassTamilan.dev_tjd74u.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778947197/God_mode_x5spqs.jpg"
+    },
+    {
+        id: 50,
+        title: "Verappa (Extended)",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778946945/Verappa---Extended-MassTamilan.dev_x6zgaz.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778947198/verappa_extended_ysqcqj.webp"
+    },
+    {
+        id: 51,
+        title: "Raathu Raasan",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1778946943/Raathu-Raasan-MassTamilan.dev_s4vzcy.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778947198/Raathu_Raasan_cnze7s.jpg"
     }
 ];
 window.songs = songs;
@@ -370,6 +391,7 @@ let recentlyPlayed = JSON.parse(localStorage.getItem('recentlyPlayed')) || [];
 let playlists = []; // Will be loaded from Supabase database
 
 let currentQueue = songs;
+let manualQueue = JSON.parse(localStorage.getItem('manualQueue')) || [];
 let activePlaylistId = null;
 let currentViewingPlaylistId = null;
 let contextSongId = null;
@@ -377,6 +399,7 @@ const audio = new Audio();
 audio.volume = localStorage.getItem('volume') ? parseFloat(localStorage.getItem('volume')) : 0.8;
 
 // DOM Elements
+const artistGrid = document.getElementById('artist-grid');
 const songGrid = document.getElementById('song-grid');
 const searchInput = document.getElementById('search-input');
 const playPauseBtn = document.getElementById('play-pause');
@@ -397,6 +420,8 @@ const expandedCurrentTime = document.getElementById('expanded-current-time');
 const expandedDuration = document.getElementById('expanded-duration');
 const expandedPlayPauseBtn = document.getElementById('expanded-play-pause');
 const expandedNextBtn = document.getElementById('expanded-next');
+const expandedArtistImg = document.getElementById('expanded-artist-img');
+const expandedArtistNameLarge = document.getElementById('expanded-artist-name-large');
 const expandedPrevBtn = document.getElementById('expanded-prev');
 const expandedShuffleBtn = document.getElementById('expanded-shuffle');
 const expandedRepeatBtn = document.getElementById('expanded-repeat');
@@ -523,6 +548,7 @@ async function init() {
     }
 
     // Initial render
+    renderArtists();
     renderSongs(songs.slice(0, 5), trendingGrid, true);
     renderSongs(songs.slice(5), recommendedGrid, true);
 
@@ -550,6 +576,16 @@ async function init() {
         const isQueue = views.queue.style.display === 'flex' || views.queue.style.display === 'block';
         switchView(isQueue ? 'home' : 'queue');
     };
+
+    const addToQueueBtn = document.getElementById('context-add-to-queue');
+    if (addToQueueBtn) {
+        addToQueueBtn.onclick = () => {
+            if (contextSongId) {
+                addToQueue(contextSongId);
+                closeContextMenu();
+            }
+        };
+    }
 
     // Restore main player bindings
     if (playPauseBtn) playPauseBtn.onclick = togglePlay;
@@ -835,29 +871,7 @@ function updatePlayPauseIcon() {
     playerTitle.style.color = isPlaying ? 'var(--accent-purple)' : 'var(--text-white)';
 }
 
-function nextSong() {
-    if (!isUserLoggedIn()) {
-        openModal(false);
-        return;
-    }
 
-    if (repeatMode === 'one') {
-        audio.currentTime = 0;
-        audio.play();
-        return;
-    }
-
-    if (isShuffle) {
-        currentSongIndex = Math.floor(Math.random() * currentQueue.length);
-    } else {
-        currentSongIndex = (currentSongIndex + 1) % currentQueue.length;
-    }
-    
-    isPlaying = true;
-    loadSong(currentQueue[currentSongIndex]);
-    audio.play();
-    updatePlayPauseIcon();
-}
 
 function prevSong() {
     if (!isUserLoggedIn()) {
@@ -1151,7 +1165,6 @@ function performSearch(query) {
         searchResultsContent.innerHTML = `
             <div class="search-results-layout">
                 <div class="top-result-section">
-                    <h3>Top result</h3>
                     <div id="top-result-container"></div>
                 </div>
                 <div class="songs-result-section">
@@ -1169,30 +1182,58 @@ function performSearch(query) {
             </section>`;
     }
 
-    renderSearchUI(filtered);
+    renderSearchUI(filtered, query);
 }
 
-function renderSearchUI(results) {
+function renderSearchUI(results, query = '') {
     const topResultCont = document.getElementById('top-result-container');
     const songsCont = document.getElementById('songs-results-container');
     const artistsCont = document.getElementById('artists-results-grid');
+    const artistsSection = artistsCont ? artistsCont.closest('.content-section') : null;
 
-    if (!topResultCont || !songsCont || !artistsCont) return;
+    if (!topResultCont || !songsCont) return;
 
-    // 1. Top Result
-    const topResult = results[0];
-    topResultCont.innerHTML = `
-        <div class="top-result-card" onclick="selectSong(${songs.indexOf(topResult)})">
-            <img src="${topResult.cover}" alt="${topResult.title}">
-            <h2>${topResult.title}</h2>
-            <div class="result-type">Song • ${topResult.artist}</div>
-            <div class="play-btn-large">
-                <i class="fas fa-play"></i>
+    const searchTerm = query.toLowerCase();
+    const uniqueArtists = [...new Set(results.map(s => s.artist))];
+    
+    // Check if the search term specifically matches an artist
+    const matchingArtist = uniqueArtists.find(name => name.toLowerCase() === searchTerm);
+    
+    if (matchingArtist) {
+        // 1. Top Result is the Artist
+        const artistSongs = songs.filter(s => s.artist === matchingArtist);
+        const artistImg = artistImages[matchingArtist] || artistSongs[0].cover;
+        
+        topResultCont.innerHTML = `
+            <div class="top-result-card artist-top-result" style="cursor: default;">
+                <img src="${artistImg}" alt="${matchingArtist}" style="border-radius: 50%; aspect-ratio: 1; object-fit: cover;">
+                <h2>${matchingArtist}</h2>
+                <div class="result-type">Artist</div>
+                <div class="play-btn-large" onclick="selectSong(${songs.indexOf(artistSongs[0])})">
+                    <i class="fas fa-play"></i>
+                </div>
             </div>
-        </div>
-    `;
+        `;
+        
+        // Hide bottom artists section since it's now the top result
+        if (artistsSection) artistsSection.style.display = 'none';
+    } else {
+        // Default: Top Result is the first Song
+        const topResult = results[0];
+        topResultCont.innerHTML = `
+            <div class="top-result-card" onclick="selectSong(${songs.indexOf(topResult)})">
+                <img src="${topResult.cover}" alt="${topResult.title}">
+                <h2>${topResult.title}</h2>
+                <div class="result-type">Song • ${topResult.artist}</div>
+                <div class="play-btn-large">
+                    <i class="fas fa-play"></i>
+                </div>
+            </div>
+        `;
+        if (artistsSection) artistsSection.style.display = 'block';
+    }
 
-    // 2. Songs
+    // 2. Songs (Top songs)
     songsCont.innerHTML = '';
     results.slice(0, 4).forEach(song => {
         const item = document.createElement('div');
@@ -1222,21 +1263,22 @@ function renderSearchUI(results) {
         songsCont.appendChild(item);
     });
 
-    // 3. Artists
-    const uniqueArtists = [...new Set(results.map(s => s.artist))];
-    artistsCont.innerHTML = '';
-    uniqueArtists.slice(0, 5).forEach(artistName => {
-        const artistSongs = songs.filter(s => s.artist === artistName);
-        const card = document.createElement('div');
-        card.className = 'song-card artist-card';
-        const artistImg = artistImages[artistName] || artistSongs[0].cover;
-        card.innerHTML = `
-            <img src="${artistImg}" alt="${artistName}" style="border-radius: 50%; aspect-ratio: 1; object-fit: cover;">
-            <h3>${artistName}</h3>
-            <p>Artist</p>
-        `;
-        artistsCont.appendChild(card);
-    });
+    // 3. Artists (Bottom section - only if not already top result)
+    if (artistsCont && !matchingArtist) {
+        artistsCont.innerHTML = '';
+        uniqueArtists.slice(0, 5).forEach(artistName => {
+            const artistSongs = songs.filter(s => s.artist === artistName);
+            const card = document.createElement('div');
+            card.className = 'song-card artist-card';
+            const artistImg = artistImages[artistName] || artistSongs[0].cover;
+            card.innerHTML = `
+                <img src="${artistImg}" alt="${artistName}" style="border-radius: 50%; aspect-ratio: 1; object-fit: cover;">
+                <h3>${artistName}</h3>
+                <p>Artist</p>
+            `;
+            artistsCont.appendChild(card);
+        });
+    }
 }
 
 function renderBrowseGrid() {
@@ -1495,6 +1537,7 @@ function switchView(viewName) {
     if (views[viewName]) views[viewName].style.display = 'block';
     
     if (viewName === 'home') {
+        renderArtists();
         renderSongs(songs.slice(0, 5), trendingGrid);
         renderSongs(songs.slice(5), recommendedGrid);
     } else if (viewName === 'library') {
@@ -1504,6 +1547,40 @@ function switchView(viewName) {
     } else if (viewName === 'search') {
         renderBrowseGrid();
     }
+}
+
+function renderArtists() {
+    if (!artistGrid) return;
+    
+    // Get unique artists with their images
+    const artistNames = [...new Set(songs.map(s => s.artist))];
+    artistGrid.innerHTML = '';
+    
+    artistNames.slice(0, 6).forEach(name => {
+        const card = document.createElement('div');
+        card.className = 'artist-card';
+        
+        const artistSongs = songs.filter(s => s.artist === name);
+        const artistImg = artistImages[name] || artistSongs[0].cover;
+        
+        card.onclick = () => {
+            if (searchViewInput) {
+                searchViewInput.value = name;
+                const event = new Event('input', { bubbles: true });
+                searchViewInput.dispatchEvent(event);
+                switchView('search');
+            }
+        };
+
+        card.innerHTML = `
+            <div class="artist-img-wrapper">
+                <img src="${artistImg}" alt="${name}">
+            </div>
+            <h3>${name}</h3>
+            <p>Artist</p>
+        `;
+        artistGrid.appendChild(card);
+    });
 }
 
 function renderLibrary() {
@@ -1554,16 +1631,66 @@ function renderLibrary() {
 }
 
 function renderQueue() {
+    const nowPlayingCont = document.getElementById('now-playing-queue');
     queueList.innerHTML = '';
-    // Next 5 songs as queue
-    const queueItems = [];
-    for (let i = 1; i <= 5; i++) {
-        queueItems.push(songs[(currentSongIndex + i) % songs.length]);
-    }
+    nowPlayingCont.innerHTML = '';
     
-    queueItems.forEach((song, idx) => {
+    // Get currently playing song directly from player info if possible, 
+    // or fallback to currentQueue[currentSongIndex]
+    const currentSong = songs.find(s => s.title === playerTitle.innerText) || currentQueue[currentSongIndex];
+    
+    if (currentSong) {
+        const item = document.createElement('div');
+        item.className = 'queue-item now-playing-item';
+        item.innerHTML = `
+            <img src="${currentSong.cover}" alt="${currentSong.title}">
+            <div class="queue-info">
+                <h4>${currentSong.title}</h4>
+                <p>${currentSong.artist}</p>
+            </div>
+            <div class="queue-actions">
+                <i class="fas fa-volume-up" style="color: var(--accent-purple)"></i>
+            </div>
+        `;
+        nowPlayingCont.appendChild(item);
+    }
+
+    // Determine upcoming songs
+    // Spotify shows Manual Queue first, then the rest of the playlist/album
+    let upcoming = [];
+    
+    // 1. Manual Queue items that haven't been played yet
+    // (In this simple implementation, we'll just show manualQueue + remaining currentQueue)
+    manualQueue.forEach((songId, mIdx) => {
+        const song = songs.find(s => s.id === songId);
+        if (song) {
+            upcoming.push({ song, type: 'manual', index: mIdx });
+        }
+    });
+
+    // 2. Remaining songs in currentQueue (if any)
+    for (let i = currentSongIndex + 1; i < currentQueue.length; i++) {
+        upcoming.push({ song: currentQueue[i], type: 'auto', index: i });
+    }
+
+    if (upcoming.length === 0) {
+        queueList.innerHTML = '<p style="color: var(--text-grey); padding: 20px;">No upcoming songs</p>';
+        return;
+    }
+
+    upcoming.forEach((itemData, idx) => {
+        const { song, type, index } = itemData;
         const item = document.createElement('div');
         item.className = 'queue-item';
+        item.draggable = true;
+        
+        // Make the whole row clickable
+        item.onclick = (e) => {
+            // Don't trigger if clicking the remove button
+            if (e.target.closest('.remove-btn')) return;
+            playFromQueue(index, type);
+        };
+        
         item.innerHTML = `
             <span class="queue-index">${idx + 1}</span>
             <img src="${song.cover}" alt="${song.title}">
@@ -1571,10 +1698,126 @@ function renderQueue() {
                 <h4>${song.title}</h4>
                 <p>${song.artist}</p>
             </div>
+            <div class="queue-actions">
+                ${type === 'manual' ? `<button class="queue-action-btn remove-btn" onclick="removeFromManualQueue(${index}); event.stopPropagation();"><i class="fas fa-times" title="Remove from Queue"></i></button>` : ''}
+            </div>
         `;
+
+        // Change index to play icon on hover
+        item.onmouseenter = () => {
+            const idxEl = item.querySelector('.queue-index');
+            if (idxEl) idxEl.innerHTML = '<i class="fas fa-play" style="color: white; font-size: 12px;"></i>';
+        };
+        item.onmouseleave = () => {
+            const idxEl = item.querySelector('.queue-index');
+            if (idxEl) idxEl.innerText = idx + 1;
+        };
+
+        // Drag and Drop for manual reordering
+        if (type === 'manual') {
+            item.ondragstart = (e) => {
+                e.dataTransfer.setData('text/plain', index);
+                item.classList.add('dragging');
+                e.stopPropagation();
+            };
+            item.ondragend = () => item.classList.remove('dragging');
+            item.ondragover = (e) => e.preventDefault();
+            item.ondrop = (e) => {
+                e.preventDefault();
+                const fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
+                moveInManualQueue(fromIdx, index);
+            };
+        }
+
         queueList.appendChild(item);
     });
 }
+
+window.addToQueue = function(songId) {
+    const song = songs.find(s => s.id === songId);
+    if (song) {
+        manualQueue.push(songId);
+        localStorage.setItem('manualQueue', JSON.stringify(manualQueue));
+        alert(`"${song.title}" added to queue`);
+        if (views.queue.style.display === 'block') renderQueue();
+    }
+};
+
+window.removeFromManualQueue = function(index) {
+    manualQueue.splice(index, 1);
+    localStorage.setItem('manualQueue', JSON.stringify(manualQueue));
+    renderQueue();
+};
+
+window.moveInManualQueue = function(from, to) {
+    const item = manualQueue.splice(from, 1)[0];
+    manualQueue.splice(to, 0, item);
+    localStorage.setItem('manualQueue', JSON.stringify(manualQueue));
+    renderQueue();
+};
+
+window.playFromQueue = function(index, type) {
+    if (type === 'manual') {
+        const songId = manualQueue[index];
+        const song = songs.find(s => s.id === songId);
+        // Remove from manual queue and play
+        manualQueue.splice(index, 1);
+        localStorage.setItem('manualQueue', JSON.stringify(manualQueue));
+        
+        // Load and play
+        loadSong(song);
+        audio.play();
+        isPlaying = true;
+        updatePlayPauseIcon();
+    } else {
+        selectSong(index, activePlaylistId);
+    }
+    // Force immediate re-render to update 'Now Playing'
+    if (views.queue.style.display === 'block') renderQueue();
+};
+
+// Update nextSong to prioritize manualQueue
+function nextSong() {
+    if (!isUserLoggedIn()) {
+        openModal(false);
+        return;
+    }
+
+    if (repeatMode === 'one') {
+        audio.currentTime = 0;
+        audio.play();
+        return;
+    }
+
+    if (manualQueue.length > 0) {
+        const songId = manualQueue.shift();
+        localStorage.setItem('manualQueue', JSON.stringify(manualQueue));
+        const song = songs.find(s => s.id === songId);
+        if (song) {
+            loadSong(song);
+            audio.play();
+            isPlaying = true;
+            updatePlayPauseIcon();
+            if (views.queue.style.display === 'block') renderQueue();
+            return;
+        }
+    }
+
+    if (isShuffle) {
+        currentSongIndex = Math.floor(Math.random() * currentQueue.length);
+    } else {
+        currentSongIndex = (currentSongIndex + 1) % currentQueue.length;
+    }
+    
+    isPlaying = true;
+    loadSong(currentQueue[currentSongIndex]);
+    audio.play();
+    updatePlayPauseIcon();
+    if (views.queue.style.display === 'block') renderQueue();
+}
+
+// Make it global
+window.nextSong = nextSong;
 
 // Start the app
 init();
@@ -2032,6 +2275,10 @@ function initMobilePlayer() {
     }
 
     if (expandedVolumeBar) {
+        // Set initial background
+        updateSliderBackground(expandedVolumeBar, audio.volume * 100);
+        expandedVolumeBar.value = audio.volume * 100;
+
         expandedVolumeBar.oninput = () => {
             const val = expandedVolumeBar.value;
             audio.volume = val / 100;
@@ -2044,6 +2291,14 @@ function initMobilePlayer() {
             }
         };
     }
+
+    const expandedQueueBtn = document.getElementById('expanded-queue-btn');
+    if (expandedQueueBtn) {
+        expandedQueueBtn.onclick = () => {
+            expandedPlayer.classList.remove('active');
+            switchView('queue');
+        };
+    }
 }
 
 function updateExpandedPlayerInfo() {
@@ -2053,6 +2308,15 @@ function updateExpandedPlayerInfo() {
     if (expandedTitle) expandedTitle.innerText = song.title;
     if (expandedArtist) expandedArtist.innerText = song.artist;
     if (expandedDuration) expandedDuration.innerText = formatTime(audio.duration || 0);
+    
+    // Set Artist Info
+    if (expandedArtistImg) {
+        expandedArtistImg.src = artistImages[song.artist] || song.cover;
+    }
+    if (expandedArtistNameLarge) {
+        expandedArtistNameLarge.innerText = song.artist;
+    }
+    
     updateHeartIcon();
 }
 
