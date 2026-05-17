@@ -258,6 +258,80 @@
                 text-align: center;
             }
         }
+        /* Modal Overlay for Change Profile Photo */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #121212;
+            padding: 32px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 24px;
+            color: #b3b3b3;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .close-modal:hover {
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #727272;
+            background-color: #121212;
+            color: white;
+            font-size: 13px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--spotify-green);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -286,7 +360,12 @@
 
             <div class="profile-hero">
                 <div class="avatar-wrapper">
-                    <div id="display-avatar-letter" class="profile-letter-icon" style="width: 100%; height: 100%; font-size: 80px;">U</div>
+                    <img id="display-avatar-img" src="" alt="Avatar" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                    <div id="display-avatar-letter" class="profile-letter-icon" style="width: 100%; height: 100%; font-size: 80px; display: flex; align-items: center; justify-content: center; height: 100%;">U</div>
+                    <div class="avatar-overlay" id="avatar-overlay">
+                        <i class="fas fa-camera" style="font-size: 32px; color: white; margin-bottom: 8px;"></i>
+                        <span style="font-size: 14px; font-weight: 700; color: white; text-align: center;">Choose Photo</span>
+                    </div>
                 </div>
                 <div class="hero-info">
                     <p>Profile</p>
@@ -349,6 +428,38 @@
             </div>
         </main>
     </div>
+    
+    <!-- Avatar Edit Modal -->
+    <div class="modal-overlay" id="avatar-modal" style="display: none;">
+        <div class="modal-content" style="max-width: 400px; padding: 32px;">
+            <i class="fas fa-times close-modal" id="close-avatar-modal"></i>
+            <div class="modal-header" style="margin-bottom: 24px;">
+                <i class="fas fa-camera modal-logo" style="color: var(--spotify-green); font-size: 36px; margin-bottom: 12px; display: inline-block;"></i>
+                <h2 style="font-size: 22px; font-weight: 700; margin: 0; color: white;">Change Profile Photo</h2>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
+                <button type="button" id="avatar-file-trigger" class="btn-spotify" style="width: 100%; background-color: #282828; color: white; border: 1px solid #444; border-radius: 500px; padding: 12px; font-weight: 700; cursor: pointer; text-align: center; font-size: 14px;">
+                    <i class="fas fa-upload" style="margin-right: 8px;"></i> Upload Image File
+                </button>
+                <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
+                
+                <div id="avatar-preview-container" style="display: none; align-items: center; gap: 16px; margin-top: 8px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid #333;">
+                    <img id="avatar-preview-img" src="" alt="Preview" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--spotify-green);">
+                    <div style="flex-grow: 1;">
+                        <p style="margin: 0; font-size: 14px; font-weight: 700; color: white;">Preview</p>
+                        <p style="margin: 4px 0 0; font-size: 12px; color: #b3b3b3;">Ready to save</p>
+                    </div>
+                    <button type="button" id="avatar-preview-remove" style="background: transparent; border: none; color: #f15e6c; cursor: pointer; font-size: 14px;"><i class="fas fa-trash"></i></button>
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 8px;">
+                    <button type="button" id="avatar-remove-btn" class="btn-spotify btn-outline" style="flex: 1; border-radius: 500px; padding: 14px; font-weight: 700; cursor: pointer; margin-right: 0; display: none;">Remove Photo</button>
+                    <button type="button" id="avatar-save-btn" class="btn-spotify" style="flex: 1; border-radius: 500px; padding: 14px; font-weight: 700; cursor: pointer;">Save Photo</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="module">
         document.addEventListener('DOMContentLoaded', async () => {
@@ -399,10 +510,37 @@
                 });
                 const displayName = profileData.fullname || profileData.name || user.email.split('@')[0];
                 document.getElementById('display-fullname').innerText = displayName;
+                
+                const avatarImg = document.getElementById('display-avatar-img');
                 const avatarLetter = document.getElementById('display-avatar-letter');
-                if (avatarLetter) {
-                    avatarLetter.innerText = displayName.charAt(0).toUpperCase();
-                    avatarLetter.style.backgroundColor = getAvatarColor(displayName);
+                const avatarRemoveBtn = document.getElementById('avatar-remove-btn');
+                
+                const avatarUrl = profileData.avatar_url || profileData.photo_url;
+                
+                if (avatarUrl) {
+                    if (avatarImg) {
+                        avatarImg.src = avatarUrl;
+                        avatarImg.style.display = 'block';
+                    }
+                    if (avatarLetter) {
+                        avatarLetter.style.display = 'none';
+                    }
+                    if (avatarRemoveBtn) {
+                        avatarRemoveBtn.style.display = 'block';
+                    }
+                } else {
+                    if (avatarImg) {
+                        avatarImg.style.display = 'none';
+                        avatarImg.src = '';
+                    }
+                    if (avatarLetter) {
+                        avatarLetter.style.display = 'flex';
+                        avatarLetter.innerText = displayName.charAt(0).toUpperCase();
+                        avatarLetter.style.backgroundColor = getAvatarColor(displayName);
+                    }
+                    if (avatarRemoveBtn) {
+                        avatarRemoveBtn.style.display = 'none';
+                    }
                 }
             }
 
@@ -453,6 +591,166 @@
                     alert("Profile updated successfully!");
                 } catch (error) {
                     alert(error.message);
+                }
+            };
+
+            // --- AVATAR UPLOAD LOGIC ---
+            const avatarOverlay = document.getElementById('avatar-overlay');
+            const avatarModal = document.getElementById('avatar-modal');
+            const closeAvatarModal = document.getElementById('close-avatar-modal');
+            
+            const avatarFileTrigger = document.getElementById('avatar-file-trigger');
+            const avatarFileInput = document.getElementById('avatar-file-input');
+            
+            const avatarPreviewContainer = document.getElementById('avatar-preview-container');
+            const avatarPreviewImg = document.getElementById('avatar-preview-img');
+            const avatarPreviewRemove = document.getElementById('avatar-preview-remove');
+            
+            const avatarRemoveBtn = document.getElementById('avatar-remove-btn');
+            const avatarSaveBtn = document.getElementById('avatar-save-btn');
+            
+            let tempAvatarData = null; // Holds base64 or URL
+
+            // Open Modal
+            avatarOverlay.onclick = () => {
+                avatarModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                tempAvatarData = null;
+                avatarPreviewContainer.style.display = 'none';
+                avatarPreviewImg.src = '';
+                
+                // Show remove button only if there's already an active avatar
+                const currentAvatar = profileData.avatar_url || profileData.photo_url;
+                if (currentAvatar) {
+                    avatarRemoveBtn.style.display = 'block';
+                } else {
+                    avatarRemoveBtn.style.display = 'none';
+                }
+            };
+
+            // Close Modal
+            const closeModalFn = () => {
+                avatarModal.style.display = 'none';
+                document.body.style.overflow = '';
+            };
+            closeAvatarModal.onclick = closeModalFn;
+            window.addEventListener('click', (e) => {
+                if (e.target === avatarModal) closeModalFn();
+            });
+
+
+            // File upload trigger
+            avatarFileTrigger.onclick = () => {
+                avatarFileInput.click();
+            };
+
+            // Image center crop & compression to base64
+            function processImageFile(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            const size = Math.min(img.width, img.height);
+                            const targetSize = Math.min(size, 300); // Max 300px circular crop
+                            
+                            canvas.width = targetSize;
+                            canvas.height = targetSize;
+                            const ctx = canvas.getContext('2d');
+                            
+                            // Center crop coordinates
+                            const sx = (img.width - size) / 2;
+                            const sy = (img.height - size) / 2;
+                            
+                            ctx.drawImage(img, sx, sy, size, size, 0, 0, targetSize, targetSize);
+                            
+                            // Highly compressed JPEG to keep user metadata extremely lightweight
+                            const base64 = canvas.toDataURL('image/jpeg', 0.8);
+                            resolve(base64);
+                        };
+                        img.onerror = reject;
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            // File selection change
+            avatarFileInput.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    try {
+                        const base64 = await processImageFile(file);
+                        tempAvatarData = base64;
+                        avatarPreviewImg.src = base64;
+                        avatarPreviewContainer.style.display = 'flex';
+                    } catch (err) {
+                        alert("Failed to process image file: " + err.message);
+                    }
+                }
+            };
+
+            // Preview remove button
+            avatarPreviewRemove.onclick = () => {
+                tempAvatarData = null;
+                avatarPreviewContainer.style.display = 'none';
+                avatarPreviewImg.src = '';
+                avatarFileInput.value = '';
+            };
+
+            // Save Avatar to Supabase Auth metadata
+            avatarSaveBtn.onclick = async () => {
+                if (!tempAvatarData) {
+                    alert("Please select a file first.");
+                    return;
+                }
+
+                avatarSaveBtn.disabled = true;
+                avatarSaveBtn.innerText = "Saving...";
+
+                try {
+                    const { data, error } = await supabase.auth.updateUser({
+                        data: { avatar_url: tempAvatarData }
+                    });
+
+                    if (error) throw error;
+
+                    profileData.avatar_url = tempAvatarData;
+                    updateUI();
+                    alert("Profile photo updated successfully!");
+                    closeModalFn();
+                } catch (err) {
+                    alert("Failed to update profile photo: " + err.message);
+                } finally {
+                    avatarSaveBtn.disabled = false;
+                    avatarSaveBtn.innerText = "Save Photo";
+                }
+            };
+
+            // Remove Avatar (Revert to Initials)
+            avatarRemoveBtn.onclick = async () => {
+                avatarRemoveBtn.disabled = true;
+                avatarRemoveBtn.innerText = "Removing...";
+
+                try {
+                    const { data, error } = await supabase.auth.updateUser({
+                        data: { avatar_url: null }
+                    });
+
+                    if (error) throw error;
+
+                    profileData.avatar_url = null;
+                    profileData.photo_url = null;
+                    updateUI();
+                    alert("Profile photo removed successfully!");
+                    closeModalFn();
+                } catch (err) {
+                    alert("Failed to remove profile photo: " + err.message);
+                } finally {
+                    avatarRemoveBtn.disabled = false;
+                    avatarRemoveBtn.innerText = "Remove Photo";
                 }
             };
         });

@@ -1475,20 +1475,45 @@ function getAvatarColor(name) {
 }
 
 function setLoggedInUI(name) {
-    const user = JSON.parse(localStorage.getItem('spotify_user'));
     authButtons.style.display = 'none';
     userProfile.style.display = 'flex';
     userProfile.title = name || 'Premium User';
-    if (userAvatarLetter) {
-        const initial = (name || 'U').charAt(0).toUpperCase();
-        userAvatarLetter.innerText = initial;
-        userAvatarLetter.style.backgroundColor = getAvatarColor(name);
+    
+    const userAvatarImg = document.getElementById('user-avatar-img');
+    const avatarUrl = currentUser?.user_metadata?.avatar_url || currentUser?.user_metadata?.photo_url;
+    
+    if (avatarUrl) {
+        if (userAvatarImg) {
+            userAvatarImg.src = avatarUrl;
+            userAvatarImg.style.display = 'block';
+        }
+        if (userAvatarLetter) {
+            userAvatarLetter.style.display = 'none';
+        }
+    } else {
+        if (userAvatarImg) {
+            userAvatarImg.style.display = 'none';
+        }
+        if (userAvatarLetter) {
+            userAvatarLetter.style.display = 'flex';
+            const initial = (name || 'U').charAt(0).toUpperCase();
+            userAvatarLetter.innerText = initial;
+            userAvatarLetter.style.backgroundColor = getAvatarColor(name);
+        }
     }
 }
 
 function setLoggedOutUI() {
     if (authButtons) authButtons.style.display = 'flex';
     if (userProfile) userProfile.style.display = 'none';
+    const userAvatarImg = document.getElementById('user-avatar-img');
+    if (userAvatarImg) {
+        userAvatarImg.style.display = 'none';
+        userAvatarImg.src = '';
+    }
+    if (userAvatarLetter) {
+        userAvatarLetter.style.display = 'flex';
+    }
     localStorage.removeItem('spotify_user');
     localStorage.removeItem('spotify_token');
 }
