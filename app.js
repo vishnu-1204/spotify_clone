@@ -526,14 +526,14 @@ const songs = [
         title: "Maattikkichey Maattikkichey",
         artist: "Hip Hop Tamizha",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015728/Maattikkichey-Maattikkichey-MassTamilan.com_y0uiso.mp3",
-        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015935/pachaikilli_muthucharam_x7d2rd.jpg"
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779017330/kadhaipomma_kqmcso.jpg"
     },
     {
         id: 76,
         title: "Vaadi Pulla Vaadi",
         artist: "Hip Hop Tamizha",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015726/Vaadi_Pulla_Vaadi_PenduJatt.Com.Se_heghbr.mp3",
-        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Meesaya_murukku_lyq8tw.jpg"
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779017330/kadhaipomma_kqmcso.jpg"
     },
     {
         id: 77,
