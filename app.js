@@ -394,6 +394,195 @@ const songs = [
         artist: "Teejay",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779000191/Enaku-Oru-Aasai_orvypr.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779000149/ennaku_oru_aasa_g83ogg.jpg"
+    },
+    {
+        id: 57,
+        title: "Elangaathu Veesudhey",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015788/Elangaathu-Veesudhey_bnlu6q.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/elangathu_gghiqk.jpg"
+    },
+    {
+        id: 58,
+        title: "Kanmani Anbodu",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015788/Kanmani-Anbodu_qbfa3z.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/kanamani_anbodu_c6mzhr.jpg"
+    },
+    {
+        id: 59,
+        title: "Indha Maan Undhan",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015783/Indha_Maan_Undhan_tqbjpq.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/karakattakkaran_mzjyel.jpg"
+    },
+    {
+        id: 60,
+        title: "Panivizhum Iravu",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015782/Panivizhum_Iravu_vdzhn3.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Mouna_raagam_crhcns.jpg"
+    },
+    {
+        id: 61,
+        title: "Maanguyile Poonguyile",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015780/Maanguyile_Poonguyile_Duet_blxljq.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/karakattakkaran_mzjyel.jpg"
+    },
+    {
+        id: 62,
+        title: "Nilaave Vaa",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015774/Nilaave_Vaa_xsazzo.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Mouna_raagam_crhcns.jpg"
+    },
+    {
+        id: 63,
+        title: "Thendral Vanthu",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015770/Thendral_Vanthu_hdnx95.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015941/thendral_vandhu_h7jmuo.jpg"
+    },
+    {
+        id: 64,
+        title: "Oru Santhana Kaattu",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015765/Oru_Santhana_Kaattu_lc8jrd.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015935/oru_sandhana_kaatu_kullae_vplrub.jpg"
+    },
+    {
+        id: 65,
+        title: "Thenpaandi Cheemayile",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015765/Thenpaandi_Cheemayile_kf4f9v.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015921/nayakan_gmxu69.jpg"
+    },
+    {
+        id: 66,
+        title: "Sundari Kannal Oru Sethi",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015764/Sundari-Kannal_ubjv2s.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015936/thalapathy_rajini_movie_dm4qxl.jpg"
+    },
+    {
+        id: 67,
+        title: "Manjal Veyil",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015763/Manjal-Veiyil_ylvrn6.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015942/vettaiyaady_vilaiyaadu_t1rqoe.jpg"
+    },
+    {
+        id: 68,
+        title: "Rakkamma Kaiya Thattu",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015759/Rakkama-Kaiya-Thattu_isz7au.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015936/thalapathy_rajini_movie_dm4qxl.jpg"
+    },
+    {
+        id: 69,
+        title: "Nee Oru Kadhal Sangeetham",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015749/Nee_Oru_Kadhal_Sangeetham_tk2ci3.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015921/nayakan_gmxu69.jpg"
+    },
+    {
+        id: 70,
+        title: "Unakkul Naane",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015743/Unakkul-Naane-MassTamilan.dev_musk9s.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015935/pachaikilli_muthucharam_x7d2rd.jpg"
+    },
+    {
+        id: 71,
+        title: "Nila Adhu Vaanathu Mele",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015742/Nila_Adhu_Vaanathumele_baeqji.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015921/nayakan_gmxu69.jpg"
+    },
+    {
+        id: 72,
+        title: "Omana Penne",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015742/Omana-Penne_ghwukx.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492935/vtv_dvcusx.avif"
+    },
+    {
+        id: 73,
+        title: "Partha Mudhal Naale",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015737/Partha-Muthal_mbd08x.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015942/vettaiyaady_vilaiyaadu_t1rqoe.jpg"
+    },
+    {
+        id: 74,
+        title: "Kannukkul Kannai",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015728/Kannukkul-Kannai_vnqad4.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492935/vtv_dvcusx.avif"
+    },
+    {
+        id: 75,
+        title: "Maattikkichey Maattikkichey",
+        artist: "Hip Hop Tamizha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015728/Maattikkichey-Maattikkichey-MassTamilan.com_y0uiso.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015935/pachaikilli_muthucharam_x7d2rd.jpg"
+    },
+    {
+        id: 76,
+        title: "Vaadi Pulla Vaadi",
+        artist: "Hip Hop Tamizha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015726/Vaadi_Pulla_Vaadi_PenduJatt.Com.Se_heghbr.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Meesaya_murukku_lyq8tw.jpg"
+    },
+    {
+        id: 77,
+        title: "Madras To Madurai",
+        artist: "Hip Hop Tamizha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015722/Madras-To-Madurai-MassTamilan.fm_qobwkh.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015919/aambala_bipq4q.jpg"
+    },
+    {
+        id: 78,
+        title: "Adiye Sakkarakatti",
+        artist: "Hip Hop Tamizha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015721/Adiye-Sakkarakatti-MassTamilan.com_lnqgeg.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Meesaya_murukku_lyq8tw.jpg"
+    },
+    {
+        id: 79,
+        title: "Va Va Va Vannila",
+        artist: "Hip Hop Tamizha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015716/Va-Va-Va-Vannila-MassTamilan.fm_khhxzz.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015919/aambala_bipq4q.jpg"
+    },
+    {
+        id: 80,
+        title: "Oorum Blood",
+        artist: "Sai Abhyankkar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015714/Oorum_Blood_rnl58p.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492923/nallaru_po_lhvvgp.jpg"
+    },
+    {
+        id: 81,
+        title: "Aye Aye Aye",
+        artist: "Hip Hop Tamizha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015714/Aye-Aye-Aye-MassTamilan.fm_k3ahyz.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015919/aambala_bipq4q.jpg"
+    },
+    {
+        id: 82,
+        title: "Yaarenna Sonnalum",
+        artist: "Hip Hop Tamizha",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015711/Yaarenna-Sonnalum-MassTamilan.fm_imkde1.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015919/aambala_bipq4q.jpg"
+    },
+    {
+        id: 83,
+        title: "Kadhaippoma",
+        artist: "Leon James",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015710/Kadhaippoma-MassTamilan.io_gumffh.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779017330/kadhaipomma_kqmcso.jpg"
     }
 ];
 window.songs = songs;
@@ -414,7 +603,9 @@ const artistImages = {
     "Anirudh Ravichander": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/Aniruth_Ravichander_vbtf0v.jpg",
     "Yuvan Shankar Raja": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778922882/Yuvan_Shankar_Raja_esvlor.jpg",
     "Govind Vasantha": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923753/Govind_vasantha_dmo6zz.jpg",
-    "Hip Hop Tamizha": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779000542/HIp_Hop_Tamizha_f2mh81.jpg"
+    "Hip Hop Tamizha": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779000542/HIp_Hop_Tamizha_f2mh81.jpg",
+    "Ilaiyaraaja": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015919/illayaraja_fccdj5.jpg",
+    "Leon James": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/leon_james_jmflnp.jpg"
 };
 
 let currentSongIndex = localStorage.getItem('lastSongIndex') ? parseInt(localStorage.getItem('lastSongIndex')) : 0;
@@ -1707,7 +1898,7 @@ function renderArtists() {
     const artistNames = [...new Set(songs.map(s => s.artist))];
     artistGrid.innerHTML = '';
     
-    artistNames.slice(0, 6).forEach(name => {
+    artistNames.slice(0, 12).forEach(name => {
         const card = document.createElement('div');
         card.className = 'artist-card';
         
