@@ -496,7 +496,8 @@ const views = {
     library: document.getElementById('library-view'),
     search: document.getElementById('search-view'),
     queue: document.getElementById('queue-view'),
-    playlistDetail: document.getElementById('playlist-detail-view')
+    playlistDetail: document.getElementById('playlist-detail-view'),
+    profile: document.getElementById('profile-view')
 };
 const queueToggle = document.getElementById('queue-toggle');
 const queueList = document.getElementById('queue-list');
@@ -616,7 +617,17 @@ async function init() {
     }
 
     checkAuthState();
-    switchView('home');
+    
+    // Check initial URL hash for deep-link view
+    const initialHash = window.location.hash.replace('#', '');
+    const validViews = ['home', 'library', 'search', 'queue', 'playlistDetail', 'profile'];
+    let defaultView = 'home';
+    if (initialHash && validViews.includes(initialHash)) {
+        defaultView = initialHash;
+    }
+    history.replaceState({ view: defaultView, playlistId: currentViewingPlaylistId }, "", `#${defaultView}`);
+    switchView(defaultView, true);
+    
     renderPlaylists();
     loadSong(songs[currentSongIndex], false);
     updateSliderBackground(volumeBar, audio.volume * 100);
@@ -624,6 +635,7 @@ async function init() {
     updateControlUI();
     updateModalUI();
     initMobilePlayer();
+    initProfileController();
 
     queueToggle.onclick = () => {
         const isQueue = views.queue.style.display === 'flex' || views.queue.style.display === 'block';
@@ -1501,6 +1513,10 @@ function setLoggedInUI(name) {
             userAvatarLetter.style.backgroundColor = getAvatarColor(name);
         }
     }
+    
+    if (typeof renderProfileView === 'function') {
+        renderProfileView();
+    }
 }
 
 function setLoggedOutUI() {
@@ -1651,12 +1667,14 @@ logoutBtn && (logoutBtn.onclick = async (e) => {
     location.reload(); 
 });
 
-function switchView(viewName) {
+function switchView(viewName, isPopState = false) {
+    if (!views[viewName]) return;
+
     Object.keys(views).forEach(key => {
         if (views[key]) views[key].style.display = 'none';
     });
     
-    if (views[viewName]) views[viewName].style.display = 'block';
+    views[viewName].style.display = 'block';
     
     if (viewName === 'home') {
         renderArtists();
@@ -1668,6 +1686,17 @@ function switchView(viewName) {
         renderQueue();
     } else if (viewName === 'search') {
         renderBrowseGrid();
+    } else if (viewName === 'profile') {
+        if (typeof renderProfileView === 'function') {
+            renderProfileView();
+        }
+    }
+    
+    updateNavActiveStates(viewName);
+
+    // Push to native browser history stack if not triggered by back button popstate
+    if (!isPopState) {
+        history.pushState({ view: viewName, playlistId: currentViewingPlaylistId }, "", `#${viewName}`);
     }
 }
 
@@ -1944,10 +1973,392 @@ window.nextSong = nextSong;
 // Start the app
 init();
 
-// Profile Navigation Helper
-const profileClickZone = document.getElementById('profile-click-zone');
-if (profileClickZone) {
-    profileClickZone.onclick = () => window.location.href = 'profile.html';
+// Dynamic Premium Toast Success Notification (Non-blocking)
+function showSuccessNotification(message) {
+    let container = document.getElementById('spotify-toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'spotify-toast-container';
+        container.style.cssText = `
+            position: fixed;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        `;
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        background-color: #2e77d0;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        animation: toastFadeIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: opacity 0.3s;
+        text-align: center;
+    `;
+    toast.innerText = message;
+    
+    if (!document.getElementById('toast-animation-styles')) {
+        const style = document.createElement('style');
+        style.id = 'toast-animation-styles';
+        style.innerHTML = `
+            @keyframes toastFadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
+}
+
+// Render dynamic profile section values
+window.renderProfileView = function() {
+    if (!currentUser) return;
+    
+    const profileData = currentUser.user_metadata || {};
+    const fields = ['fullname', 'username', 'age', 'dob', 'gender', 'email', 'phone', 'address', 'country', 'bio'];
+    
+    fields.forEach(f => {
+        const viewEl = document.getElementById(`val-${f}`);
+        if (viewEl) {
+            if (f === 'email') {
+                viewEl.innerText = currentUser.email || 'Not Specified';
+            } else {
+                viewEl.innerText = profileData[f] || 'Not Specified';
+            }
+        }
+    });
+
+    const displayName = profileData.fullname || profileData.name || currentUser.email.split('@')[0];
+    const displayFullnameEl = document.getElementById('display-fullname');
+    if (displayFullnameEl) displayFullnameEl.innerText = displayName;
+    
+    const avatarImg = document.getElementById('display-avatar-img');
+    const avatarLetter = document.getElementById('display-avatar-letter');
+    const avatarRemoveBtn = document.getElementById('avatar-remove-btn');
+    
+    const avatarUrl = profileData.avatar_url || profileData.photo_url;
+    
+    if (avatarUrl) {
+        if (avatarImg) {
+            avatarImg.src = avatarUrl;
+            avatarImg.style.display = 'block';
+        }
+        if (avatarLetter) {
+            avatarLetter.style.display = 'none';
+        }
+        if (avatarRemoveBtn) {
+            avatarRemoveBtn.style.display = 'block';
+        }
+    } else {
+        if (avatarImg) {
+            avatarImg.style.display = 'none';
+            avatarImg.src = '';
+        }
+        if (avatarLetter) {
+            avatarLetter.style.display = 'flex';
+            avatarLetter.innerText = displayName.charAt(0).toUpperCase();
+            avatarLetter.style.backgroundColor = getAvatarColor(displayName);
+        }
+        if (avatarRemoveBtn) {
+            avatarRemoveBtn.style.display = 'none';
+        }
+    }
+};
+
+// Initialize Profile Controller Logic
+function initProfileController() {
+    const goToProfile = document.getElementById('go-to-profile');
+    if (goToProfile) {
+        goToProfile.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!currentUser) {
+                openModal(false);
+                return;
+            }
+            switchView('profile');
+            const userDropdownMenu = document.querySelector('.user-dropdown-menu');
+            if (userDropdownMenu) userDropdownMenu.style.display = 'none';
+        });
+    }
+
+    const goToSettings = document.getElementById('go-to-settings');
+    if (goToSettings) {
+        goToSettings.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!currentUser) {
+                openModal(false);
+                return;
+            }
+            switchView('profile');
+            const userDropdownMenu = document.querySelector('.user-dropdown-menu');
+            if (userDropdownMenu) userDropdownMenu.style.display = 'none';
+        });
+    }
+
+    const editBtn = document.getElementById('edit-profile-btn');
+    const saveBtn = document.getElementById('save-profile-btn');
+    const viewModes = document.querySelectorAll('#profile-view .view-mode');
+    const editInputs = document.querySelectorAll('#profile-view .edit-input');
+
+    if (editBtn && saveBtn) {
+        editBtn.onclick = () => {
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'block';
+            
+            viewModes.forEach(el => el.style.display = 'none');
+            editInputs.forEach(el => {
+                el.style.display = 'block';
+                const fieldId = el.id.replace('input-', '');
+                const profileData = currentUser?.user_metadata || {};
+                if (fieldId === 'email') {
+                    el.value = currentUser?.email || '';
+                    el.disabled = true;
+                } else {
+                    el.value = profileData[fieldId] || '';
+                }
+            });
+        };
+
+        saveBtn.onclick = async () => {
+            if (!currentUser) return;
+            const updatedData = {};
+            editInputs.forEach(el => {
+                const fieldId = el.id.replace('input-', '');
+                if (fieldId !== 'email') {
+                    updatedData[fieldId] = el.value;
+                }
+            });
+
+            saveBtn.disabled = true;
+            saveBtn.innerText = 'Saving...';
+
+            try {
+                const { data, error } = await supabase.auth.updateUser({
+                    data: updatedData
+                });
+
+                if (error) throw error;
+                
+                if (data && data.user) {
+                    currentUser = data.user;
+                } else {
+                    currentUser.user_metadata = { ...currentUser.user_metadata, ...updatedData };
+                }
+
+                showSuccessNotification('Profile updated successfully!');
+
+                editBtn.style.display = 'block';
+                saveBtn.style.display = 'none';
+                viewModes.forEach(el => el.style.display = 'block');
+                editInputs.forEach(el => el.style.display = 'none');
+                
+                const displayName = currentUser.user_metadata.fullname || currentUser.user_metadata.name || currentUser.email.split('@')[0];
+                setLoggedInUI(displayName);
+                renderProfileView();
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerText = 'Save Changes';
+            }
+        };
+    }
+
+    // --- AVATAR UPLOAD LOGIC ---
+    const avatarOverlay = document.getElementById('avatar-overlay');
+    const avatarModal = document.getElementById('avatar-modal');
+    const closeAvatarModal = document.getElementById('close-avatar-modal');
+    
+    const avatarFileTrigger = document.getElementById('avatar-file-trigger');
+    const avatarFileInput = document.getElementById('avatar-file-input');
+    
+    const avatarPreviewContainer = document.getElementById('avatar-preview-container');
+    const avatarPreviewImg = document.getElementById('avatar-preview-img');
+    const avatarPreviewRemove = document.getElementById('avatar-preview-remove');
+    
+    const avatarRemoveBtn = document.getElementById('avatar-remove-btn');
+    const avatarSaveBtn = document.getElementById('avatar-save-btn');
+    
+    let tempAvatarData = null;
+
+    if (avatarOverlay) {
+        avatarOverlay.onclick = () => {
+            if (!currentUser) {
+                openModal(false);
+                return;
+            }
+            avatarModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            tempAvatarData = null;
+            avatarPreviewContainer.style.display = 'none';
+            avatarPreviewImg.src = '';
+            if (avatarFileInput) avatarFileInput.value = '';
+            
+            const currentAvatar = currentUser?.user_metadata?.avatar_url || currentUser?.user_metadata?.photo_url;
+            if (currentAvatar) {
+                avatarRemoveBtn.style.display = 'block';
+            } else {
+                avatarRemoveBtn.style.display = 'none';
+            }
+        };
+    }
+
+    const closeModalFn = () => {
+        avatarModal.style.display = 'none';
+        document.body.style.overflow = '';
+    };
+
+    if (closeAvatarModal) closeAvatarModal.onclick = closeModalFn;
+    window.addEventListener('click', (e) => {
+        if (e.target === avatarModal) closeModalFn();
+    });
+
+    if (avatarFileTrigger && avatarFileInput) {
+        avatarFileTrigger.onclick = () => avatarFileInput.click();
+    }
+
+    function processImageFile(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const size = Math.min(img.width, img.height);
+                    const targetSize = Math.min(size, 300);
+                    
+                    canvas.width = targetSize;
+                    canvas.height = targetSize;
+                    const ctx = canvas.getContext('2d');
+                    
+                    const sx = (img.width - size) / 2;
+                    const sy = (img.height - size) / 2;
+                    
+                    ctx.drawImage(img, sx, sy, size, size, 0, 0, targetSize, targetSize);
+                    
+                    const base64 = canvas.toDataURL('image/jpeg', 0.8);
+                    resolve(base64);
+                };
+                img.onerror = reject;
+                img.src = e.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    if (avatarFileInput) {
+        avatarFileInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                try {
+                    const base64 = await processImageFile(file);
+                    tempAvatarData = base64;
+                    avatarPreviewImg.src = base64;
+                    avatarPreviewContainer.style.display = 'flex';
+                } catch (err) {
+                    alert("Failed to process image file: " + err.message);
+                }
+            }
+        };
+    }
+
+    if (avatarPreviewRemove) {
+        avatarPreviewRemove.onclick = () => {
+            tempAvatarData = null;
+            avatarPreviewContainer.style.display = 'none';
+            avatarPreviewImg.src = '';
+            if (avatarFileInput) avatarFileInput.value = '';
+        };
+    }
+
+    if (avatarSaveBtn) {
+        avatarSaveBtn.onclick = async () => {
+            if (!tempAvatarData) {
+                alert("Please select a file first.");
+                return;
+            }
+
+            avatarSaveBtn.disabled = true;
+            avatarSaveBtn.innerText = "Saving...";
+
+            try {
+                const { data, error } = await supabase.auth.updateUser({
+                    data: { avatar_url: tempAvatarData }
+                });
+
+                if (error) throw error;
+
+                if (data && data.user) {
+                    currentUser = data.user;
+                } else {
+                    currentUser.user_metadata.avatar_url = tempAvatarData;
+                }
+
+                showSuccessNotification('Profile photo saved!');
+                const displayName = currentUser?.user_metadata?.fullname || currentUser?.user_metadata?.name || currentUser?.email.split('@')[0];
+                setLoggedInUI(displayName);
+                renderProfileView();
+                closeModalFn();
+            } catch (err) {
+                alert("Failed to update profile photo: " + err.message);
+            } finally {
+                avatarSaveBtn.disabled = false;
+                avatarSaveBtn.innerText = "Save Photo";
+            }
+        };
+    }
+
+    if (avatarRemoveBtn) {
+        avatarRemoveBtn.onclick = async () => {
+            avatarRemoveBtn.disabled = true;
+            avatarRemoveBtn.innerText = "Removing...";
+
+            try {
+                const { data, error } = await supabase.auth.updateUser({
+                    data: { avatar_url: null, photo_url: null }
+                });
+
+                if (error) throw error;
+
+                if (data && data.user) {
+                    currentUser = data.user;
+                } else {
+                    currentUser.user_metadata.avatar_url = null;
+                    currentUser.user_metadata.photo_url = null;
+                }
+
+                showSuccessNotification('Profile photo removed!');
+                const displayName = currentUser?.user_metadata?.fullname || currentUser?.user_metadata?.name || currentUser?.email.split('@')[0];
+                setLoggedInUI(displayName);
+                renderProfileView();
+                closeModalFn();
+            } catch (err) {
+                alert("Failed to remove profile photo: " + err.message);
+            } finally {
+                avatarRemoveBtn.disabled = false;
+                avatarRemoveBtn.innerText = "Remove Photo";
+            }
+        };
+    }
 }
 
 const createPlaylistBtn = document.getElementById('create-playlist-btn');
@@ -2051,12 +2462,12 @@ async function addSongToPlaylist(songId, playlistId) {
         }
     }
 }
-window.renderPlaylistDetail = function(playlistId) {
+window.renderPlaylistDetail = function(playlistId, isPopState = false) {
     const playlist = playlists.find(p => p.id === playlistId);
     if (!playlist) return;
     
-    switchView('playlistDetail');
     currentViewingPlaylistId = playlistId;
+    switchView('playlistDetail', isPopState);
 
     // Update Playlist Cover Image
     const coverContainer = document.querySelector('.playlist-cover-large');
@@ -2466,6 +2877,19 @@ function updateExpandedPlayerInfo() {
     
     updateHeartIcon();
 }
+
+// Native Back/Forward Browser Button Event Listener
+window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.view) {
+        if (e.state.view === 'playlistDetail' && e.state.playlistId) {
+            renderPlaylistDetail(e.state.playlistId, true);
+        } else {
+            switchView(e.state.view, true);
+        }
+    } else {
+        switchView('home', true);
+    }
+});
 
 // Initialize mobile player
 initMobilePlayer();

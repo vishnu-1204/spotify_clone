@@ -53,8 +53,8 @@
                             <div id="user-avatar-letter" class="profile-letter-icon">U</div>
                         </div>
                         <div class="user-dropdown-menu">
-                            <a href="profile.html" class="dropdown-item" id="go-to-profile"><i class="fas fa-user"></i> Profile</a>
-                            <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#" class="dropdown-item" id="go-to-profile"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" class="dropdown-item" id="go-to-settings"><i class="fas fa-cog"></i> Settings</a>
                             <hr class="dropdown-divider">
                             <a href="#" id="logout-btn" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log out</a>
                         </div>
@@ -225,6 +225,85 @@
                 </div>
             </div>
 
+            <!-- Profile View (Dynamic SPA) -->
+            <div id="profile-view" style="display: none;">
+                <div class="edit-controls" style="display: flex; justify-content: flex-end; margin-bottom: 32px;">
+                    <div style="display: flex; gap: 12px;">
+                        <button id="edit-profile-btn" class="btn-spotify">Edit Profile</button>
+                        <button id="save-profile-btn" class="btn-spotify" style="display: none;">Save Changes</button>
+                    </div>
+                </div>
+                
+                <div class="profile-hero">
+                    <div class="avatar-wrapper">
+                        <img id="display-avatar-img" src="" alt="Avatar" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                        <div id="display-avatar-letter" class="profile-letter-icon" style="width: 100%; height: 100%; font-size: 80px; display: flex; align-items: center; justify-content: center; height: 100%;">U</div>
+                        <div class="avatar-overlay" id="avatar-overlay">
+                            <i class="fas fa-camera" style="font-size: 32px; color: white; margin-bottom: 8px;"></i>
+                            <span style="font-size: 14px; font-weight: 700; color: white; text-align: center;">Choose Photo</span>
+                        </div>
+                    </div>
+                    <div class="hero-info">
+                        <p>Profile</p>
+                        <h1 id="display-fullname">User Name</h1>
+                    </div>
+                </div>
+
+                <div class="details-grid" id="info-grid">
+                    <!-- Data Cards -->
+                    <div class="info-card">
+                        <h3>Full Name</h3>
+                        <span class="view-mode" id="val-fullname">John Doe</span>
+                        <input type="text" class="edit-input" id="input-fullname">
+                    </div>
+                    <div class="info-card">
+                        <h3>Username</h3>
+                        <span class="view-mode" id="val-username">johndoe123</span>
+                        <input type="text" class="edit-input" id="input-username">
+                    </div>
+                    <div class="info-card">
+                        <h3>Age</h3>
+                        <span class="view-mode" id="val-age">25</span>
+                        <input type="number" class="edit-input" id="input-age">
+                    </div>
+                    <div class="info-card">
+                        <h3>Date of Birth</h3>
+                        <span class="view-mode" id="val-dob">1999-01-01</span>
+                        <input type="date" class="edit-input" id="input-dob">
+                    </div>
+                    <div class="info-card">
+                        <h3>Gender</h3>
+                        <span class="view-mode" id="val-gender">Not Specified</span>
+                        <input type="text" class="edit-input" id="input-gender">
+                    </div>
+                    <div class="info-card">
+                        <h3>Email Address</h3>
+                        <span class="view-mode" id="val-email">john@example.com</span>
+                        <input type="email" class="edit-input" id="input-email">
+                    </div>
+                    <div class="info-card">
+                        <h3>Phone Number</h3>
+                        <span class="view-mode" id="val-phone">+1 234 567 890</span>
+                        <input type="tel" class="edit-input" id="input-phone">
+                    </div>
+                    <div class="info-card">
+                        <h3>Country</h3>
+                        <span class="view-mode" id="val-country">United States</span>
+                        <input type="text" class="edit-input" id="input-country">
+                    </div>
+                    <div class="info-card bio-card">
+                        <h3>Address</h3>
+                        <span class="view-mode" id="val-address">123 Music Lane, Audio City</span>
+                        <input type="text" class="edit-input" id="input-address">
+                    </div>
+                    <div class="info-card bio-card">
+                        <h3>Bio</h3>
+                        <p class="view-mode" id="val-bio">Music lover and coffee enthusiast. Living life one beat at a time.</p>
+                        <textarea class="edit-input" id="input-bio" rows="3" style="width: 100%; border-radius: 8px;"></textarea>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <!-- Player Bar -->
@@ -348,6 +427,38 @@
                     <span class="btn-text">Create</span>
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- Avatar Edit Modal -->
+    <div class="modal-overlay" id="avatar-modal" style="display: none;">
+        <div class="modal-content" style="max-width: 400px; padding: 32px;">
+            <i class="fas fa-times close-modal" id="close-avatar-modal"></i>
+            <div class="modal-header" style="margin-bottom: 24px;">
+                <i class="fas fa-camera modal-logo" style="color: #1DB954; font-size: 36px; margin-bottom: 12px; display: inline-block;"></i>
+                <h2 style="font-size: 22px; font-weight: 700; margin: 0; color: white;">Change Profile Photo</h2>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
+                <button type="button" id="avatar-file-trigger" class="btn-spotify" style="width: 100%; background-color: #282828; color: white; border: 1px solid #444; border-radius: 500px; padding: 12px; font-weight: 700; cursor: pointer; text-align: center; font-size: 14px;">
+                    <i class="fas fa-upload" style="margin-right: 8px;"></i> Upload Image File
+                </button>
+                <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
+                
+                <div id="avatar-preview-container" style="display: none; align-items: center; gap: 16px; margin-top: 8px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid #333;">
+                    <img id="avatar-preview-img" src="" alt="Preview" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #1DB954;">
+                    <div style="flex-grow: 1;">
+                        <p style="margin: 0; font-size: 14px; font-weight: 700; color: white;">Preview</p>
+                        <p style="margin: 4px 0 0; font-size: 12px; color: #b3b3b3;">Ready to save</p>
+                    </div>
+                    <button type="button" id="avatar-preview-remove" style="background: transparent; border: none; color: #f15e6c; cursor: pointer; font-size: 14px;"><i class="fas fa-trash"></i></button>
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 8px;">
+                    <button type="button" id="avatar-remove-btn" class="btn-spotify btn-outline" style="flex: 1; border-radius: 500px; padding: 14px; font-weight: 700; cursor: pointer; margin-right: 0; display: none;">Remove Photo</button>
+                    <button type="button" id="avatar-save-btn" class="btn-spotify" style="flex: 1; border-radius: 500px; padding: 14px; font-weight: 700; cursor: pointer;">Save Photo</button>
+                </div>
+            </div>
         </div>
     </div>
 
