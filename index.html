@@ -138,6 +138,13 @@
                         </div>
                     </div>
                     
+                    <section class="content-section" id="playlists-search-section" style="display: none;">
+                        <div class="section-header">
+                            <h2>Playlists</h2>
+                        </div>
+                        <div class="song-grid" id="playlists-results-grid"></div>
+                    </section>
+
                     <section class="content-section">
                         <div class="section-header">
                             <h2>Artists</h2>
@@ -188,17 +195,6 @@
                 <div class="playlist-action-bar">
                     <button class="play-btn-large" id="play-playlist-btn"><i class="fas fa-play"></i></button>
                 </div>
-                <div class="playlist-table-container">
-                    <div class="playlist-table-header">
-                        <div class="col-index">#</div>
-                        <div class="col-title">Title</div>
-                        <div class="col-album">Artist</div>
-                        <div class="col-duration"><i class="far fa-clock"></i></div>
-                    </div>
-                    <div class="playlist-tracks" id="playlist-tracks-container">
-                        <!-- Tracks injected here -->
-                    </div>
-                </div>
 
                 <div class="playlist-add-section">
                     <div class="playlist-add-header">
@@ -211,6 +207,18 @@
                     </div>
                     <div class="playlist-add-results" id="playlist-add-results">
                         <!-- Search results for adding songs will appear here -->
+                    </div>
+                </div>
+
+                <div class="playlist-table-container">
+                    <div class="playlist-table-header">
+                        <div class="col-index">#</div>
+                        <div class="col-title">Title</div>
+                        <div class="col-album">Artist</div>
+                        <div class="col-duration"><i class="far fa-clock"></i></div>
+                    </div>
+                    <div class="playlist-tracks" id="playlist-tracks-container">
+                        <!-- Tracks injected here -->
                     </div>
                 </div>
             </div>

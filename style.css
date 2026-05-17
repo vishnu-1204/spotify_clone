@@ -11,6 +11,17 @@
     --sidebar-width: 280px;
     --player-height: 90px;
     --glass-bg: rgba(18, 18, 18, 0.8);
+    
+    /* Customizable Spotify-style Progress Bar Variables */
+    --progress-bar-height: 4px;
+    --progress-bar-hover-height: 6px;
+    --progress-bar-bg: #4d4d4d;
+    --progress-bar-color: var(--accent-purple);
+    --progress-bar-hover-color: var(--accent-purple-hover);
+    --progress-thumb-size: 12px;
+    --progress-thumb-color: var(--text-white);
+    --progress-thumb-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    --progress-transition: all 0.1s ease-in-out;
 }
 
 * {
@@ -1087,30 +1098,57 @@ body {
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
-    height: 4px;
-    background: linear-gradient(to right, var(--accent-purple) 0%, #4d4d4d 0%);
-    border-radius: 2px;
+    height: var(--progress-bar-height);
+    background: linear-gradient(to right, var(--progress-bar-color) 0%, var(--progress-bar-bg) 0%);
+    border-radius: var(--progress-bar-radius, 2px);
     cursor: pointer;
     outline: none;
+    transition: var(--progress-transition);
 }
 
+/* Chrome, Safari, Opera and Edge Webkit */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    background: var(--text-white);
+    width: var(--progress-thumb-size);
+    height: var(--progress-thumb-size);
+    background: var(--progress-thumb-color);
     border-radius: 50%;
     display: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    box-shadow: var(--progress-thumb-shadow);
+    transition: var(--progress-transition);
 }
 
-.progress-container:hover input[type="range"]::-webkit-slider-thumb,
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: var(--progress-thumb-size);
+    height: var(--progress-thumb-size);
+    background: var(--progress-thumb-color);
+    border-radius: 50%;
+    border: none;
+    display: none;
+    box-shadow: var(--progress-thumb-shadow);
+    transition: var(--progress-transition);
+}
+
+/* Hover States for Desktop */
+.progress-container:hover input[type="range"] {
+    height: var(--progress-bar-hover-height);
+}
+
+.progress-container:hover input[type="range"]::-webkit-slider-thumb {
+    display: block;
+}
+
+.progress-container:hover input[type="range"]::-moz-range-thumb {
+    display: block;
+}
+
 .volume-controls:hover input[type="range"]::-webkit-slider-thumb {
     display: block;
 }
 
-.progress-container:hover input[type="range"] {
-    height: 6px;
+.volume-controls:hover input[type="range"]::-moz-range-thumb {
+    display: block;
 }
 
 .volume-controls {
@@ -1407,7 +1445,7 @@ input[type="range"]::-webkit-slider-thumb {
 
     .search-header {
         top: 70px; /* Offset for fixed mobile top bar */
-        background: var(--bg-dark); /* Solid background for sticky header in mobile */
+        background: transparent !important; /* Solid background for sticky header in mobile */
     }
 }
 
@@ -1614,13 +1652,10 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #search-view-input:focus {
-    background-color: #2a2a2a;
+    background-color: white;
+    color: black;
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-}
-
-#search-view-input::placeholder {
-    color: #757575;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Browse Grid */
@@ -2076,11 +2111,11 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .playlist-search-box input::placeholder {
-    color: #b3b3b3;
+    color: white;
 }
 
 .playlist-search-box i {
-    color: #b3b3b3;
+    color: white;
     font-size: 16px;
 }
 
@@ -2612,7 +2647,7 @@ input[type="range"]::-webkit-slider-thumb {
 
     .search-header {
         top: 0 !important;
-        background: #121212 !important;
+        background: transparent !important;
         z-index: 1000 !important;
         padding: 16px 0 !important;
     }
@@ -2805,5 +2840,28 @@ input[type="range"]::-webkit-slider-thumb {
     
     .artist-card {
         padding: 16px;
+    }
+
+    /* Mobile Range Inputs adjustments */
+    #expanded-progress-bar::-webkit-slider-thumb,
+    #expanded-volume-bar::-webkit-slider-thumb {
+        display: block !important;
+        width: 14px !important;
+        height: 14px !important;
+    }
+    #expanded-progress-bar::-moz-range-thumb,
+    #expanded-volume-bar::-moz-range-thumb {
+        display: block !important;
+        width: 14px !important;
+        height: 14px !important;
+    }
+    
+    #progress-bar::-webkit-slider-thumb,
+    #progress-bar::-moz-range-thumb {
+        display: none !important;
+    }
+    
+    .expanded-progress input[type="range"] {
+        height: 5px !important;
     }
 }
