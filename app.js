@@ -397,7 +397,7 @@ const songs = [
     },
     {
         id: 57,
-        title: "Elangaathu Veesudhey",
+        title: "Elangaathu",
         artist: "Ilaiyaraaja",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015788/Elangaathu-Veesudhey_bnlu6q.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/elangathu_gghiqk.jpg"
@@ -411,7 +411,7 @@ const songs = [
     },
     {
         id: 59,
-        title: "Indha Maan Undhan",
+        title: "Indha Maan",
         artist: "Ilaiyaraaja",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015783/Indha_Maan_Undhan_tqbjpq.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/karakattakkaran_mzjyel.jpg"
@@ -460,7 +460,7 @@ const songs = [
     },
     {
         id: 66,
-        title: "Sundari Kannal Oru Sethi",
+        title: "Sundari",
         artist: "Ilaiyaraaja",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015764/Sundari-Kannal_ubjv2s.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015936/thalapathy_rajini_movie_dm4qxl.jpg"
