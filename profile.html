@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile - Spotify</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="spotify.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -26,7 +27,7 @@
 
         .profile-container {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 1fr;
             height: 100vh;
         }
 
@@ -336,26 +337,16 @@
 </head>
 <body>
     <div class="profile-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <a href="index.html" class="sidebar-logo">
-                <i class="fab fa-spotify" style="color: #1DB954;"></i>
-                <span>Spotify</span>
-            </a>
-            <nav class="sidebar-nav">
-                <a href="index.html" class="nav-item"><i class="fas fa-home"></i> Home</a>
-                <a href="#" class="nav-item"><i class="fas fa-search"></i> Search</a>
-                <a href="#" class="nav-item"><i class="fas fa-book"></i> Your Library</a>
-                <a href="#" class="nav-item"><i class="fas fa-plus-square"></i> Create Playlist</a>
-                <a href="#" class="nav-item"><i class="fas fa-heart"></i> Liked Songs</a>
-            </nav>
-        </aside>
-
         <!-- Main Content -->
         <main class="main-content">
-            <div class="edit-controls">
-                <button id="edit-profile-btn" class="btn-spotify">Edit Profile</button>
-                <button id="save-profile-btn" class="btn-spotify" style="display: none;">Save Changes</button>
+            <div class="edit-controls" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                <a href="index.html" class="btn-spotify btn-outline" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 500px; padding: 12px 24px; font-size: 13px; font-weight: 700; border-color: rgba(255,255,255,0.3); color: white;">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <div style="display: flex; gap: 12px;">
+                    <button id="edit-profile-btn" class="btn-spotify">Edit Profile</button>
+                    <button id="save-profile-btn" class="btn-spotify" style="display: none;">Save Changes</button>
+                </div>
             </div>
 
             <div class="profile-hero">
@@ -588,7 +579,6 @@
                     viewModes.forEach(el => el.style.display = 'block');
                     editInputs.forEach(el => el.style.display = 'none');
                     updateUI();
-                    alert("Profile updated successfully!");
                 } catch (error) {
                     alert(error.message);
                 }
@@ -719,7 +709,6 @@
 
                     profileData.avatar_url = tempAvatarData;
                     updateUI();
-                    alert("Profile photo updated successfully!");
                     closeModalFn();
                 } catch (err) {
                     alert("Failed to update profile photo: " + err.message);
@@ -744,7 +733,6 @@
                     profileData.avatar_url = null;
                     profileData.photo_url = null;
                     updateUI();
-                    alert("Profile photo removed successfully!");
                     closeModalFn();
                 } catch (err) {
                     alert("Failed to remove profile photo: " + err.message);
