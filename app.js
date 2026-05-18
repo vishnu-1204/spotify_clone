@@ -526,14 +526,14 @@ const songs = [
         title: "Maattikkichey Maattikkichey",
         artist: "Hip Hop Tamizha",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015728/Maattikkichey-Maattikkichey-MassTamilan.com_y0uiso.mp3",
-        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779017330/kadhaipomma_kqmcso.jpg"
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Meesaya_murukku_lyq8tw.jpg"
     },
     {
         id: 76,
         title: "Vaadi Pulla Vaadi",
         artist: "Hip Hop Tamizha",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015726/Vaadi_Pulla_Vaadi_PenduJatt.Com.Se_heghbr.mp3",
-        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779017330/kadhaipomma_kqmcso.jpg"
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Meesaya_murukku_lyq8tw.jpg"
     },
     {
         id: 77,
@@ -615,14 +615,87 @@ let isShuffle = localStorage.getItem('isShuffle') === 'true';
 let repeatMode = localStorage.getItem('repeatMode') || 'none'; // none, one, all
 let likedSongs = JSON.parse(localStorage.getItem('likedSongs')) || [];
 let recentlyPlayed = JSON.parse(localStorage.getItem('recentlyPlayed')) || [];
-const defaultPlaylists = [
-    {
-        id: 'sys-96',
-        name: '96',
-        songs: [42, 43, 44, 45, 46, 47, 48],
-        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg",
-        isSystem: true
+const movieGroups = {
+    "Dude": {
+        songs: [1, 4, 80],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778493194/singari_z8iyj9.jpg"
     },
+    "Vinnaithaandi Varuvaayaa": {
+        songs: [5, 9, 10, 72, 74],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492935/vtv_dvcusx.avif"
+    },
+    "Anjaan": {
+        songs: [16, 20],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575685/anjaaan_ma4g3t.jpg"
+    },
+    "Remo": {
+        songs: [19, 22, 28],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575700/remo_hhapeb.jpg"
+    },
+    "24": {
+        songs: [24, 25],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575685/24_movie_lajq0z.jpg"
+    },
+    "Beast": {
+        songs: [33, 39],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575687/beast_oknbxc.jpg"
+    },
+    "Love Insurance Corporation": {
+        songs: [38, 40, 41],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575695/Love_insurance_company_baivy0.jpg"
+    },
+    "96": {
+        songs: [42, 43, 44, 45, 46, 47, 48],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923829/96_rif3wa.jpg"
+    },
+    "Verappa": {
+        songs: [12, 50],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778492934/verrappa_tnsnqq.jpg"
+    },
+    "Enaku Oru Aasai": {
+        songs: [54, 56],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779000149/ennaku_oru_aasa_g83ogg.jpg"
+    },
+    "Karakattakkaran": {
+        songs: [59, 61],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/karakattakkaran_mzjyel.jpg"
+    },
+    "Mouna Raagam": {
+        songs: [60, 62],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Mouna_raagam_crhcns.jpg"
+    },
+    "Thalapathy": {
+        songs: [66, 68],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015936/thalapathy_rajini_movie_dm4qxl.jpg"
+    },
+    "Nayakan": {
+        songs: [65, 69, 71],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015921/nayakan_gmxu69.jpg"
+    },
+    "Vettaiyaadu Vilaiyaadu": {
+        songs: [67, 73],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015942/vettaiyaady_vilaiyaadu_t1rqoe.jpg"
+    },
+    "Meesaya Murukku": {
+        songs: [75, 76, 78],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/Meesaya_murukku_lyq8tw.jpg"
+    },
+    "Aambala": {
+        songs: [77, 79, 81, 82],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015919/aambala_bipq4q.jpg"
+    }
+};
+
+const moviePlaylists = Object.entries(movieGroups).map(([movieName, config]) => ({
+    id: `sys-movie-${movieName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+    name: `${movieName} Movie Playlist`,
+    songs: config.songs,
+    cover: config.cover,
+    isSystem: true
+}));
+
+const defaultPlaylists = [
+    ...moviePlaylists,
     {
         id: 'sys-karuppu',
         name: 'Karuppu',
@@ -1285,6 +1358,7 @@ function renderPlaylists() {
     if (!playlistList) return;
     playlistList.innerHTML = '';
     playlists.forEach(playlist => {
+        if (playlist.id && playlist.id.startsWith('sys-movie-')) return;
         const a = document.createElement('a');
         a.href = '#';
         a.innerHTML = `<i class="fas fa-music"></i> ${playlist.name}`;
@@ -1925,6 +1999,8 @@ function renderArtists() {
     });
 }
 
+
+
 function renderLibrary() {
     const liked = songs.filter(s => likedSongs.includes(s.id));
     if (liked.length === 0) {
@@ -1938,9 +2014,9 @@ function renderLibrary() {
     } else {
         renderSongs(liked, likedGrid);
     }
-    
+    const nonMoviePlaylists = playlists.filter(p => !p.id || !p.id.startsWith('sys-movie-'));
     playlistsGrid.innerHTML = '';
-    if (playlists.length === 0) {
+    if (nonMoviePlaylists.length === 0) {
         playlistsGrid.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-music"></i>
@@ -1949,7 +2025,7 @@ function renderLibrary() {
             </div>
         `;
     } else {
-        playlists.forEach(playlist => {
+        nonMoviePlaylists.forEach(playlist => {
             const card = document.createElement('div');
             card.className = 'song-card playlist-card';
             card.onclick = () => renderPlaylistDetail(playlist.id);
