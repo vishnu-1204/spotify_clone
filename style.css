@@ -3146,10 +3146,84 @@ input[type="range"]::-moz-range-thumb {
 
 @media (max-width: 768px) {
     .bulk-delete-action-bar {
-        bottom: 145px; /* Positioned cleanly above mobile player (bottom: 65px + height: 64px = 129px) */
-        padding: 10px 20px;
-        gap: 12px;
-        width: 90%; /* Responsive sizing on mobile */
-        justify-content: space-between;
+        bottom: 140px;
+        padding: 10px 16px;
+        gap: 10px;
+        width: auto;
+        max-width: 92vw;
+        justify-content: center;
+        border-radius: 30px;
+        font-size: 13px;
+        /* Hide on mobile — replaced by inline bar */
+        display: none !important;
+    }
+
+    .bulk-delete-btn-delete,
+    .bulk-delete-btn-cancel {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
+
+    .bulk-delete-info {
+        font-size: 12px;
+    }
+}
+
+/* Mobile Inline Delete Bar */
+.mobile-inline-delete-bar {
+    display: none; /* hidden by default; JS controls visibility */
+}
+
+@media (max-width: 768px) {
+    .mobile-inline-delete-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 77, 77, 0.12);
+        border: 1px solid rgba(255, 77, 77, 0.3);
+        border-radius: 12px;
+        padding: 10px 14px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+    }
+
+    .mobile-inline-delete-bar span {
+        flex: 1;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .mobile-bulk-del-btn {
+        background: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 7px 14px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .mobile-bulk-del-btn:hover {
+        background: #ff2222;
+    }
+
+    .mobile-bulk-cancel-btn {
+        background: transparent;
+        color: #aaa;
+        border: 1px solid #555;
+        border-radius: 8px;
+        padding: 7px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .mobile-bulk-cancel-btn:hover {
+        color: white;
+        border-color: white;
     }
 }

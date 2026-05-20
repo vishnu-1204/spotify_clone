@@ -618,6 +618,440 @@ const songs = [
         artist: "Santhosh Narayanan",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779252506/VETRIVEL_gaf8uq.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252654/vetrivel_gmiucg.jpg"
+    },
+    {
+        id: 89,
+        title: "Naanum Rowdy Dhaan",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255357/Naanum-Rowdy-Dhaan_ydd2fe.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
+    },
+    {
+        id: 90,
+        title: "Neeyum Naanum",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255357/Neeyum-Naanum_dhdull.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
+    },
+    {
+        id: 91,
+        title: "Kannaane Kanne",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255356/Kannana-Kanne_reyvsy.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
+    },
+    {
+        id: 92,
+        title: "Thangamey",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255351/Thangame_b3hq1a.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
+    },
+    {
+        id: 93,
+        title: "Yennai Maatrum Kadhale",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255330/Yennai-Maatrum-Kadhale_d22sat.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
+    },
+    {
+        id: 94,
+        title: "Varavaa Varavaa",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255309/Varava-Varava_cydkzl.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
+    },
+    {
+        id: 95,
+        title: "Naa Pogiren",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255257/Nan-Pogiren_gjwm05.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naa_pogiren_pc3cd3.jpg"
+    },
+    {
+        id: 96,
+        title: "Madura Kulunga Kulunga",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255255/Madura_Kulunga_Kulunga_fgbcrc.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255413/subramaniapuram_km6pdw.jpg"
+    },
+    {
+        id: 97,
+        title: "Vaanam Mella",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255255/Vaanam-Mella_oep9km.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Neeethaane_En_Ponvasantham_udhw1q.jpg"
+    },
+    {
+        id: 98,
+        title: "Kangal Irandal",
+        artist: "James Vasanthan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255252/Kangal_Irandal_vfrkfa.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255413/subramaniapuram_km6pdw.jpg"
+    },
+    {
+        id: 99,
+        title: "Saayndhu Saayndhu",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255250/Saayndhu-Saayndhu_g4zqbj.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Neeethaane_En_Ponvasantham_udhw1q.jpg"
+    },
+    {
+        id: 100,
+        title: "Kanimaa",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255244/Kanimaa_xb0ldr.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Retro_bwg3v9.jpg"
+    },
+    {
+        id: 101,
+        title: "En Anbae En Anbae",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255241/En-Anbae-En-Anbae_oji3yc.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255403/mounam_pesiyathae_eomavd.jpg"
+    },
+    {
+        id: 102,
+        title: "The One",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255239/The_One_yqeo5q.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Retro_bwg3v9.jpg"
+    },
+    {
+        id: 103,
+        title: "Mun Paniyaa",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255237/Mun-Paniyaa_blaz5f.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/mun_paniya_klk3vt.jpg"
+    },
+    {
+        id: 104,
+        title: "Ennoda Vaa Vaa",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255233/Yennodu-Vaa-Vaa_ymc0s8.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Neeethaane_En_Ponvasantham_udhw1q.jpg"
+    },
+    {
+        id: 105,
+        title: "Mudhal Mazhai",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255231/Mudhal-Mazhai_sivo45.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255403/bheema_syzmil.jpg"
+    },
+    {
+        id: 106,
+        title: "Enadhuyire",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255229/Enadhuyirae_xyc7hb.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255403/bheema_syzmil.jpg"
+    },
+    {
+        id: 107,
+        title: "Sattru Munbu",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255228/Sattru-Munbu_aiprg8.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Neeethaane_En_Ponvasantham_udhw1q.jpg"
+    },
+    {
+        id: 108,
+        title: "Aadatha Aatamellam",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255223/Aadatha-Aatamellam_yvih4a.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255403/mounam_pesiyathae_eomavd.jpg"
+    },
+    {
+        id: 109,
+        title: "Kakidha Kappal",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263295/Kakidha-Kappal_pomq14.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263375/Madras_csxy7u.jpg"
+    },
+    {
+        id: 110,
+        title: "JD vs Bhavani",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263290/JD-vs-Bhavani-MassTamilan.io_j4jlsf.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 111,
+        title: "Kannadi Poove",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263289/Kannadi_Poove_ciuwon.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Retro_bwg3v9.jpg"
+    },
+    {
+        id: 112,
+        title: "Agayam Theepiditha",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263289/Agayam-Theepiditha_z6t7fk.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263375/Madras_csxy7u.jpg"
+    },
+    {
+        id: 113,
+        title: "What A Karavad",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263287/What_A_Karavad_yy7ynb.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263385/VIP_agocxs.jpg"
+    },
+    {
+        id: 114,
+        title: "Aasa Orave",
+        artist: "Sean Roldan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263287/Aasa_Orave_abfel9.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263372/lubber_pandhu_nlmqok.jpg"
+    },
+    {
+        id: 115,
+        title: "Yaar Azhaippadhu",
+        artist: "Ghibran",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263286/Yaar-Azhaippadhu-MassTamilan.fm_qgk2bj.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263389/Yaar_Azhaippathu_b03vkj.jpg"
+    },
+    {
+        id: 116,
+        title: "Yaar Azhaippadhu (Reprise)",
+        artist: "Ghibran",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263286/Yaar-Azhaippadhu-MassTamilan.fm_qgk2bj.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263389/Yaar_Azhaippathu_b03vkj.jpg"
+    },
+    {
+        id: 117,
+        title: "What A Karvaad Outro",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263275/What-A-Karvaad-_Outro_-MassTamilan.fm_gucw0z.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263385/VIP_agocxs.jpg"
+    },
+    {
+        id: 118,
+        title: "Velaiyilla Pattathari",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263272/Velaiyilla_Pattathari_Title_Song_fohmda.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263385/VIP_agocxs.jpg"
+    },
+    {
+        id: 119,
+        title: "Ussumu Laresay",
+        artist: "Vijay Antony",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263270/Ussumu-Laresay_z1ovyt.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263382/Uthama_Puthiran_ku0bum.jpg"
+    },
+    {
+        id: 120,
+        title: "Vaathi Kabaddi",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263270/Vaathi-Kabaddi-MassTamilan.io_xrc3a2.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 121,
+        title: "Pona Pogattum",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263263/Pona-Pogattum-Sad-MassTamilan.io_kpabd1.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 122,
+        title: "Po Indru Neeyaga",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263262/Po_Indru_Neeyaga_c0akus.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263385/VIP_agocxs.jpg"
+    },
+    {
+        id: 123,
+        title: "The Letter",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263262/The-Letter-MassTamilan.io_xlap7r.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 124,
+        title: "Naan Nee",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263257/Naan-Nee_bcz7d2.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263375/Madras_csxy7u.jpg"
+    },
+    {
+        id: 125,
+        title: "Mascara",
+        artist: "Vijay Antony",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263257/Mascara-Pottu_unrkpk.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779266529/mascara_lrglgv.jpg"
+    },
+    {
+        id: 126,
+        title: "Master The Blaster",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263253/Master-The-Blaster-MassTamilan.io_bc8wqb.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 127,
+        title: "Marandhu Poche",
+        artist: "Sean Roldan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263251/Marandhu_Poche_jrk4az.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263372/lubber_pandhu_nlmqok.jpg"
+    },
+    {
+        id: 128,
+        title: "Manmadhane Nee",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263249/Manmadhane_Nee_czzps2.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263377/Manmadhan_nnrpdl.jpg"
+    },
+    {
+        id: 129,
+        title: "Kan Irandil",
+        artist: "Vijay Antony",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263246/Kan-Irrandil_ywfgqh.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263382/Uthama_Puthiran_ku0bum.jpg"
+    },
+    {
+        id: 130,
+        title: "Madras",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263245/Madras_raahef.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263375/Madras_csxy7u.jpg"
+    },
+    {
+        id: 131,
+        title: "Kadhal Valarthen",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263243/Kadhal_Valarthen_ba21ml.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263377/Manmadhan_nnrpdl.jpg"
+    },
+    {
+        id: 132,
+        title: "Bhavani Theme",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263211/Bhavani-Theme-MassTamilan.io_hwipia.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 133,
+        title: "JD The Alcoholic",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263211/JD-The-Alcoholic-MassTamilan.io_jyum9c.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 134,
+        title: "Interval Fight",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263210/Interval-Fight-MassTamilan.io_m6sjob.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 135,
+        title: "Iraivanai Thandha Iraiviye",
+        artist: "Sean Roldan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263208/Iraivanai-Thandha-Iraiviye-MassTamilan.com_jnkjq6.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263370/Iraivani_thandha_iraiviyae_zi1obd.jpg"
+    },
+    {
+        id: 136,
+        title: "College Election",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263208/College-Election-MassTamilan.io_rnvy81.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 137,
+        title: "Jail Chaos",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263207/Jail-Chaos-MassTamilan.io_fbiyun.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 138,
+        title: "JD Intro",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263207/JD-Intro-MassTamilan.io_aamwqy.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 139,
+        title: "JD Badass Theme",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263202/JD-Badass-Theme-MassTamilan.io_ynlrh1.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 140,
+        title: "En Aasai Mythiliye",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263197/En_Aasai_Mythiliye_f1eqdo.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263377/Manmadhan_nnrpdl.jpg"
+    },
+    {
+        id: 141,
+        title: "I'm Waiting",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263196/I_m-Waiting-MassTamilan.io_jdnfet.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 142,
+        title: "Bucket List",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263192/Bucket-List-MassTamilan.io_ymdbgd.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 143,
+        title: "College Fight",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263191/College-Fight-MassTamilan.io_jmwy8u.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 144,
+        title: "Chillanjirukkiye",
+        artist: "Sean Roldan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263191/Chillanjirukkiye_q72emn.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263372/lubber_pandhu_nlmqok.jpg"
+    },
+    {
+        id: 145,
+        title: "Edharkaga Marubadi",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263191/Edharkaga_Marubadi_ucgi6q.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Retro_bwg3v9.jpg"
+    },
+    {
+        id: 146,
+        title: "Archery Fight",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263184/Archery-Fight-MassTamilan.io_gszlfk.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    {
+        id: 147,
+        title: "Amma Amma",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263184/Amma_Amma_x1iuxc.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263385/VIP_agocxs.jpg"
+    },
+    {
+        id: 148,
+        title: "Aiyo Kadhaley",
+        artist: "Sean Roldan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263182/Aiyo_Kadhaley_pgyvni.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263388/with_love_isinhc.jpg"
+    },
+    {
+        id: 149,
+        title: "Firangipani (Acoustic)",
+        artist: "Kaber Vasuki",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779266690/vidssave.com_Frangipani_Acoustic_128KBPS_v1u4yj.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779266801/Frangipani_ggonoc.jpg"
+    },
+    {
+        id: 150,
+        title: "Marakkavillayae",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779268227/Marakkavillayae-MassTamilan.org_vcogjg.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779268257/Marakkavilayae_gycpa9.jpg"
     }
 ];
 window.songs = songs;
@@ -643,7 +1077,11 @@ const artistImages = {
     "Leon James": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/leon_james_jmflnp.jpg",
     "Soolamangalam Sisters": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252850/soolamangalam_sisters_hisixr.jpg",
     "C. Sathya": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252847/c.sathya_ayqayo.jpg",
-    "Santhosh Narayanan": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252842/santhosh_narayanan_dwezed.jpg"
+    "Santhosh Narayanan": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252842/santhosh_narayanan_dwezed.jpg",
+    "James Vasanthan": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255599/James_Vasanthan_utgobo.jpg",
+    "Sean Roldan": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263434/sean_roldan_rrvvtz.jpg",
+    "Vijay Antony": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263442/vijay_antony_noxgrk.jpg",
+    "Kaber Vasuki": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263449/Kaber_vasuki_e8duyt.jpg"
 };
 
 let currentSongIndex = localStorage.getItem('lastSongIndex') ? parseInt(localStorage.getItem('lastSongIndex')) : 0;
@@ -733,6 +1171,74 @@ const movieGroups = {
     "Vetrivel": {
         songs: [88],
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252654/vetrivel_gmiucg.jpg"
+    },
+    "Naanum Rowdy Dhaan": {
+        songs: [89, 90, 91, 92, 93, 94],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
+    },
+    "Naa Pogiren": {
+        songs: [95],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naa_pogiren_pc3cd3.jpg"
+    },
+    "Bheema": {
+        songs: [105, 106],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255403/bheema_syzmil.jpg"
+    },
+    "Subramaniapuram": {
+        songs: [96, 98],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255413/subramaniapuram_km6pdw.jpg"
+    },
+    "Mounam Pesiyathae": {
+        songs: [101, 108],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255403/mounam_pesiyathae_eomavd.jpg"
+    },
+    "Neethaane En Ponvasantham": {
+        songs: [97, 99, 104, 107],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Neeethaane_En_Ponvasantham_udhw1q.jpg"
+    },
+    "Retro": {
+        songs: [100, 102],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Retro_bwg3v9.jpg"
+    },
+    "Mun Paniyaa": {
+        songs: [103],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/mun_paniya_klk3vt.jpg"
+    },
+    "Master": {
+        songs: [110, 121, 123, 126, 132, 133, 134, 136, 137, 138, 139, 141, 142, 143, 146],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263380/Master_fpeoew.jpg"
+    },
+    "Velaiilla Pattadhari": {
+        songs: [118, 122],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263385/VIP_agocxs.jpg"
+    },
+    "Yaar Azhaippathu": {
+        songs: [109, 113, 115, 116, 117],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263389/Yaar_Azhaippathu_b03vkj.jpg"
+    },
+    "Lubber Pandhu": {
+        songs: [114, 119, 120, 125, 127, 144],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263372/lubber_pandhu_nlmqok.jpg"
+    },
+    "Manmadhan": {
+        songs: [128, 131, 140],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263377/Manmadhan_nnrpdl.jpg"
+    },
+    "Madras": {
+        songs: [112, 124, 129, 130],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263375/Madras_csxy7u.jpg"
+    },
+    "Uthama Puthiran": {
+        songs: [111],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263382/Uthama_Puthiran_ku0bum.jpg"
+    },
+    "With Love": {
+        songs: [145, 147, 148],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263388/with_love_isinhc.jpg"
+    },
+    "Iraivani Thandha Iraiviyae": {
+        songs: [135],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263370/Iraivani_thandha_iraiviyae_zi1obd.jpg"
     }
 };
 
@@ -859,6 +1365,11 @@ const libraryBulkDeleteBar = document.getElementById('library-bulk-delete-bar');
 const bulkDeleteCountText = document.getElementById('bulk-delete-count-text');
 const bulkDeleteExecuteBtn = document.getElementById('bulk-delete-execute-btn');
 const bulkDeleteCancelBtn = document.getElementById('bulk-delete-cancel-btn');
+// Mobile inline delete bar
+const mobileInlineDeleteBar = document.getElementById('mobile-inline-delete-bar');
+const mobileBulkDeleteCount = document.getElementById('mobile-bulk-delete-count');
+const mobileBulkDeleteBtn = document.getElementById('mobile-bulk-delete-btn');
+const mobileBulkCancelBtn = document.getElementById('mobile-bulk-cancel-btn');
 
 // Search Elements
 let searchViewInput, clearSearch, searchDefaultContent, searchResultsContent, topResultContainer, songsResultsContainer, artistsResultsGrid, browseGrid;
@@ -3209,10 +3720,15 @@ function updateLibraryBulkDeleteBar() {
         if (libraryBulkDeleteBar) {
             libraryBulkDeleteBar.classList.add('active');
         }
+        // Mobile inline bar
+        if (mobileBulkDeleteCount) mobileBulkDeleteCount.innerText = `${selectedPlaylistsForDelete.length} selected`;
+        if (mobileInlineDeleteBar) mobileInlineDeleteBar.style.display = 'flex';
     } else {
         if (libraryBulkDeleteBar) {
             libraryBulkDeleteBar.classList.remove('active');
         }
+        // Hide mobile inline bar
+        if (mobileInlineDeleteBar) mobileInlineDeleteBar.style.display = 'none';
     }
 }
 
@@ -3278,6 +3794,19 @@ if (bulkDeleteCancelBtn) {
 
 if (bulkDeleteExecuteBtn) {
     bulkDeleteExecuteBtn.onclick = executeBulkDelete;
+}
+
+// Mobile inline delete bar handlers
+if (mobileBulkDeleteBtn) {
+    mobileBulkDeleteBtn.onclick = executeBulkDelete;
+}
+if (mobileBulkCancelBtn) {
+    mobileBulkCancelBtn.onclick = () => {
+        isLibraryDeleteModeActive = false;
+        selectedPlaylistsForDelete = [];
+        updateLibraryBulkDeleteBar();
+        renderLibrary();
+    };
 }
 
 

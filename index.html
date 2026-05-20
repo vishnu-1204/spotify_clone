@@ -103,13 +103,19 @@
                     <div class="section-header">
                         <h2>Your Playlists</h2>
                         <div class="playlist-header-actions" style="display: flex; gap: 12px; align-items: center;">
-                            <button id="library-select-delete-toggle" class="btn" title="Select & Delete Playlists" style="display: none; background: rgba(255,255,255,0.1); border: none; color: white; border-radius: 20px; padding: 6px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
-                                <i class="fas fa-check-square"></i> Select & Delete
+                            <button id="library-select-delete-toggle" class="btn" title="Select &amp; Delete Playlists" style="display: none; background: rgba(255,255,255,0.1); border: none; color: white; border-radius: 20px; padding: 6px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                                <i class="fas fa-check-square"></i> Select &amp; Delete
                             </button>
                             <button class="create-playlist-mobile-btn" id="create-playlist-mobile-btn" title="Create Playlist">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
+                    </div>
+                    <!-- Mobile inline delete action bar (shown inside header on mobile instead of floating bar) -->
+                    <div id="mobile-inline-delete-bar" class="mobile-inline-delete-bar" style="display:none;">
+                        <span id="mobile-bulk-delete-count">0 selected</span>
+                        <button id="mobile-bulk-delete-btn" class="mobile-bulk-del-btn">🗑 Delete</button>
+                        <button id="mobile-bulk-cancel-btn" class="mobile-bulk-cancel-btn">✕ Cancel</button>
                     </div>
                     <div class="song-grid" id="playlists-grid"></div>
                 </section>
