@@ -622,42 +622,42 @@ const songs = [
     {
         id: 89,
         title: "Naanum Rowdy Dhaan",
-        artist: "James Vasanthan",
+        artist: "Aniruth Ravichander",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255357/Naanum-Rowdy-Dhaan_ydd2fe.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
     },
     {
         id: 90,
         title: "Neeyum Naanum",
-        artist: "James Vasanthan",
+        artist: "Aniruth Ravichander",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255357/Neeyum-Naanum_dhdull.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
     },
     {
         id: 91,
         title: "Kannaane Kanne",
-        artist: "James Vasanthan",
+        artist: "Aniruth Ravichander",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255356/Kannana-Kanne_reyvsy.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
     },
     {
         id: 92,
         title: "Thangamey",
-        artist: "James Vasanthan",
+        artist: "Aniruth Ravichander",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255351/Thangame_b3hq1a.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
     },
     {
         id: 93,
         title: "Yennai Maatrum Kadhale",
-        artist: "James Vasanthan",
+        artist: "Aniruth Ravichander",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255330/Yennai-Maatrum-Kadhale_d22sat.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
     },
     {
         id: 94,
         title: "Varavaa Varavaa",
-        artist: "James Vasanthan",
+        artist: "Aniruth Ravichander",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779255309/Varava-Varava_cydkzl.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255404/naanum_rowdy_thaan_zucte7.jpg"
     },
