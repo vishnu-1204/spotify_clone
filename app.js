@@ -583,6 +583,41 @@ const songs = [
         artist: "Leon James",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779015710/Kadhaippoma-MassTamilan.io_gumffh.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779017330/kadhaipomma_kqmcso.jpg"
+    },
+    {
+        id: 84,
+        title: "Kandha Sasti Kavasam",
+        artist: "Soolamangalam Sisters",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779252547/Kandha_Sasti_Kavasam_mionrr.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252589/kandha_sasthi_kavasam_c70ok6.jpg"
+    },
+    {
+        id: 85,
+        title: "Kandhar Guru Kavasam",
+        artist: "Soolamangalam Sisters",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779252545/Kandhar_Guru_Kavasam_lddnog.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252588/kandha_guru_kavasam_nin28c.jpg"
+    },
+    {
+        id: 86,
+        title: "Seval Kodi",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779252523/Seval-Kodi-MassTamilan.fm_qlvq2n.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252589/seval_kodi_ii31ym.jpg"
+    },
+    {
+        id: 87,
+        title: "Theeyaga Thondri",
+        artist: "C. Sathya",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779252512/Theeyaga-Thondri-MassTamilan.fm_mhvij6.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252589/theeyaga_thondri_jlrwob.jpg"
+    },
+    {
+        id: 88,
+        title: "Vetrivel",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779252506/VETRIVEL_gaf8uq.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252654/vetrivel_gmiucg.jpg"
     }
 ];
 window.songs = songs;
@@ -605,7 +640,10 @@ const artistImages = {
     "Govind Vasantha": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778923753/Govind_vasantha_dmo6zz.jpg",
     "Hip Hop Tamizha": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779000542/HIp_Hop_Tamizha_f2mh81.jpg",
     "Ilaiyaraaja": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015919/illayaraja_fccdj5.jpg",
-    "Leon James": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/leon_james_jmflnp.jpg"
+    "Leon James": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015920/leon_james_jmflnp.jpg",
+    "Soolamangalam Sisters": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252850/soolamangalam_sisters_hisixr.jpg",
+    "C. Sathya": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252847/c.sathya_ayqayo.jpg",
+    "Santhosh Narayanan": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252842/santhosh_narayanan_dwezed.jpg"
 };
 
 let currentSongIndex = localStorage.getItem('lastSongIndex') ? parseInt(localStorage.getItem('lastSongIndex')) : 0;
@@ -683,6 +721,18 @@ const movieGroups = {
     "Aambala": {
         songs: [77, 79, 81, 82],
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779015919/aambala_bipq4q.jpg"
+    },
+    "Billa": {
+        songs: [86],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252589/seval_kodi_ii31ym.jpg"
+    },
+    "Aranmanai 3": {
+        songs: [87],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252589/theeyaga_thondri_jlrwob.jpg"
+    },
+    "Vetrivel": {
+        songs: [88],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252654/vetrivel_gmiucg.jpg"
     }
 };
 
@@ -701,6 +751,13 @@ const defaultPlaylists = [
         name: 'Karuppu',
         songs: [11, 12, 49, 50, 51],
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778493092/karrupu_kooda_va_pq84if.jpg",
+        isSystem: true
+    },
+    {
+        id: 'sys-kandha-devotional',
+        name: 'Soolamangalam Sisters Devotional',
+        songs: [84, 85],
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779252589/kandha_sasthi_kavasam_c70ok6.jpg",
         isSystem: true
     }
 ];
@@ -2030,8 +2087,8 @@ function renderLibrary() {
         renderSongs(liked, likedGrid);
     }
     
-    const nonMoviePlaylists = playlists.filter(p => !p.id || !String(p.id).startsWith('sys-movie-'));
-    const deletablePlaylists = nonMoviePlaylists.filter(p => !p.isSystem);
+    const userPlaylists = playlists.filter(p => !p.isSystem);
+    const deletablePlaylists = userPlaylists;
     
     // Toggle Select & Delete button visibility
     if (librarySelectDeleteToggle) {
@@ -2053,7 +2110,7 @@ function renderLibrary() {
     }
     
     playlistsGrid.innerHTML = '';
-    if (nonMoviePlaylists.length === 0) {
+    if (userPlaylists.length === 0) {
         playlistsGrid.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-music"></i>
@@ -2062,7 +2119,7 @@ function renderLibrary() {
             </div>
         `;
     } else {
-        nonMoviePlaylists.forEach(playlist => {
+        userPlaylists.forEach(playlist => {
             const card = document.createElement('div');
             
             // Check if card is system or custom
