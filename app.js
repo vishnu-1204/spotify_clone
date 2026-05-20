@@ -712,6 +712,8 @@ let manualQueue = JSON.parse(localStorage.getItem('manualQueue')) || [];
 let activePlaylistId = null;
 let currentViewingPlaylistId = null;
 let contextSongId = null;
+let isLibraryDeleteModeActive = false;
+let selectedPlaylistsForDelete = [];
 const audio = new Audio();
 audio.volume = localStorage.getItem('volume') ? parseFloat(localStorage.getItem('volume')) : 0.8;
 
@@ -794,6 +796,12 @@ const closePlaylistModal = document.getElementById('close-playlist-modal');
 const createPlaylistForm = document.getElementById('create-playlist-form');
 const playlistNameInput = document.getElementById('playlist-name');
 const playlistSubmit = document.getElementById('playlist-submit');
+const deletePlaylistBtn = document.getElementById('delete-playlist-btn');
+const librarySelectDeleteToggle = document.getElementById('library-select-delete-toggle');
+const libraryBulkDeleteBar = document.getElementById('library-bulk-delete-bar');
+const bulkDeleteCountText = document.getElementById('bulk-delete-count-text');
+const bulkDeleteExecuteBtn = document.getElementById('bulk-delete-execute-btn');
+const bulkDeleteCancelBtn = document.getElementById('bulk-delete-cancel-btn');
 
 // Search Elements
 let searchViewInput, clearSearch, searchDefaultContent, searchResultsContent, topResultContainer, songsResultsContainer, artistsResultsGrid, browseGrid;
@@ -1341,7 +1349,13 @@ async function loadUserPlaylists() {
             .select('*')
             .order('created_at', { ascending: false });
             
-        if (!error && data) {
+        if (error) {
+            console.error("Supabase error loading playlists:", error);
+            alert("Unable to load playlists: " + error.message);
+            return;
+        }
+        
+        if (data) {
             playlists = [...defaultPlaylists, ...data];
             renderPlaylists();
             if (views.library && views.library.style.display === 'block') {
@@ -1350,6 +1364,7 @@ async function loadUserPlaylists() {
         }
     } catch (e) {
         console.error("Failed to load playlists:", e);
+        alert("Unexpected error loading playlists: " + e.message);
     }
 }
 
@@ -1358,7 +1373,7 @@ function renderPlaylists() {
     if (!playlistList) return;
     playlistList.innerHTML = '';
     playlists.forEach(playlist => {
-        if (playlist.id && playlist.id.startsWith('sys-movie-')) return;
+        if (playlist.id && String(playlist.id).startsWith('sys-movie-')) return;
         const a = document.createElement('a');
         a.href = '#';
         a.innerHTML = `<i class="fas fa-music"></i> ${playlist.name}`;
@@ -2014,7 +2029,29 @@ function renderLibrary() {
     } else {
         renderSongs(liked, likedGrid);
     }
-    const nonMoviePlaylists = playlists.filter(p => !p.id || !p.id.startsWith('sys-movie-'));
+    
+    const nonMoviePlaylists = playlists.filter(p => !p.id || !String(p.id).startsWith('sys-movie-'));
+    const deletablePlaylists = nonMoviePlaylists.filter(p => !p.isSystem);
+    
+    // Toggle Select & Delete button visibility
+    if (librarySelectDeleteToggle) {
+        if (deletablePlaylists.length > 0) {
+            librarySelectDeleteToggle.style.display = 'block';
+            if (isLibraryDeleteModeActive) {
+                librarySelectDeleteToggle.innerHTML = '<i class="fas fa-times"></i> Cancel Selection';
+                librarySelectDeleteToggle.style.background = 'rgba(255, 77, 77, 0.2)';
+            } else {
+                librarySelectDeleteToggle.innerHTML = '<i class="fas fa-check-square"></i> Select & Delete';
+                librarySelectDeleteToggle.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+        } else {
+            librarySelectDeleteToggle.style.display = 'none';
+            isLibraryDeleteModeActive = false;
+            selectedPlaylistsForDelete = [];
+            updateLibraryBulkDeleteBar();
+        }
+    }
+    
     playlistsGrid.innerHTML = '';
     if (nonMoviePlaylists.length === 0) {
         playlistsGrid.innerHTML = `
@@ -2027,8 +2064,24 @@ function renderLibrary() {
     } else {
         nonMoviePlaylists.forEach(playlist => {
             const card = document.createElement('div');
+            
+            // Check if card is system or custom
+            const isDeletable = !playlist.isSystem;
+            const isSelected = selectedPlaylistsForDelete.includes(playlist.id);
+            
             card.className = 'song-card playlist-card';
-            card.onclick = () => renderPlaylistDetail(playlist.id);
+            if (isLibraryDeleteModeActive && isDeletable) {
+                card.classList.add('select-mode-active');
+                if (isSelected) {
+                    card.classList.add('selected-for-delete');
+                }
+                card.onclick = (e) => {
+                    e.stopPropagation();
+                    togglePlaylistSelection(playlist.id);
+                };
+            } else {
+                card.onclick = () => renderPlaylistDetail(playlist.id);
+            }
             
             let playlistCover = '<div class="playlist-icon"><i class="fas fa-music"></i></div>';
             if (playlist.songs && playlist.songs.length > 0) {
@@ -2038,10 +2091,20 @@ function renderLibrary() {
                 }
             }
             
+            let checkboxOverlay = '';
+            if (isLibraryDeleteModeActive && isDeletable) {
+                checkboxOverlay = `
+                    <div class="playlist-card-checkbox-wrapper">
+                        <input type="checkbox" data-playlist-id="${playlist.id}" ${isSelected ? 'checked' : ''} onclick="event.stopPropagation(); togglePlaylistSelection('${playlist.id}');">
+                    </div>
+                `;
+            }
+            
             card.innerHTML = `
+                ${checkboxOverlay}
                 ${playlistCover}
                 <h3>${playlist.name}</h3>
-                <p>Playlist • ${playlist.songs ? playlist.songs.length : 0} songs</p>
+                <p>${playlist.isSystem ? 'System Playlist' : 'Playlist'} • ${playlist.songs ? playlist.songs.length : 0} songs</p>
             `;
             playlistsGrid.appendChild(card);
         });
@@ -2999,6 +3062,11 @@ async function renameCurrentPlaylist() {
     const playlist = playlists.find(p => p.id === currentViewingPlaylistId);
     if (!playlist) return;
     
+    if (playlist.isSystem) {
+        alert("System playlists cannot be renamed.");
+        return;
+    }
+    
     const newName = prompt("Enter new name for playlist:", playlist.name);
     if (newName && newName.trim() !== "" && newName !== playlist.name) {
         const { error } = await supabase
@@ -3031,6 +3099,128 @@ if (playlistTitle) {
     
     playlistTitle.onmouseover = () => playlistTitle.style.color = 'var(--accent-purple)';
     playlistTitle.onmouseout = () => playlistTitle.style.color = 'white';
+}
+
+// Single Playlist Deletion Logic
+async function deleteCurrentPlaylist() {
+    if (!currentViewingPlaylistId) return;
+    const playlist = playlists.find(p => p.id === currentViewingPlaylistId);
+    if (!playlist) return;
+    
+    if (playlist.isSystem) {
+        alert("System playlists cannot be deleted.");
+        return;
+    }
+    
+    if (confirm(`Are you sure you want to delete the playlist "${playlist.name}"? This action cannot be undone.`)) {
+        const { error } = await supabase
+            .from('playlists')
+            .delete()
+            .eq('id', playlist.id);
+            
+        if (!error) {
+            playlists = playlists.filter(p => p.id !== playlist.id);
+            renderPlaylists();
+            switchView('library');
+        } else {
+            alert("Error deleting playlist: " + error.message);
+        }
+    }
+}
+
+if (deletePlaylistBtn) {
+    deletePlaylistBtn.onclick = deleteCurrentPlaylist;
+}
+
+// Bulk Playlist Deletion Logic
+function togglePlaylistSelection(playlistId) {
+    const idx = selectedPlaylistsForDelete.indexOf(playlistId);
+    if (idx === -1) {
+        selectedPlaylistsForDelete.push(playlistId);
+    } else {
+        selectedPlaylistsForDelete.splice(idx, 1);
+    }
+    updateLibraryBulkDeleteBar();
+    renderLibrary();
+}
+
+function updateLibraryBulkDeleteBar() {
+    if (isLibraryDeleteModeActive && selectedPlaylistsForDelete.length > 0) {
+        if (bulkDeleteCountText) {
+            bulkDeleteCountText.innerText = `${selectedPlaylistsForDelete.length} playlist(s) selected`;
+        }
+        if (libraryBulkDeleteBar) {
+            libraryBulkDeleteBar.classList.add('active');
+        }
+    } else {
+        if (libraryBulkDeleteBar) {
+            libraryBulkDeleteBar.classList.remove('active');
+        }
+    }
+}
+
+function toggleLibraryDeleteMode() {
+    isLibraryDeleteModeActive = !isLibraryDeleteModeActive;
+    if (!isLibraryDeleteModeActive) {
+        selectedPlaylistsForDelete = [];
+    }
+    updateLibraryBulkDeleteBar();
+    renderLibrary();
+}
+
+async function executeBulkDelete() {
+    if (selectedPlaylistsForDelete.length === 0) return;
+    
+    const count = selectedPlaylistsForDelete.length;
+    if (confirm(`Are you sure you want to delete the ${count} selected playlist(s)? This action cannot be undone.`)) {
+        if (bulkDeleteExecuteBtn) {
+            bulkDeleteExecuteBtn.disabled = true;
+            bulkDeleteExecuteBtn.innerText = "Deleting...";
+        }
+        try {
+            const { error } = await supabase
+                .from('playlists')
+                .delete()
+                .in('id', selectedPlaylistsForDelete);
+                
+            if (!error) {
+                playlists = playlists.filter(p => !selectedPlaylistsForDelete.includes(p.id));
+                isLibraryDeleteModeActive = false;
+                selectedPlaylistsForDelete = [];
+                updateLibraryBulkDeleteBar();
+                renderPlaylists();
+                renderLibrary();
+                alert(`Successfully deleted ${count} playlist(s).`);
+            } else {
+                alert("Error deleting playlists: " + error.message);
+            }
+        } catch (err) {
+            console.error("Bulk delete failed:", err);
+            alert("Unexpected error: " + err.message);
+        } finally {
+            if (bulkDeleteExecuteBtn) {
+                bulkDeleteExecuteBtn.disabled = false;
+                bulkDeleteExecuteBtn.innerText = "Delete Selected";
+            }
+        }
+    }
+}
+
+if (librarySelectDeleteToggle) {
+    librarySelectDeleteToggle.onclick = toggleLibraryDeleteMode;
+}
+
+if (bulkDeleteCancelBtn) {
+    bulkDeleteCancelBtn.onclick = () => {
+        isLibraryDeleteModeActive = false;
+        selectedPlaylistsForDelete = [];
+        updateLibraryBulkDeleteBar();
+        renderLibrary();
+    };
+}
+
+if (bulkDeleteExecuteBtn) {
+    bulkDeleteExecuteBtn.onclick = executeBulkDelete;
 }
 
 

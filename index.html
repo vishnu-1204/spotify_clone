@@ -25,6 +25,10 @@
             </nav>
             <div class="sidebar-section">
                 <p class="section-title">Playlists</p>
+                <a href="#" id="create-playlist-btn" class="create-playlist-btn">
+                    <i class="fas fa-plus-square"></i>
+                    <span>Create Playlist</span>
+                </a>
                 <div class="playlist-list"></div>
             </div>
         </aside>
@@ -98,9 +102,14 @@
                 <section class="content-section">
                     <div class="section-header">
                         <h2>Your Playlists</h2>
-                        <button class="create-playlist-mobile-btn" id="create-playlist-mobile-btn" title="Create Playlist">
-                            <i class="fas fa-plus"></i>
-                        </button>
+                        <div class="playlist-header-actions" style="display: flex; gap: 12px; align-items: center;">
+                            <button id="library-select-delete-toggle" class="btn" title="Select & Delete Playlists" style="display: none; background: rgba(255,255,255,0.1); border: none; color: white; border-radius: 20px; padding: 6px 16px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                                <i class="fas fa-check-square"></i> Select & Delete
+                            </button>
+                            <button class="create-playlist-mobile-btn" id="create-playlist-mobile-btn" title="Create Playlist">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="song-grid" id="playlists-grid"></div>
                 </section>
@@ -189,6 +198,7 @@
                         <div class="playlist-title-container" style="display: flex; align-items: center; gap: 16px;">
                             <h1 id="detail-playlist-title" style="margin: 0;">Playlist Name</h1>
                             <i class="fas fa-edit playlist-option-btn" id="rename-playlist-btn" title="Rename Playlist" style="font-size: 24px; cursor: pointer; color: var(--text-grey); transition: color 0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-grey)'"></i>
+                            <i class="fas fa-trash playlist-option-btn" id="delete-playlist-btn" title="Delete Playlist" style="font-size: 24px; cursor: pointer; color: var(--text-grey); transition: color 0.2s;" onmouseover="this.style.color='#ff4d4d'" onmouseout="this.style.color='var(--text-grey)'"></i>
                         </div>
                         <p id="detail-playlist-count">0 songs</p>
                     </div>
@@ -495,7 +505,6 @@
         </a>
     </nav>
 
-    <script type="module" src="/app.js?v=1.0.1"></script>
     <!-- Mobile Expanded Player -->
     <div class="mobile-expanded-player" id="mobile-expanded-player">
         <div class="expanded-header">
@@ -555,5 +564,14 @@
             </div>
         </div>
     </div>
+
+    <!-- Floating Bulk Delete Action Bar -->
+    <div class="bulk-delete-action-bar" id="library-bulk-delete-bar">
+        <span class="bulk-delete-info" id="bulk-delete-count-text">0 playlists selected</span>
+        <button class="bulk-delete-btn-delete" id="bulk-delete-execute-btn">Delete Selected</button>
+        <button class="bulk-delete-btn-cancel" id="bulk-delete-cancel-btn">Cancel</button>
+    </div>
+
+    <script type="module" src="/app.js?v=1.0.1"></script>
 </body>
 </html>

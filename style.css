@@ -102,6 +102,21 @@ body {
     font-weight: 700;
 }
 
+.create-playlist-btn {
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #282828;
+}
+
+.create-playlist-btn i {
+    color: var(--accent-purple);
+    transition: transform 0.2s ease;
+}
+
+.create-playlist-btn:hover i {
+    transform: scale(1.1);
+}
+
 .playlist-list {
     margin-top: 10px;
     overflow-y: auto;
@@ -3019,5 +3034,122 @@ input[type="range"]::-moz-range-thumb {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+}
+
+/* Playlist card delete mode styling */
+.playlist-card {
+    position: relative;
+    border: 2px solid transparent !important;
+}
+
+.playlist-card-checkbox-wrapper {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.playlist-card:hover .playlist-card-checkbox-wrapper {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.playlist-card.select-mode-active .playlist-card-checkbox-wrapper {
+    display: flex;
+}
+
+.playlist-card-checkbox-wrapper input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #ff4d4d;
+}
+
+.playlist-card.selected-for-delete {
+    border: 2px solid #ff4d4d !important;
+    background-color: rgba(255, 77, 77, 0.05);
+}
+
+/* Floating Bulk Delete Action Bar */
+.bulk-delete-action-bar {
+    position: fixed;
+    bottom: 110px; /* Positioned cleanly above desktop player bar (90px) */
+    left: 50%;
+    transform: translateX(-50%) translateY(200px); /* Taller offset so it hides fully offscreen when inactive */
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid #333;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 77, 77, 0.2);
+    border-radius: 40px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 2005; /* Placed above player-bar (1000) and mobile-nav (1001) */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bulk-delete-action-bar.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.bulk-delete-info {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.bulk-delete-btn-delete {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bulk-delete-btn-delete:hover {
+    background-color: #ff3333;
+    transform: scale(1.05);
+}
+
+.bulk-delete-btn-cancel {
+    background-color: transparent;
+    color: #b3b3b3;
+    border: 1px solid #555;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bulk-delete-btn-cancel:hover {
+    color: white;
+    border-color: white;
+    background: rgba(255,255,255,0.05);
+}
+
+@media (max-width: 768px) {
+    .bulk-delete-action-bar {
+        bottom: 145px; /* Positioned cleanly above mobile player (bottom: 65px + height: 64px = 129px) */
+        padding: 10px 20px;
+        gap: 12px;
+        width: 90%; /* Responsive sizing on mobile */
+        justify-content: space-between;
     }
 }
