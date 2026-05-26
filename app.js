@@ -776,7 +776,7 @@ const songs = [
     {
         id: 111,
         title: "Kannadi Poove",
-        artist: "Yuvan Shankar Raja",
+        artist: "Santhosh Narayanan",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263289/Kannadi_Poove_ciuwon.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255412/Retro_bwg3v9.jpg"
     },
@@ -1052,6 +1052,265 @@ const songs = [
         artist: "Anirudh Ravichander",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779268227/Marakkavillayae-MassTamilan.org_vcogjg.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779268257/Marakkavilayae_gycpa9.jpg"
+    },
+    {
+        id: 151,
+        title: "Onnoda Nadandhaa",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805137/Onnoda-Nadandhaa-MassTamilan.dev_ozu1ek.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805334/viduthalai_wjkpjv.jpg"
+    },
+    {
+        id: 152,
+        title: "Kaattumalli",
+        artist: "Ilaiyaraaja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805136/Kaattumalli-MassTamilan.dev_xpredk.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805334/viduthalai_wjkpjv.jpg"
+    },
+    {
+        id: 153,
+        title: "Vaada Vaada",
+        artist: "D. Imman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805135/Vaada-Vaada_riygdy.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805303/Kacheri_arambam_pae0z2.jpg"
+    },
+    {
+        id: 154,
+        title: "Avalum Naanum",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805135/Avalum-Naanum_j6yhsu.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805295/acham_enbathu_madamaiyada_zcfpj6.jpg"
+    },
+    {
+        id: 155,
+        title: "Kaarkuzhal Kadavaiye",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805134/Kaarkuzhal-Kadavaiye-MassTamilan.com_gv0ba4.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805326/vadachennai_maxfhu.jpg"
+    },
+    {
+        id: 156,
+        title: "Kannazhaga",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805129/Kannazhaga_The_Kiss_of_Love_oxlgtf.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805335/3_movie_wl6omw.jpg"
+    },
+    {
+        id: 157,
+        title: "Kadavule",
+        artist: "D. Imman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805129/Kadavule-A-Rock-Star_obirsv.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805303/Kacheri_arambam_pae0z2.jpg"
+    },
+    {
+        id: 158,
+        title: "Po Nee Po",
+        artist: "Anirudh Ravichander",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805126/Po_Nee_Po_The_Pain_of_Love_r1ljw2.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805335/3_movie_wl6omw.jpg"
+    },
+    {
+        id: 159,
+        title: "Rasaali",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805124/Rasaali_cj7ip8.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805295/acham_enbathu_madamaiyada_zcfpj6.jpg"
+    },
+    {
+        id: 160,
+        title: "Thalli Pogathey",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805121/Thalli-Pogathey_bkjffu.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805295/acham_enbathu_madamaiyada_zcfpj6.jpg"
+    },
+    {
+        id: 161,
+        title: "Thaakkuthe",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805116/Thaakkuthe_qeb01j.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805325/Thaakuthae_lcdmwd.jpg"
+    },
+    {
+        id: 162,
+        title: "Vazhithunaiye",
+        artist: "Leon James",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805115/Vazhithunaiye_rolsrj.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805327/vazhithunaiye_muiwni.jpg"
+    },
+    {
+        id: 163,
+        title: "Madai Thiranthu",
+        artist: "Yogi B",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805115/Madai-Thiranthu-MassTamilan.org_ph7k9n.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805309/kamasutra_and_Madai_thirandhu_jswsfp.jpg"
+    },
+    {
+        id: 165,
+        title: "Loosu Penne",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805113/Loosu-Penne-MassTamilan.org_blil8r.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805315/loosu_penne_zl9ddc.jpg"
+    },
+    {
+        id: 166,
+        title: "Appadi Podu",
+        artist: "Vidyasagar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805113/Appadi_Podu_ooroux.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805302/Ghilli_mtwwxp.jpg"
+    },
+    {
+        id: 167,
+        title: "Oru Kal",
+        artist: "Yuvan Shankar Raja",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805105/Oru_Kal_Version_1_xasafc.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805321/siva_manasula_shakthi_j0ez9k.jpg"
+    },
+    {
+        id: 168,
+        title: "Kamasutra",
+        artist: "Yogi B",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805104/Kamasutra-MassTamilan.org_zesqln.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805309/kamasutra_and_Madai_thirandhu_jswsfp.jpg"
+    },
+    {
+        id: 169,
+        title: "Kuru Kuru",
+        artist: "Ghibran",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805103/Kuru-Kuru_dblvds.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805312/kuru_kuru_omcitb.jpg"
+    },
+    {
+        id: 170,
+        title: "Sahana Saral Thoo",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805102/Sahana-Saral-Thoo_biu62o.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805318/sahana_saral_jtb6ex.jpg"
+    },
+    {
+        id: 171,
+        title: "Thaen Thaen Thaen",
+        artist: "Vidyasagar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805101/Thaen-Thaen-Thaen-MassTamilan.fm_tiiqg8.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1778575693/kuruvi_tkpxds.jpg"
+    },
+    {
+        id: 172,
+        title: "Venaam Machan",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805093/Venaam-Machan_syzyok.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805329/venna_machan_lx5plp.jpg"
+    },
+    {
+        id: 173,
+        title: "Gille",
+        artist: "Vidyasagar",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805092/Soora_Thenga_Addra_kujs6v.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805302/Ghilli_mtwwxp.jpg"
+    },
+    {
+        id: 174,
+        title: "Nenje Nenje",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805092/Nenje_Nenje_etfnvd.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805296/Ayan_e5w6zh.jpg"
+    },
+    {
+        id: 175,
+        title: "Vizhi Moodi",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805091/Vizhi_Moodi_Yosithaal_xmc5df.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805296/Ayan_e5w6zh.jpg"
+    },
+    {
+        id: 176,
+        title: "Oyaayiye Yaayiye",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805090/Oyaayiye_Yaayiye_aikljc.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805296/Ayan_e5w6zh.jpg"
+    },
+    {
+        id: 177,
+        title: "Hey Suzhali",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805089/Hey-Suzhali_airedz.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805310/Kodi_movie_yw5oko.jpg"
+    },
+    {
+        id: 178,
+        title: "Pala Pala",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805085/Pala_Palakura_ffcdqw.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805296/Ayan_e5w6zh.jpg"
+    },
+    {
+        id: 179,
+        title: "Nenjam Ellam",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805078/Nenjam-Ellam-Kadhal_bexjdc.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805335/Aayutha_Ezhuthu_vjpc0u.jpg"
+    },
+    {
+        id: 180,
+        title: "Theekkoluthi",
+        artist: "Nivas K Prasanna",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805077/Theekkoluthi_vx4qc2.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805296/Bison_movie_qfw2hc.jpg"
+    },
+    {
+        id: 181,
+        title: "Kodi Parakkudha",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805076/Kodi-Parakkudha_zxz1o2.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805310/Kodi_movie_yw5oko.jpg"
+    },
+    {
+        id: 182,
+        title: "Yakkai Thiri",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805076/Yakkai-Thiri_xi7cas.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805335/Aayutha_Ezhuthu_vjpc0u.jpg"
+    },
+    {
+        id: 183,
+        title: "Sirukki Vaasam",
+        artist: "Santhosh Narayanan",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805069/Sirukki-Vaasam_hxtbt2.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805310/Kodi_movie_yw5oko.jpg"
+    },
+    {
+        id: 184,
+        title: "Sanda Kozhi",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805068/Sanda-Kozhi_lcxelk.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805335/Aayutha_Ezhuthu_vjpc0u.jpg"
+    },
+    {
+        id: 185,
+        title: "Oh Supernova",
+        artist: "Harris Jayaraj",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805068/Hey_Raja_Oh_Supernova_cyzb4a.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805296/Ayan_e5w6zh.jpg"
+    },
+    {
+        id: 186,
+        title: "Munbe Vaa",
+        artist: "A.R. Rahman",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805067/Munbe_Vaa_oomive.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805319/sillunu_oru_kaadhal_k1ztgo.jpg"
+    },
+    {
+        id: 187,
+        title: "Rekka Rekka",
+        artist: "Nivas K Prasanna",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805066/Rekka_Rekka_beybhh.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805296/Bison_movie_qfw2hc.jpg"
+    },
+    {
+        id: 188,
+        title: "Thennaadu",
+        artist: "Nivas K Prasanna",
+        url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805060/Thennaadu_wynffy.mp3",
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805296/Bison_movie_qfw2hc.jpg"
     }
 ];
 window.songs = songs;
@@ -1081,7 +1340,10 @@ const artistImages = {
     "James Vasanthan": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779255599/James_Vasanthan_utgobo.jpg",
     "Sean Roldan": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263434/sean_roldan_rrvvtz.jpg",
     "Vijay Antony": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263442/vijay_antony_noxgrk.jpg",
-    "Kaber Vasuki": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263449/Kaber_vasuki_e8duyt.jpg"
+    "Kaber Vasuki": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263449/Kaber_vasuki_e8duyt.jpg",
+    "D. Imman": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805406/D._Imman_lsjpmi.jpg",
+    "Yogi B": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805374/Yogi_b_zc5cle.jpg",
+    "Nivas K Prasanna": "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805363/Nivas_K_Prasanna_ivuwff.jpg"
 };
 
 let currentSongIndex = localStorage.getItem('lastSongIndex') ? parseInt(localStorage.getItem('lastSongIndex')) : 0;
