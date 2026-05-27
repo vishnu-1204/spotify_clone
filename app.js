@@ -890,7 +890,7 @@ const songs = [
         title: "Marandhu Poche",
         artist: "Sean Roldan",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779263251/Marandhu_Poche_jrk4az.mp3",
-        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263372/lubber_pandhu_nlmqok.jpg"
+        cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779263388/with_love_isinhc.jpg"
     },
     {
         id: 128,
@@ -1181,7 +1181,7 @@ const songs = [
     },
     {
         id: 170,
-        title: "Sahana Saral Thoo",
+        title: "Sahana",
         artist: "A.R. Rahman",
         url: "https://res.cloudinary.com/dhvuygzuj/video/upload/v1779805102/Sahana-Saral-Thoo_biu62o.mp3",
         cover: "https://res.cloudinary.com/dhvuygzuj/image/upload/v1779805318/sahana_saral_jtb6ex.jpg"
